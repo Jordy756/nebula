@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+@theme {
+}
+
+@theme inline {
+}
+
+@layer base {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  :is(*, *::before, *::after) {
+    @apply scrollbar-thin;
+  }
+
+  html {
+    @apply scrollbar-thumb-neutral-500 scrollbar-track-transparent scrollbar-gutter-stable scroll-smooth;
+  }
+
+  /* :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-medium text-balance;
+  } */
+
+  :is(button, a) {
+    @apply cursor-pointer;
+  }
+}
