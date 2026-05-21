@@ -1,4 +1,6 @@
 ---
+import '@styles/global.css';
+
 interface Props {
   title: string;
   description: string;
@@ -8,17 +10,18 @@ const { title, description } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<title>{title}</title>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
 
     <meta name="description" content={description} />
-	</head>
-	<body>
-		<h1>{title}</h1>
-		<p>{description}</p>
-	</body>
+  </head>
+  <body class="bg-neutral-950 text-neutral-50">
+    <div class="relative overflow-clip">
+      <slot />
+    </div>
+  </body>
 </html>
