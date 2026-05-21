@@ -18,7 +18,9 @@ const { title = 'Nebula', description = 'Documentation built with Nebula' } = As
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50">
-    <slot />
+  <body class="bg-neutral-950 text-pretty text-neutral-50">
+    <div id="root" class="min-h-vh relative flex flex-col items-center overflow-clip">
+      <slot />
+    </div>
   </body>
 </html>
