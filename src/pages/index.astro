@@ -1,12 +1,18 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/layout/Header.astro';
-import Button from '../components/ui/Button.astro';
-import Footer from '../components/layout/Footer.astro';
+import Footer from '@components/layout/Footer.astro';
+import Header from '@components/layout/Header.astro';
+import Hero from '@components/sections/hero/Hero.astro';
+import PageLayout from '@layouts/PageLayout.astro';
+
+const title = 'Nebula - Tu documentación sin cajas negras';
+const description =
+  'Nebula es una plataforma de documentación de código abierto que te permite crear, mantener y alojar tu documentación sin depender de servicios de terceros. Con Nebula, puedes tener el control total sobre tu documentación, desde su estructura hasta su apariencia, sin preocuparte por las limitaciones de las plataformas tradicionales.';
 ---
 
-<BaseLayout title="Nebula - Tu documentación sin cajas negras">
+<PageLayout title={title} description={description}>
   <Header />
-  <main class=""></main>
+  <main class="flex flex-1 flex-col gap-4 p-4">
+    <Hero />
+  </main>
   <Footer />
-</BaseLayout>
+</PageLayout>

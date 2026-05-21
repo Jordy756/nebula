@@ -16,7 +16,7 @@
   }
 
   html {
-    @apply scrollbar-thumb-neutral-500 scrollbar-track-transparent scrollbar-gutter-stable scroll-smooth;
+    @apply scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
   }
 
   /* :is(h1, h2, h3, h4, h5, h6) {
@@ -25,5 +25,15 @@
 
   :is(button, a) {
     @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply border-orange-500 bg-orange-500 text-neutral-50;
+  }
+
+  .btn-secondary {
+    @apply border-neutral-50 bg-neutral-50 text-neutral-950;
   }
 }

@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  class?: string;
+  width: number;
+  height: number;
+}
+
+const { class: className, width, height } = Astro.props;
+---
+
+<Image
+  src="/logo.webp"
+  alt="Logo de Nebula"
+  width={width}
+  height={height}
+  class:list={['h-8 w-auto object-contain', className]}
+/>

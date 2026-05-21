@@ -1,0 +1,17 @@
+---
+import Footer from '@components/layout/Footer.astro';
+import Header from '@components/layout/Header.astro';
+import PageLayout from '@layouts/PageLayout.astro';
+
+const title = '404 - Página no encontrada';
+const description = 'La página que estás buscando no existe.';
+---
+
+<PageLayout title={title} description={description}>
+  <Header />
+  <main class="flex flex-1 flex-col gap-4 p-4">
+    <h1>404 - Página no encontrada</h1>
+    <p>La página que estás buscando no existe.</p>
+  </main>
+  <Footer />
+</PageLayout>

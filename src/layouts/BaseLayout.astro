@@ -1,12 +1,12 @@
 ---
-import '../styles/global.css';
+import '@styles/global.css';
 
 interface Props {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
 }
 
-const { title = 'Nebula', description = 'Documentation built with Nebula' } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,8 +19,6 @@ const { title = 'Nebula', description = 'Documentation built with Nebula' } = As
     <title>{title}</title>
   </head>
   <body class="bg-neutral-950 text-pretty text-neutral-50">
-    <div id="root" class="min-h-vh relative flex flex-col items-center overflow-clip">
-      <slot />
-    </div>
+    <slot />
   </body>
 </html>

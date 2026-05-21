@@ -6,25 +6,28 @@ import TableOfContents from '../components/layout/TableOfContents.astro';
 import Footer from '../components/layout/Footer.astro';
 
 interface Props {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   headings?: { depth: number; slug: string; text: string }[];
 }
 
 const { title, description, headings = [] } = Astro.props;
 ---
+
 <BaseLayout title={title} description={description}>
-  <Header />
-  <div class="mx-auto flex w-full max-w-7xl items-start">
-    <Sidebar />
-    
-    <main class="min-w-0 flex-1 px-4 py-8 md:pl-64 xl:pr-64 sm:px-6 lg:px-8">
-      <article class="prose prose-zinc mx-auto max-w-3xl dark:prose-invert">
-        <slot />
-      </article>
-      <Footer />
-    </main>
-    
-    {headings.length > 0 && <TableOfContents headings={headings} />}
+  <div class="relative flex min-h-screen flex-col overflow-clip">
+    <Header />
+    <div class="mx-auto flex w-full max-w-7xl items-start">
+      <Sidebar />
+
+      <main class="min-w-0 flex-1 px-4 py-8 sm:px-6 md:pl-64 lg:px-8 xl:pr-64">
+        <article class="prose prose-zinc dark:prose-invert mx-auto max-w-3xl">
+          <slot />
+        </article>
+        <Footer />
+      </main>
+
+      {headings.length > 0 && <TableOfContents headings={headings} />}
+    </div>
   </div>
 </BaseLayout>
