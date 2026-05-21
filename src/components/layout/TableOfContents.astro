@@ -1,0 +1,26 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+const { headings = [] } = Astro.props;
+
+// Filtramos solo h2 y h3 para no saturar la tabla
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+<aside class="fixed inset-y-0 right-0 z-40 hidden w-64 pt-16 xl:block">
+  <nav class="h-full overflow-y-auto px-4 py-6" aria-label="Tabla de contenidos">
+    <h3 class="mb-4 text-sm font-semibold tracking-tight text-zinc-900 dark:text-white">En esta página</h3>
+    <ul class="space-y-2 text-sm">
+      {filteredHeadings.map((heading) => (
+        <li class={heading.depth === 3 ? "pl-4" : ""}>
+          <a 
+            href={`#${heading.slug}`} 
+            class="line-clamp-2 text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</aside>

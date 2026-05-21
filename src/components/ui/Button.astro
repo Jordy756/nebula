@@ -1,0 +1,29 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'outline' | 'ghost';
+  class?: string;
+  target?: string;
+}
+
+const { href, variant = 'primary', class: className, target } = Astro.props;
+
+const baseStyles = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-zinc-300 h-10 px-4 py-2";
+
+const variants = {
+  primary: "bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90",
+  outline: "border border-zinc-200 bg-white shadow-sm hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+  ghost: "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+};
+---
+{
+  href ? (
+    <a href={href} class:list={[baseStyles, variants[variant], className]} target={target}>
+      <slot />
+    </a>
+  ) : (
+    <button class:list={[baseStyles, variants[variant], className]}>
+      <slot />
+    </button>
+  )
+}

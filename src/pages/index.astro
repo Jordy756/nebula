@@ -1,17 +1,26 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Button from '../components/ui/Button.astro';
+import Footer from '../components/layout/Footer.astro';
 ---
 
-<Layout title="Nebula" description="A modern, fast, and powerful web framework.">
-  <p>Welcome to Nebula, a modern web framework built with speed and developer experience in mind.</p>
-  <p class="bg-red-400">
-    With Nebula, you can build fast and scalable web applications with ease. Our framework is designed to be flexible
-    and extensible, allowing you to create the perfect development environment for your needs.
-  </p>
-  <p>
-    Whether you're building a simple website or a complex web application, Nebula has the tools and features you need to
-    get the job done. From our powerful routing system to our intuitive component model, Nebula makes it easy to build
-    high-quality web applications that perform well and look great.
-  </p>
-  <p>So why wait? Get started with Nebula today and see how it can help you build the web applications of tomorrow!</p>
-</Layout>
+<BaseLayout title="Nebula - Tu documentación sin cajas negras">
+  <Header />
+  <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section class="flex flex-col items-center justify-center py-32 text-center">
+      <h1 class="text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl md:text-6xl lg:text-7xl dark:text-white">
+        Tu documentación,<br/>
+        <span class="text-indigo-600 dark:text-indigo-400">sin cajas negras.</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+        Nebula te da el poder. HTML semántico puro, cero <code>div soup</code> y control total de la UI de tu sitio web de documentación.
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-4">
+        <Button href="/docs/introduccion" variant="primary">Empezar ahora</Button>
+        <Button href="https://github.com/tu-usuario/nebula" variant="outline" target="_blank">Ver en GitHub</Button>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

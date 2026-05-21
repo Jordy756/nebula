@@ -1,0 +1,30 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Sidebar from '../components/layout/Sidebar.astro';
+import TableOfContents from '../components/layout/TableOfContents.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  headings?: { depth: number; slug: string; text: string }[];
+}
+
+const { title, description, headings = [] } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <Header />
+  <div class="mx-auto flex w-full max-w-7xl items-start">
+    <Sidebar />
+    
+    <main class="min-w-0 flex-1 px-4 py-8 md:pl-64 xl:pr-64 sm:px-6 lg:px-8">
+      <article class="prose prose-zinc mx-auto max-w-3xl dark:prose-invert">
+        <slot />
+      </article>
+      <Footer />
+    </main>
+    
+    {headings.length > 0 && <TableOfContents headings={headings} />}
+  </div>
+</BaseLayout>
