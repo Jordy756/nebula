@@ -4,6 +4,8 @@
 }
 
 @theme inline {
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
 }
 
 @layer base {
