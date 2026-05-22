@@ -1,7 +1,113 @@
 ---
+interface Props {
+  class?: string;
+}
 
+const { class: className } = Astro.props;
 ---
 
-<aside class="sticky top-0 left-0 z-100 bg-red-400">
-  <nav class="" aria-label="Navegación principal">Sidebar</nav>
+<aside
+  class:list={[
+    'sticky top-14.75 left-0 flex max-h-[calc(100vh-59px)] flex-col overflow-y-auto border-r border-neutral-800 p-4',
+    className,
+  ]}
+>
+  <nav class="flex flex-col gap-4" aria-label="Navegación principal">
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación asdas asd sd sds d</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    v
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/documentacion">Documentación</a></li>
+      <li><a href="/ejemplos">Ejemplos</a></li>
+    </ul>
+  </nav>
 </aside>
