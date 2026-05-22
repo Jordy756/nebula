@@ -7,6 +7,8 @@ description: Bienvenido a la herramienta de documentación que te da el control 
 
 Nebula no es una integración cerrada y oculta. Es tu propio laboratorio de componentes para documentación. Eres libre de modificar el código fuente de los componentes, los layouts y el diseño completo.
 
+---
+
 ### Características
 
 - **HTML semántico**: Usa `<nav>`, `<aside>`, `<article>`, `<header>`.
@@ -17,3 +19,16 @@ Nebula no es una integración cerrada y oculta. Es tu propio laboratorio de comp
 ### Siguiente paso
 
 Ve a la sección de [Instalación](/docs/instalacion) para aprender cómo configurar tu proyecto.
+
+## Bash
+
+```bash
+npm install nebula-docs
+```
+
+## Codigo TypeScript
+
+```ts
+import { getCollection } from 'astro:content';
+const docsEntries = await getCollection('docs');
+```

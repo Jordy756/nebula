@@ -18,9 +18,7 @@ const { title, description, headings = [] } = Astro.props;
     <Header class="col-span-2 col-start-1" />
     <Sidebar class="col-start-1 row-start-2" />
     <main class="col-start-2 row-start-2 flex">
-      <article class="flex-4 p-4">
-        <slot />
-      </article>
+      <slot />
       {headings.length > 0 && <TableOfContents headings={headings} />}
     </main>
   </div>

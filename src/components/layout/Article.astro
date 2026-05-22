@@ -1,0 +1,24 @@
+---
+import Link from '@components/ui/Link.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<article class="flex flex-4 flex-col gap-4 p-4">
+  <header class="flex flex-col border-b border-neutral-800 pb-4">
+    <h1 class="text-5xl font-semibold">{title}</h1>
+    <p>{description}</p>
+  </header>
+  <div class="flex flex-1 flex-col gap-4">
+    <slot />
+  </div>
+  <footer class="flex items-center gap-4">
+    <Link href={''} variant="secondary" class="flex-1" target="_blank"> Previous </Link>
+    <Link href={''} class="flex-1" target="_blank"> Next</Link>
+  </footer>
+</article>
