@@ -1,6 +1,7 @@
 ---
 import '@styles/global.css';
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -22,6 +23,10 @@ const { title, description } = Astro.props;
     <Font cssVariable="--font-space-mono" preload />
 
     <meta name="description" content={description} />
+
+    <ClientRouter />
+
+    <!-- <script src="../scripts/config/lenis.ts"></script> -->
   </head>
   <body class="bg-neutral-950 text-pretty text-neutral-50">
     <slot />

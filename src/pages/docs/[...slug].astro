@@ -18,7 +18,9 @@ const { Content, headings } = await render(entry);
 ---
 
 <DocsLayout title={title} description={description} headings={headings}>
-  <Article title={title} description={description}>
-    <Content />
-  </Article>
+  <section class="flex flex-3 flex-col items-center">
+    <Article title={title} description={description}>
+      <Content />
+    </Article>
+  </section>
 </DocsLayout>
