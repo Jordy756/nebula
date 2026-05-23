@@ -3,7 +3,7 @@ title: Introducción a Nebula
 description: Bienvenido a la herramienta de documentación que te da el control total.
 ---
 
-<!-- import { Note } from '@components/Note.astro'; -->
+import Note from '@components/ui/Note.astro';
 
 ## ¿Qué es Nebula?
 
@@ -15,13 +15,6 @@ Nebula no es una integración cerrada y oculta. Es tu propio laboratorio de comp
 - **Propiedad total**: El código vive en tu carpeta `src/`.
 - **Tailwind CSS v4**: Estilizado moderno y sin archivos gigantes.
 - **Cero "div soup"**: Solo las etiquetas que necesitas.
-
-### Características 2
-
-1. **HTML semántico**: Usa `<nav>`, `<aside>`, `<article>`, `<header>`.
-2. **Propiedad total**: El código vive en tu carpeta `src/`.
-3. **Tailwind CSS v4**: Estilizado moderno y sin archivos gigantes.
-4. **Cero "div soup"**: Solo las etiquetas que necesitas.
 
 ### Siguiente paso
 
@@ -40,11 +33,7 @@ import { getCollection } from 'astro:content';
 const docsEntries = await getCollection('docs');
 ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-
 ---
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
 
 ## Table
 
@@ -55,6 +44,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 | Tailwind CSS v4      | Estilizado moderno y sin archivos gigantes.                 |
 | Cero "div soup"      | Solo las etiquetas que necesitas.                 |
 
-<Note type="success">
-  Esta es una nota de éxito.
+<Note type="info" title="Nota de información">
+  <p>Esta es una nota de información.</p>
+</Note>
+
+<Note type="warning" title="Nota de advertencia">
+  <p>Esta es una nota de advertencia.</p>
+</Note>
+
+<Note type="error" title="Nota de error">
+  <p>Esta es una nota de error.</p>
 </Note>

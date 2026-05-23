@@ -1,14 +1,23 @@
 ---
 interface Props {
+  type: 'info' | 'warning' | 'error';
   title: string;
 }
 
-const { title } = Astro.props;
+const { type, title } = Astro.props;
+
+const noteStyles = {
+  info: 'border-[#3246FF] bg-[#161D4E] text-[#76ADFF]',
+  warning: 'border-[#EEBC52] bg-[#4F4122] text-[#F9DA95]',
+  error: 'border-[#BD0249] bg-[#3C0116] text-[#FE78AD]',
+};
 ---
 
-<aside>
-  <h2>{title}</h2>
-  <p>
+<aside class:list={['flex flex-col border-l-4 p-4', noteStyles[type]]}>
+  <header>
+    <h4 class="mt-0 mb-0 text-inherit">{title}</h4>
+  </header>
+  <div class="text-neutral-50">
     <slot />
-  </p>
+  </div>
 </aside>

@@ -2,20 +2,20 @@
 interface Props {
   headings: { depth: number; slug: string; text: string }[];
 }
-const { headings = [] } = Astro.props;
 
+const { headings = [] } = Astro.props;
 const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
 <aside
   class="sticky top-14.75 left-0 flex max-h-[calc(100vh-59px)] flex-1 flex-col overflow-y-auto border-l border-neutral-800 p-4"
 >
-  <nav class="" aria-label="Tabla de contenidos">
-    <h3>En esta página</h3>
-    <ul>
+  <nav class="flex flex-col gap-2" aria-label="Tabla de contenidos">
+    <h3 class="text-lg font-semibold">En esta página</h3>
+    <ul class="flex flex-col gap-2 text-sm">
       {
         filteredHeadings.map((heading) => (
-          <li>
+          <li class:list={[heading.depth === 2 ? 'pl-2' : 'pl-6']}>
             <a href={`#${heading.slug}`}>{heading.text}</a>
           </li>
         ))

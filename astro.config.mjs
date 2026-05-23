@@ -3,11 +3,14 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import mdx from '@astrojs/mdx';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
   fonts: [
     {
       name: 'Space Grotesk',
@@ -34,4 +37,9 @@ export default defineConfig({
       fallbacks: ['monospace'],
     },
   ],
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: { theme: 'github-dark-default' },
+  },
+  integrations: [mdx()],
 });
