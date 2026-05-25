@@ -1,9 +1,20 @@
 ---
+import { getSidebarNavigation } from '@scripts/lib/navigation';
+import type { NavItem, NavGroup } from '@scripts/lib/navigation';
+
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
+
+// Obtenemos la URL actual para saber qué link está activo
+const currentPath = Astro.url.pathname;
+
+// Traemos el árbol dinámico de navegación
+const navigationTree = await getSidebarNavigation();
+
+// Función auxiliar en línea para renderizar el árbol infinitamente de forma recursiva
 ---
 
 <aside
@@ -13,101 +24,61 @@ const { class: className } = Astro.props;
   ]}
 >
   <nav class="flex flex-col gap-4" aria-label="Navegación principal">
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación asdas asd sd sds d</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    v
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
-    </ul>
-    <ul>
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/documentacion">Documentación</a></li>
-      <li><a href="/ejemplos">Ejemplos</a></li>
+    <ul class="flex flex-col gap-2">
+      {
+        navigationTree.map((node) => {
+          // Si tiene 'items', es una CARPETA (NavGroup)
+          if ('items' in node) {
+            return (
+              <li class="mt-4 flex flex-col gap-2 first:mt-0">
+                <h4 class="font-semibold text-neutral-900 dark:text-neutral-100">{node.title}</h4>
+                <ul class="ml-1 flex flex-col gap-1 border-l border-neutral-800 pl-4">
+                  {node.items.map((subItem) => {
+                    // Para simplificar este ejemplo base, asumimos que dentro solo hay items.
+                    // (Si quieres infinitos niveles renderizados, deberíamos extraer este <ul> a un componente recursivo <SidebarNode />)
+                    if (!('items' in subItem)) {
+                      const isActive = currentPath === subItem.href || currentPath === `${subItem.href}/`;
+                      return (
+                        <li>
+                          <a
+                            href={subItem.href}
+                            class:list={[
+                              'block py-1 text-sm transition-colors',
+                              isActive
+                                ? 'font-medium text-orange-500'
+                                : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',
+                            ]}
+                          >
+                            {subItem.title}
+                          </a>
+                        </li>
+                      );
+                    }
+                  })}
+                </ul>
+              </li>
+            );
+          }
+
+          // Si no tiene 'items', es un ARCHIVO en la raíz (NavItem)
+          const isActive = currentPath === node.href || currentPath === `${node.href}/`;
+          return (
+            <li>
+              <a
+                href={node.href}
+                class:list={[
+                  'block py-1 text-sm transition-colors',
+                  isActive
+                    ? 'font-medium text-orange-500'
+                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',
+                ]}
+              >
+                {node.title}
+              </a>
+            </li>
+          );
+        })
+      }
     </ul>
   </nav>
 </aside>

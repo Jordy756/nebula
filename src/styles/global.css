@@ -1,12 +1,12 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 @theme {
 }
 
 @theme inline {
-  --font-sans: var(--font-space-grotesk);
-  --font-mono: var(--font-space-mono);
+  --font-sans: var(--font-host-grotesk);
+  --font-mono: var(--font-inter);
 }
 
 @layer base {

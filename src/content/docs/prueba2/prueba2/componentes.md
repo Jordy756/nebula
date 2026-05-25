@@ -1,0 +1,20 @@
+---
+title: Uso de Componentes MDX
+description: Descubre cómo integrar componentes interactivos directamente en tus archivos Markdown.
+---
+
+## Componentes en Markdown
+
+En Nebula, no estás limitado a texto estático. Puedes usar **MDX** para inyectar componentes de Astro, React, o Svelte directamente en tu documentación.
+
+### Ejemplo de Botón
+
+Aquí tienes un ejemplo de cómo se vería un botón interactivo si tuvieras soporte MDX habilitado (lo configuraremos pronto):
+
+```jsx
+import Button from '../../components/ui/Button.astro';
+
+<Button variant="outline">Haz clic aquí</Button>
+```
+
+> **Nota:** Por defecto, Astro soporta `.md` puro. Para usar componentes vivos dentro de tus archivos, necesitaremos instalar `@astrojs/mdx`. Lo haremos en los próximos pasos.

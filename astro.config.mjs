@@ -1,8 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
-
 import tailwindcss from '@tailwindcss/vite';
-
 import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
@@ -13,8 +11,8 @@ export default defineConfig({
 
   fonts: [
     {
-      name: 'Space Grotesk',
-      cssVariable: '--font-space-grotesk',
+      name: 'Host Grotesk',
+      cssVariable: '--font-host-grotesk',
       provider: fontProviders.google(),
       display: 'swap',
       subsets: ['latin'],
@@ -25,8 +23,8 @@ export default defineConfig({
       fallbacks: ['sans-serif'],
     },
     {
-      name: 'Space Mono',
-      cssVariable: '--font-space-mono',
+      name: 'Inter',
+      cssVariable: '--font-inter',
       provider: fontProviders.google(),
       display: 'swap',
       subsets: ['latin'],
