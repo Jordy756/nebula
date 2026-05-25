@@ -2,11 +2,31 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
+  --color-deep-space: #000000;
+  --color-ghost-white: #ffffff;
+  --color-iron-slate: #a1a1a1;
+  --color-halo-pale: #f4f0ff;
+  --color-shadow-tint: #020202;
+  --color-subtle-gray: #e5e5e5;
+  --color-iridescent-glow: #bbdef2;
+  --color-spectrum-flare: #d1aad7;
+  --color-vivid-crimson: #ff6467;
+  --color-goldenrod: #ffd600;
+  --color-emerald-green: #72ce7b;
+
+  --color-dark-rainbow-gradient: linear-gradient(
+    to right bottom in oklab,
+    rgb(154, 154, 154) 0%,
+    rgb(26, 26, 26) 50%,
+    rgb(106, 106, 106) 100%
+  );
+
+  --shadow-subtle: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset;
 }
 
 @theme inline {
-  --font-sans: var(--font-host-grotesk);
-  --font-mono: var(--font-inter);
+  --font-sans: var(--font-host-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-inter), Montserrat, sans-serif;
 }
 
 @layer base {
@@ -22,9 +42,33 @@
     @apply scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
   }
 
-  /* :is(h1, h2, h3, h4, h5, h6) {
-    @apply font-medium text-balance;
-  } */
+  :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-sans font-light text-balance;
+  }
+
+  h1 {
+    @apply text-5xl;
+  }
+
+  h2 {
+    @apply text-4xl;
+  }
+
+  h3 {
+    @apply text-3xl;
+  }
+
+  h4 {
+    @apply text-2xl;
+  }
+
+  h5 {
+    @apply text-xl;
+  }
+
+  h6 {
+    @apply text-lg;
+  }
 
   :is(button, a) {
     @apply cursor-pointer;

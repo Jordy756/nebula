@@ -29,61 +29,58 @@ This design system evokes a sense of deep, sophisticated technology within a sec
 
 - **Substitute:** system-ui, sans-serif
 - **Weights:** 400, 500
-- **Sizes:** 12px, 14px, 16px, 18px, 20px
-- **Line height:** 1.33, 1.43, 1.50, 1.56, 1.60, 1.65, 1.71
-- **Letter spacing:** 0.10em at 12px, 0.286em at 14px, 0.333em at 16px
+- **Sizes:** `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`
+- **Line height:** `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`
 - **Role:** Standard body text, navigation elements, buttons, and various UI labels. Its wide range of sizes and normal weight support the bulk of content, ensuring readability without distracting from the main brand typography.
 
 ### Host Grotesk — Primary display font for headlines and sub-headlines. The signature weight 300 for large sizes creates a whisper-quiet yet authoritative tone, prioritizing understatement over visual shouting, which is distinctive for a high-tech brand. · `--font-host-grotesk`
 
 - **Substitute:** Montserrat, sans-serif
 - **Weights:** 300, 400
-- **Sizes:** 24px, 26px, 36px, 48px, 72px, 89px
-- **Line height:** 1.00, 1.11, 1.13, 1.23, 1.25, 1.33, 1.67
-- **Letter spacing:** -0.01em
+- **Sizes:** `text-2xl`, `text-3xl`, `text-4xl`, `text-5xl`, `text-7xl`, `text-8xl`
+- **Line height:** `text-2xl`, `text-3xl`, `text-4xl`, `text-5xl`, `text-7xl`, `text-8xl`
 - **Role:** Primary display font for headlines and sub-headlines. The signature weight 300 for large sizes creates a whisper-quiet yet authoritative tone, prioritizing understatement over visual shouting, which is distinctive for a high-tech brand.
 
 ## Tokens — Spacing & Shapes
 
 **Base unit:** 8px
-
 **Density:** comfortable
 
 ### Spacing Scale
 
 | Name | Value | Token |
 |------|-------|-------|
-| 8 | 8px | `--spacing-8` |
-| 16 | 16px | `--spacing-16` |
-| 24 | 24px | `--spacing-24` |
-| 32 | 32px | `--spacing-32` |
-| 40 | 40px | `--spacing-40` |
-| 48 | 48px | `--spacing-48` |
-| 64 | 64px | `--spacing-64` |
-| 72 | 72px | `--spacing-72` |
-| 80 | 80px | `--spacing-80` |
-| 192 | 192px | `--spacing-192` |
-| 224 | 224px | `--spacing-224` |
+| 8 | 8px | `p-2` / `m-2` / `gap-2` |
+| 16 | 16px | `p-4` / `m-4` / `gap-4` |
+| 24 | 24px | `p-6` / `m-6` / `gap-6` |
+| 32 | 32px | `p-8` / `m-8` / `gap-8` |
+| 40 | 40px | `p-10` / `m-10` / `gap-10` |
+| 48 | 48px | `p-12` / `m-12` / `gap-12` |
+| 64 | 64px | `p-16` / `m-16` / `gap-16` |
+| 72 | 72px | `p-18` / `m-18` / `gap-18` |
+| 80 | 80px | `p-20` / `m-20` / `gap-20` |
+| 192 | 192px | `p-48` / `m-48` / `gap-48` |
+| 224 | 224px | `p-56` / `m-56` / `gap-56` |
 
 ### Border Radius
 
-| Element | Value |
-|---------|-------|
-| links | 16px |
-| lists | 4px |
-| default | 8px |
+| Element | Value | Native Tailwind Class |
+|---------|-------|-----------------------|
+| lists | 4px | `rounded-sm` |
+| default | 8px | `rounded-md` |
+| links | 16px | `rounded-2xl` |
+
+### Layout
+
+- **Section gap:** `gap-8`
+- **Card padding:** `p-6`
+- **Element gap:** `gap-2`
 
 ### Shadows
 
 | Name | Value | Token |
 |------|-------|-------|
 | subtle | `rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset` | `--shadow-subtle` |
-
-### Layout
-
-- **Section gap:** 32px
-- **Card padding:** 24px
-- **Element gap:** 8px
 
 ## Components
 
@@ -145,9 +142,9 @@ The page primarily uses a max-width contained layout, centered on the screen, th
 
 ### Example Component Prompts
 
-1. Create a Hero Section: Full-width Deep Space #000000 background. Centered headline 'Breakthrough AI from Data to Deployment' using Host Grotesk 89px weight 300, Ghost White #ffffff, letter-spacing -0.01em. Subtext 'Scale delivers proven data...' using Inter 20px weight 400, Halo Pale #f4f0ff, line-height 1.6. Two buttons: 'Book a Demo' with Ghost White #ffffff text, transparent background, 1px Ghost White #ffffff border, 17px horizontal, 12px vertical padding; and 'Build AI' with Ghost White #ffffff text, transparent background, no border, 17px horizontal, 12px vertical padding. Include an abstract geometric graphic using Iridescent Glow #bbdef2 and Spectrum Flare #d1aad7 colors on the right side.
+1. Create a Hero Section: Full-width Deep Space #000000 background. Centered headline 'Breakthrough AI from Data to Deployment' using Host Grotesk 89px weight 300, Ghost White #ffffff. Subtext 'Scale delivers proven data...' using Inter 20px weight 400, Halo Pale #f4f0ff, line-height 1.6. Two buttons: 'Book a Demo' with Ghost White #ffffff text, transparent background, 1px Ghost White #ffffff border, 17px horizontal, 12px vertical padding; and 'Build AI' with Ghost White #ffffff text, transparent background, no border, 17px horizontal, 12px vertical padding. Include an abstract geometric graphic using Iridescent Glow #bbdef2 and Spectrum Flare #d1aad7 colors on the right side.
 2. Design a Navigation Bar: Deep Space #000000 background, 59-147px height. Logo 'Scale' using Inter 24px weight 500, Ghost White #ffffff. Navigation links 'Products', 'Research', 'Enterprise', 'Government', 'Resources' using Inter 16px weight 400, Ghost White #ffffff, white on hover, 4px vertical padding, 0px horizontal padding. Right-aligned buttons 'Book a Demo' (Ghost White #ffffff text, 1px Ghost White #ffffff border, transparent background) and 'Log In' (Ghost White #ffffff text, transparent background, no border).
-3. Create a Testimonial Block: Deep Space #000000 background. Headline 'We have changed the game...' using Host Grotesk 48px weight 300, Ghost White #ffffff, letter-spacing -0.01em. A testimonial card: 8px border-radius, transparent background with inset shadow rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset. Quote text '"We partnered with Scale AI..."' using Inter 20px weight 400, Ghost White #ffffff. Attribution 'Mark Zuckerberg' using Inter 16px weight 500, Halo Pale #f4f0ff.
+3. Create a Testimonial Block: Deep Space #000000 background. Headline 'We have changed the game...' using Host Grotesk 48px weight 300, Ghost White #ffffff. A testimonial card: 8px border-radius, transparent background with inset shadow rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset. Quote text '"We partnered with Scale AI..."' using Inter 20px weight 400, Ghost White #ffffff. Attribution 'Mark Zuckerberg' using Inter 16px weight 500, Halo Pale #f4f0ff.
 
 ## Similar Brands
 
@@ -160,70 +157,4 @@ The page primarily uses a max-width contained layout, centered on the screen, th
 
 ### Tailwind v4
 
-```css
-@theme {
-  /* Colors */
-  --color-deep-space: #000000;
-  --color-ghost-white: #ffffff;
-  --color-iron-slate: #a1a1a1;
-  --color-halo-pale: #f4f0ff;
-  --color-shadow-tint: #020202;
-  --color-subtle-gray: #e5e5e5;
-  --color-iridescent-glow: #bbdef2;
-  --color-spectrum-flare: #d1aad7;
-  --color-vivid-crimson: #ff6467;
-  --color-goldenrod: #ffd600;
-  --color-emerald-green: #72ce7b;
-  --color-dark-rainbow-gradient: #9a9a9a;
-
-  /* Typography */
-  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-host-grotesk: 'Host Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  /* Typography — Scale */
-  --text-xs: 12px;
-  --leading-xs: 2;
-  --text-sm: 14px;
-  --leading-sm: 1.43;
-  --text-base: 16px;
-  --leading-base: 1.5;
-  --text-lg: 18px;
-  --leading-lg: 1.65;
-  --text-xl: 20px;
-  --leading-xl: 1.6;
-  --text-2xl: 24px;
-  --leading-2xl: 1.67;
-  --text-2xl-2: 26px;
-  --leading-2xl-2: 1.23;
-  --text-4xl: 36px;
-  --leading-4xl: 1.25;
-  --text-5xl: 48px;
-  --leading-5xl: 1.25;
-  --text-5xl-2: 72px;
-  --leading-5xl-2: 1.11;
-  --text-5xl-3: 89px;
-  --leading-5xl-3: 1;
-
-  /* Spacing */
-  --spacing-8: 8px;
-  --spacing-16: 16px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-48: 48px;
-  --spacing-64: 64px;
-  --spacing-72: 72px;
-  --spacing-80: 80px;
-  --spacing-192: 192px;
-  --spacing-224: 224px;
-
-  /* Border Radius */
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
-
-  /* Shadows */
-  --shadow-subtle: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset;
-}
-```
+For the master style configuration, review the main file `@src/styles/global.css`.
