@@ -2,7 +2,31 @@
 import { getCollection, render } from 'astro:content';
 import DocsLayout from '@layouts/DocsLayout.astro';
 import Article from '@components/layout/Article.astro';
+import Heading1 from '@components/mdx/Heading1.astro';
+import Heading2 from '@components/mdx/Heading2.astro';
+import Heading3 from '@components/mdx/Heading3.astro';
+import Heading4 from '@components/mdx/Heading4.astro';
+import Heading5 from '@components/mdx/Heading5.astro';
+import Heading6 from '@components/mdx/Heading6.astro';
 import Paragraph from '@components/mdx/Paragraph.astro';
+import Link from '@components/mdx/Link.astro';
+import UnorderedList from '@components/mdx/UnorderedList.astro';
+import OrderedList from '@components/mdx/OrderedList.astro';
+import ListItem from '@components/mdx/ListItem.astro';
+import Blockquote from '@components/mdx/Blockquote.astro';
+import CodeInline from '@components/mdx/CodeInline.astro';
+import Pre from '@components/mdx/Pre.astro';
+import Strong from '@components/mdx/Strong.astro';
+import Emphasis from '@components/mdx/Emphasis.astro';
+import Deleted from '@components/mdx/Deleted.astro';
+import HorizontalRule from '@components/mdx/HorizontalRule.astro';
+import Image from '@components/mdx/Image.astro';
+import Table from '@components/mdx/Table.astro';
+import TableHead from '@components/mdx/TableHead.astro';
+import TableBody from '@components/mdx/TableBody.astro';
+import TableRow from '@components/mdx/TableRow.astro';
+import TableHeader from '@components/mdx/TableHeader.astro';
+import TableData from '@components/mdx/TableData.astro';
 
 export const getStaticPaths = async () => {
   const docsEntries = await getCollection('docs');
@@ -21,7 +45,35 @@ const { Content, headings } = await render(entry);
 <DocsLayout title={title} description={description} headings={headings}>
   <section class="flex flex-3 flex-col items-center">
     <Article title={title} description={description}>
-      <Content components={{ p: Paragraph }} />
+      <Content
+        components={{
+          h1: Heading1,
+          h2: Heading2,
+          h3: Heading3,
+          h4: Heading4,
+          h5: Heading5,
+          h6: Heading6,
+          p: Paragraph,
+          a: Link,
+          ul: UnorderedList,
+          ol: OrderedList,
+          li: ListItem,
+          blockquote: Blockquote,
+          code: CodeInline,
+          pre: Pre,
+          strong: Strong,
+          em: Emphasis,
+          del: Deleted,
+          hr: HorizontalRule,
+          img: Image,
+          table: Table,
+          thead: TableHead,
+          tbody: TableBody,
+          tr: TableRow,
+          th: TableHeader,
+          td: TableData,
+        }}
+      />
     </Article>
   </section>
 </DocsLayout>
