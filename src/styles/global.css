@@ -2,8 +2,6 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  --color-deep-space: #000000;
-  --color-ghost-white: #ffffff;
   --color-iron-slate: #a1a1a1;
   --color-halo-pale: #f4f0ff;
   --color-shadow-tint: #020202;
