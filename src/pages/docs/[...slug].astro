@@ -44,6 +44,9 @@ const { Content, headings } = await render(entry);
 // TODO: IMPROVE UNDERLINE STYLES FOR LINKS
 // TODO: IMPROVE BLOCKQUOTE STYLES WHEN HAS A TITLE INSIDE
 // TODO: REVIEW LISTS STYLES, ESPECIALLY NESTED ONES WITH FLEXBOX, BECAUSE DISAPPEAR DISC AND DECIMAL NUMBERS STYLES
+// TODO: IMPROVE CODE BLOCK STYLES, LABEL PRE, CODE,...
+// TODO: IMPROVE MARGIN STYLES
+// TODO: ADD ID'S TO HEADINGS FOR BETTER NAVIGATION
 ---
 
 <DocsLayout title={title} description={description} headings={headings}>
@@ -78,7 +81,6 @@ const { Content, headings } = await render(entry);
           td: TableData,
         }}
       />
-      <!-- <Content /> -->
     </Article>
   </section>
 </DocsLayout>

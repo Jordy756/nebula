@@ -17,7 +17,7 @@ export default defineConfig({
       display: 'swap',
       subsets: ['latin'],
       styles: ['normal'],
-      weights: [300, 400],
+      weights: [300, 400, 600],
       formats: ['woff2'],
       unicodeRange: ['U+0000-00FF'],
       fallbacks: ['sans-serif'],
