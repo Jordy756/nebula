@@ -1,0 +1,163 @@
+---
+title: Uso de Componentes MDX
+description: Descubre cómo integrar componentes interactivos directamente en tus archivos Markdown.
+---
+
+# Encabezado Nivel 1 — Título Principal
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+## Encabezado Nivel 2 — Sección
+
+Otro párrafo para mostrar cómo se ve el texto base. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Acá probamos texto **strong (negrita)**, _emphasis (cursiva)_, ~~deleted (tachado)~~, y también **combinaciones como _italics dentro de negrita_**.
+
+Y este es un [enlace de ejemplo](https://example.com) para ver cómo se renderiza el componente Link.
+
+### Encabezado Nivel 3 — Subsección
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+#### Encabezado Nivel 4
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+##### Encabezado Nivel 5
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+###### Encabezado Nivel 6
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Este es un párrafo normal con texto de ejemplo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+
+---
+
+## Blockquote
+
+Un blockquote clásico para resaltar contenido importante:
+
+> This is a simple blockquote with some quoted text. It should have a left border and a slightly different background to stand out from the regular content flow.
+>
+> — Someone Famous
+
+También se pueden anidar elementos dentro de blockquotes:
+
+> ### Título dentro de blockquote
+>
+> Párrafo normal con **texto destacado** y [enlace](https://example.com).
+>
+> > Blockquote anidado para citas dentro de citas.
+
+---
+
+## Listas
+
+### Lista Desordenada (UnorderedList)
+
+- Item uno de la lista desordenada
+- Item dos con texto más largo para ver cómo se ve cuando el contenido ocupa múltiples líneas y se ajusta al contenedor
+- Item tres con **formato en negrita**
+- Item cuatro con [enlace interno](#)
+  - Sub-item anidado nivel 2
+  - Otro sub-item
+    - Sub-item nivel 3
+
+### Lista Ordenada (OrderedList)
+
+1. Primer paso en la secuencia
+2. Segundo paso con descripción más detallada para probar el wrapping del texto cuando es largo
+3. Tercer paso con **formato** incluido
+4. Cuarto paso
+   1. Sub-paso anidado
+   2. Otro sub-paso
+
+---
+
+## Código
+
+### Código en línea (CodeInline)
+
+Cuando hablamos de variables, podemos referirnos a `const usuario = "Juan"` o a funciones como `getUserById(id)`. El inline code debe destacar sin romper el flujo del texto.
+
+También se puede usar `npx create-astro@latest` para comandos en línea.
+
+### Bloque de código (Pre)
+
+```javascript
+function saludar(nombre) {
+  return `Hola, ${nombre}!`;
+}
+
+// Ejemplo de uso
+const mensaje = saludar('Mundo');
+console.log(mensaje);
+```
+
+```css
+.markdown-body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+```
+
+```bash
+npm install @tailwindcss/typography
+npx astro add mdx
+```
+
+```
+Texto plano sin resaltado de sintaxis.
+Ideal para logs o configuraciones simples.
+```
+
+---
+
+## Tablas
+
+| Producto | Precio | Stock | Categoría |
+|----------|--------|-------|-----------|
+| Laptop Pro | $2,499 | 12 | Electrónica |
+| Monitor 4K | $899 | 25 | Electrónica |
+| Teclado Mecánico | $179 | 50 | Accesorios |
+| Mouse Inalámbrico | $89 | 100 | Accesorios |
+
+Tabla con alineación:
+
+| Izquierda | Centro | Derecha |
+|:----------|:------:|--------:|
+| Texto | Texto | Texto |
+| alineado | centrado | alineado |
+| a la izquierda | | a la derecha |
+
+---
+
+## Imágenes
+
+![Placeholder](https://placehold.co/800x400/1a1a1a/ffffff?text=Nebula+Design+System)
+
+Texto alrededor de la imagen para ver cómo fluye el contenido con los elementos multimedia.
+
+---
+
+## Separador Horizontal (HorizontalRule)
+
+Arriba hay un `<hr />`. Este elemento es útil para separar secciones temáticas dentro del mismo documento.
+
+---
+
+## Mix Completo
+
+Para cerrar, acá va un párrafo que mezcla **negrita**, _cursiva_, ~~tachado~~, `código inline`, y un [enlace](https://example.com) todo junto para ver la armonía tipográfica del sistema de diseño.
+
+> Y un blockquote final para cerrar con broche de oro, demostrando que todos los componentes conviven en armonía dentro del flujo del documento.
