@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import DocsLayout from '@layouts/DocsLayout.astro';
 import Article from '@components/layout/Article.astro';
+import Paragraph from '@components/mdx/Paragraph.astro';
 
 export const getStaticPaths = async () => {
   const docsEntries = await getCollection('docs');
@@ -20,7 +21,7 @@ const { Content, headings } = await render(entry);
 <DocsLayout title={title} description={description} headings={headings}>
   <section class="flex flex-3 flex-col items-center">
     <Article title={title} description={description}>
-      <Content />
+      <Content components={{ p: Paragraph }} />
     </Article>
   </section>
 </DocsLayout>

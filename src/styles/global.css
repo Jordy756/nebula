@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/typography';
 
 @theme {
   --color-iron-slate: #a1a1a1;
@@ -41,7 +40,7 @@
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
-    @apply font-sans font-light text-balance;
+    @apply font-sans font-normal text-balance;
   }
 
   h1 {

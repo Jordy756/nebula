@@ -9,12 +9,12 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<article class="prose flex max-w-[65ch] flex-col gap-4 px-4 py-12 prose-neutral dark:prose-invert">
+<article class="flex max-w-[65ch] flex-col gap-4 px-4 py-12">
   <header class="flex flex-col border-b border-neutral-800">
     <h1>{title}</h1>
     <p>{description}</p>
   </header>
-  <div class="flex flex-1 flex-col prose-hr:border-neutral-800">
+  <div class="flex flex-1 flex-col">
     <slot />
   </div>
   <footer class="flex items-center gap-4">
