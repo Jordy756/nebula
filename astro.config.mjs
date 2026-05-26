@@ -1,14 +1,46 @@
 // @ts-check
-import { defineConfig, fontProviders } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig, fontProviders } from 'astro/config';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()],
+  site: 'https://example.com',
+  integrations: [
+    mdx({
+      optimize: true,
+      gfm: true,
+    }),
+    sitemap(),
+  ],
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'github-dark-default',
+      wrap: false,
+    },
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          properties: {
+            class: 'anchor-link',
+            ariaHidden: 'true',
+            tabIndex: -1,
+          },
+          content: {
+            type: 'text',
+            value: '#',
+          },
+        },
+      ],
+    ],
   },
-
   fonts: [
     {
       name: 'Host Grotesk',
@@ -35,9 +67,7 @@ export default defineConfig({
       fallbacks: ['monospace'],
     },
   ],
-  markdown: {
-    syntaxHighlight: 'shiki',
-    shikiConfig: { theme: 'github-dark-default' },
+  vite: {
+    plugins: [tailwindcss()],
   },
-  integrations: [mdx()],
 });
