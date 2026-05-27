@@ -1,6 +1,42 @@
 ---
+import Copy from '@components/icons/Copy.astro';
 
+const popoverId = `copy-popover-${crypto.randomUUID()}`;
 ---
 
-<pre
-  class="mt-2 mb-6 overflow-x-auto rounded-sm border border-neutral-800 bg-neutral-900 p-4 font-sans font-normal leading-relaxed"><slot /></pre>
+<div class="group relative mb-4 rounded-sm border border-neutral-800 bg-neutral-900">
+  <pre class="overflow-x-auto p-4 font-sans leading-relaxed font-normal"><slot /></pre>
+  <button
+    popovertarget={popoverId}
+    class="absolute top-4 right-4 flex items-center justify-center rounded-xs border border-neutral-800 p-1 opacity-0 transition-[background-color,opacity] duration-300 ease-in-out group-hover:opacity-100"
+  >
+    <Copy width={24} height={24} class="h-6 w-6" />
+  </button>
+  <div class="inset-auto mr-4 bg-green-600 py-0.5 px-1 text-neutral-50 [position-area:left]" popover id={popoverId}>
+    Copiado
+  </div>
+</div>
+
+<script>
+  const copyButtons = document.querySelectorAll<HTMLButtonElement>('button[popovertarget^="copy-popover-"]');
+
+  copyButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const pre = button.closest('.group')?.querySelector<HTMLPreElement>('pre');
+
+      if (!pre) return;
+
+      navigator.clipboard.writeText(pre.textContent || '').then(() => {
+        const popoverId = button.getAttribute('popovertarget');
+        if (!popoverId) return;
+
+        const popover = document.getElementById(popoverId);
+        if (!popover) return;
+
+        setTimeout(() => {
+          popover.matches(':popover-open') && popover.hidePopover();
+        }, 1000);
+      });
+    });
+  });
+</script>

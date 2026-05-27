@@ -36,7 +36,7 @@
   }
 
   html {
-    @apply scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
+    @apply scroll-pt-18.75 scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
@@ -69,6 +69,11 @@
 
   :is(button, a) {
     @apply cursor-pointer;
+  }
+
+  :is(dialog, [popover]) {
+    @apply fixed z-999 transition-discrete duration-500 ease-in-out;
+    inset: unset;
   }
 }
 
