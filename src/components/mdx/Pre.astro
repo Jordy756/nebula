@@ -12,31 +12,15 @@ const popoverId = `copy-popover-${crypto.randomUUID()}`;
   >
     <Copy width={24} height={24} class="h-6 w-6" />
   </button>
-  <div class="inset-auto mr-4 bg-green-600 py-0.5 px-1 text-neutral-50 [position-area:left]" popover id={popoverId}>
+  <div class="inset-auto mr-4 bg-green-600 px-1 py-0.5 text-neutral-50 [position-area:left]" popover id={popoverId}>
     Copiado
   </div>
 </div>
 
 <script>
-  const copyButtons = document.querySelectorAll<HTMLButtonElement>('button[popovertarget^="copy-popover-"]');
+  import { copyCode } from '@scripts/utils/copy.ts';
 
-  copyButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const pre = button.closest('.group')?.querySelector<HTMLPreElement>('pre');
-
-      if (!pre) return;
-
-      navigator.clipboard.writeText(pre.textContent || '').then(() => {
-        const popoverId = button.getAttribute('popovertarget');
-        if (!popoverId) return;
-
-        const popover = document.getElementById(popoverId);
-        if (!popover) return;
-
-        setTimeout(() => {
-          popover.matches(':popover-open') && popover.hidePopover();
-        }, 1000);
-      });
-    });
-  });
+  document
+    .querySelectorAll<HTMLButtonElement>('button[popovertarget^="copy-popover-"]')
+    .forEach((button) => button.addEventListener('click', copyCode));
 </script>
