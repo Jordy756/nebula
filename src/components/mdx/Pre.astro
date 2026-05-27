@@ -12,7 +12,12 @@ const popoverId = `copy-popover-${crypto.randomUUID()}`;
   >
     <Copy width={24} height={24} class="h-6 w-6" />
   </button>
-  <div class="inset-auto mr-4 bg-green-600 px-1 py-0.5 text-neutral-50 [position-area:left]" popover id={popoverId}>
+
+  <div
+    class="relative inset-auto mr-4 overflow-visible bg-green-600 px-2 py-1 text-neutral-50 [position-area:left] after:absolute after:top-1/2 after:left-full after:-translate-y-1/2 after:border-y-8 after:border-l-16 after:border-y-transparent after:border-l-green-600"
+    popover
+    id={popoverId}
+  >
     Copiado
   </div>
 </div>
