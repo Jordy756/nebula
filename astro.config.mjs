@@ -3,16 +3,16 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, fontProviders } from 'astro/config';
-import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeSlug from 'rehype-slug';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
   integrations: [
     mdx({
-      optimize: true,
       gfm: true,
+      // optimize: true,
     }),
     sitemap(),
   ],
@@ -29,13 +29,8 @@ export default defineConfig({
         {
           behavior: 'append',
           properties: {
-            class: 'anchor-link',
             ariaHidden: 'true',
             tabIndex: -1,
-          },
-          content: {
-            type: 'text',
-            value: '#',
           },
         },
       ],

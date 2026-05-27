@@ -1,7 +1,7 @@
 ---
-
+const { id, ...props } = Astro.props;
 ---
 
-<h4 class="mt-8 mb-4">
+<h4 id={id} class="mt-8 mb-4" {...props}>
   <slot />
 </h4>
