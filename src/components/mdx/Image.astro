@@ -1,8 +1,8 @@
 ---
-
+const { ...props } = Astro.props;
 ---
 
-<figure class="mb-4">
-  <img {...Astro.props} class="rounded-sm" />
+<figure>
+  <img {...props} class="rounded-sm" />
   <slot />
 </figure>
