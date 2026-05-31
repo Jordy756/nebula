@@ -84,4 +84,10 @@
   .btn-secondary {
     @apply border-neutral-50 bg-neutral-50 text-neutral-950;
   }
+
+  .markdown-body {
+    & > :is(h1, h2, h3, h4, h5, h6) {
+      @apply mt-8;
+    }
+  }
 }

@@ -1,10 +1,9 @@
 // @ts-check
+import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, fontProviders } from 'astro/config';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeSlug from 'rehype-slug';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,29 +11,16 @@ export default defineConfig({
   integrations: [
     mdx({
       gfm: true,
-      // optimize: true,
     }),
     sitemap(),
   ],
   markdown: {
+    processor: satteri(),
     syntaxHighlight: 'shiki',
     shikiConfig: {
       theme: 'github-dark-default',
       wrap: false,
     },
-    rehypePlugins: [
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'append',
-          properties: {
-            ariaHidden: 'true',
-            tabIndex: -1,
-          },
-        },
-      ],
-    ],
   },
   fonts: [
     {
