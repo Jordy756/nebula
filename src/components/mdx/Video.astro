@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'video'> {
+  src: string;
+}
+
+const { src, class: className, ...rest } = Astro.props;
+---
+
+<video controls playsinline preload="metadata" class:list={['h-auto w-full rounded-sm', className]} {...rest}>
+  <source src={src} type={`video/${src.split('.').pop()}`} />
+  Tu navegador no soporta video HTML5.
+</video>

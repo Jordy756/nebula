@@ -4,6 +4,8 @@ description: Descubre cómo integrar componentes interactivos directamente en tu
 ---
 
 import Img from '@components/mdx/Img.astro';
+import Video from '@components/mdx/Video.astro';
+import Youtube from '@components/mdx/Youtube.astro';
 
 ## Encabezado Nivel 2 — Sección
 
@@ -150,14 +152,24 @@ Ideal para logs o configuraciones simples.
 
 ---
 
-## Imágenes
+## Medias
+
+### Imagen (Img)
 
 <Img src="https://raw.githubusercontent.com/Jordy756/cuts/refs/heads/main/examples/example_img_01.webp" alt="Placeholder" />
-![Placeholder](https://raw.githubusercontent.com/Jordy756/cuts/refs/heads/main/examples/example_img_01.webp)
 
 Texto alrededor de la imagen para ver cómo fluye el contenido con los elementos multimedia.
 
----
+### Video local (Nativo)
+
+<Video src="/character-render-app.webm" />
+<Video src="https://www.w3schools.com/html/mov_bbb.mp4" />
+
+### Video embebido de YouTube (Iframe Nativo)
+
+<Youtube src="https://www.youtube.com/embed/8LPTmWqXz9w" title="Video de ejemplo" />
+<Youtube src="https://youtu.be/J_n01uvyhI8" title="Video de ejemplo" />
+<Youtube src="https://www.youtube.com/watch?v=iGS07iQaAcg" title="Video de ejemplo" />
 
 ## Separador Horizontal (HorizontalRule)
 
