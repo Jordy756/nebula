@@ -1,6 +1,7 @@
 ---
 import Article from '@components/layout/Article.astro';
 import Blockquote from '@components/mdx/Blockquote.astro';
+import CodeInline from '@components/mdx/CodeInline.astro';
 import Deleted from '@components/mdx/Deleted.astro';
 import Emphasis from '@components/mdx/Emphasis.astro';
 import HorizontalRule from '@components/mdx/HorizontalRule.astro';
@@ -53,7 +54,7 @@ const { Content, headings } = await render(entry);
           ol: OrderedList,
           li: ListItem,
           blockquote: Blockquote,
-          // code: CodeInline,
+          code: CodeInline,
           pre: Pre,
           strong: Strong,
           em: Emphasis,
