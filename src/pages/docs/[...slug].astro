@@ -4,7 +4,7 @@ import Blockquote from '@components/mdx/Blockquote.astro';
 import Deleted from '@components/mdx/Deleted.astro';
 import Emphasis from '@components/mdx/Emphasis.astro';
 import HorizontalRule from '@components/mdx/HorizontalRule.astro';
-import Image from '@components/mdx/Image.astro';
+import Img from '@components/mdx/Img.astro';
 import Link from '@components/mdx/Link.astro';
 import ListItem from '@components/mdx/ListItem.astro';
 import OrderedList from '@components/mdx/OrderedList.astro';
@@ -59,7 +59,7 @@ const { Content, headings } = await render(entry);
           em: Emphasis,
           del: Deleted,
           hr: HorizontalRule,
-          img: Image,
+          img: Img,
           table: Table,
           thead: TableHead,
           tbody: TableBody,
