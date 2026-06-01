@@ -1,20 +1,75 @@
 ---
-import { getSidebarNavigation } from '@scripts/lib/navigation';
-import type { NavItem, NavGroup } from '@scripts/lib/navigation';
+import { getCollection } from 'astro:content';
+import SidebarNode from './SidebarNode.astro';
+import type { NavItem, NavGroup } from './SidebarNode.astro';
 
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
-
-// Obtenemos la URL actual para saber qué link está activo
 const currentPath = Astro.url.pathname;
 
-// Traemos el árbol dinámico de navegación
-const navigationTree = await getSidebarNavigation();
+// ── build tree from flat collection ──────────────────
+function humanize(name: string): string {
+  return name
+    .replace(/[-_]/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
-// Función auxiliar en línea para renderizar el árbol infinitamente de forma recursiva
+interface TreeNode {
+  item: { title: string; href: string };
+  path: string[];
+}
+
+function buildTree(entries: { id: string; title: string }[]): (NavItem | NavGroup)[] {
+  const tree: Record<string, any> = {};
+
+  for (const entry of entries) {
+    const segments = entry.id.split('/');
+    let cursor = tree;
+
+    for (let i = 0; i < segments.length - 1; i++) {
+      const seg = segments[i];
+      if (!cursor[seg]) cursor[seg] = {};
+      cursor = cursor[seg];
+    }
+
+    cursor._items ??= [];
+    cursor._items.push({
+      title: entry.title,
+      href: `/docs/${entry.id}`,
+    });
+  }
+
+  function toNav(node: Record<string, any>): (NavItem | NavGroup)[] {
+    const result: (NavItem | NavGroup)[] = [];
+
+    for (const [key, val] of Object.entries(node)) {
+      if (key.startsWith('_')) continue;
+      const children = toNav(val);
+      if (children.length > 0) {
+        result.push({ title: humanize(key), items: children });
+      }
+    }
+
+    if (node._items) {
+      result.push(...node._items);
+    }
+
+    return result;
+  }
+
+  return toNav(tree);
+}
+
+// ── sort helpers ─────────────────────────────────────
+const docs = await getCollection('docs');
+const sorted = docs
+  .map((d) => ({ id: d.id, title: d.data.title, order: d.data.order }))
+  .sort((a, b) => (a.order ?? 999) - (b.order ?? 999) || a.title.localeCompare(b.title));
+
+const navigationTree = buildTree(sorted);
 ---
 
 <aside
@@ -25,60 +80,7 @@ const navigationTree = await getSidebarNavigation();
 >
   <nav class="flex flex-col gap-4" aria-label="Navegación principal">
     <ul class="flex flex-col gap-2">
-      {
-        navigationTree.map((node) => {
-          // Si tiene 'items', es una CARPETA (NavGroup)
-          if ('items' in node) {
-            return (
-              <li class="mt-4 flex flex-col gap-2 first:mt-0">
-                <h4 class="font-semibold text-neutral-900 dark:text-neutral-100">{node.title}</h4>
-                <ul class="ml-1 flex flex-col gap-1 border-l border-neutral-800 pl-4">
-                  {node.items.map((subItem) => {
-                    // Para simplificar este ejemplo base, asumimos que dentro solo hay items.
-                    // (Si quieres infinitos niveles renderizados, deberíamos extraer este <ul> a un componente recursivo <SidebarNode />)
-                    if (!('items' in subItem)) {
-                      const isActive = currentPath === subItem.href || currentPath === `${subItem.href}/`;
-                      return (
-                        <li>
-                          <a
-                            href={subItem.href}
-                            class:list={[
-                              'block py-1 text-sm transition-colors',
-                              isActive
-                                ? 'font-medium text-orange-500'
-                                : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',
-                            ]}
-                          >
-                            {subItem.title}
-                          </a>
-                        </li>
-                      );
-                    }
-                  })}
-                </ul>
-              </li>
-            );
-          }
-
-          // Si no tiene 'items', es un ARCHIVO en la raíz (NavItem)
-          const isActive = currentPath === node.href || currentPath === `${node.href}/`;
-          return (
-            <li>
-              <a
-                href={node.href}
-                class:list={[
-                  'block py-1 text-sm transition-colors',
-                  isActive
-                    ? 'font-medium text-orange-500'
-                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',
-                ]}
-              >
-                {node.title}
-              </a>
-            </li>
-          );
-        })
-      }
+      {navigationTree.map((node) => <SidebarNode node={node} currentPath={currentPath} />)}
     </ul>
   </nav>
 </aside>
