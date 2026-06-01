@@ -1,5 +1,4 @@
 // @ts-check
-import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
@@ -15,7 +14,6 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
-    processor: satteri(),
     syntaxHighlight: 'shiki',
     shikiConfig: {
       theme: 'github-dark-default',

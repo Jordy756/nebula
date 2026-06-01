@@ -89,5 +89,9 @@
     & > :is(h1, h2, h3, h4, h5, h6) {
       @apply mt-8;
     }
+
+    & :not(pre) > code {
+      @apply rounded-sm bg-neutral-800 px-1 py-0.5 font-mono text-sm font-medium text-neutral-200;
+    }
   }
 }

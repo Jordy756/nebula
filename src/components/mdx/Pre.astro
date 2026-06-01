@@ -4,15 +4,14 @@ import Copy from '@components/icons/Copy.astro';
 const popoverId = `copy-popover-${crypto.randomUUID()}`;
 ---
 
-<div class="group relative rounded-sm border border-neutral-800 bg-neutral-900 p-4">
-  <pre class="overflow-x-auto p-4 font-sans leading-relaxed font-normal"><slot /></pre>
+<div class="group relative rounded-sm border border-neutral-800 bg-neutral-900">
+  <pre class="overflow-x-auto p-4 font-mono leading-relaxed font-normal"><slot /></pre>
   <button
     popovertarget={popoverId}
     class="absolute top-4 right-4 flex items-center justify-center rounded-xs border border-neutral-800 p-1 opacity-0 transition-[background-color,opacity] duration-300 ease-in-out group-hover:opacity-100"
   >
     <Copy width={24} height={24} class="h-6 w-6" />
   </button>
-
   <div
     id={popoverId}
     class="relative inset-auto mr-4 overflow-visible rounded-sm bg-green-600 px-2 py-1 text-neutral-50 [position-area:left] after:absolute after:top-1/2 after:left-full after:-translate-y-1/2 after:rounded-sm after:border-y-8 after:border-l-16 after:border-y-transparent after:border-l-green-600"
