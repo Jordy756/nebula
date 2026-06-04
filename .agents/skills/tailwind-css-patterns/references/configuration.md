@@ -95,7 +95,7 @@ export default defineConfig({
 ### Native CSS Custom Properties
 
 ```html
-<div class="bg-(--color-brand-500) text-(--color-500)">
+<div class="bg-(--color-brand-500) text-(--primary-500)">
   Using CSS custom properties directly
 </div>
 ```

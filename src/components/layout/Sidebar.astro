@@ -1,7 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
-import SidebarNode from './SidebarNode.astro';
-import type { NavItem, NavGroup } from './SidebarNode.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import SidebarNode, { type NavGroup, type NavNode } from './SidebarNode.astro';
+
+type Doc = CollectionEntry<'docs'>;
 
 interface Props {
   class?: string;
@@ -10,66 +11,37 @@ interface Props {
 const { class: className } = Astro.props;
 const currentPath = Astro.url.pathname;
 
-// ── build tree from flat collection ──────────────────
-function humanize(name: string): string {
-  return name
-    .replace(/[-_]/g, ' ')
+function humanize(segment: string): string {
+  return segment
+    .replace(/^\d+-/, '')
+    .replace(/[-_]+/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-interface TreeNode {
-  item: { title: string; href: string };
-  path: string[];
-}
-
-function buildTree(entries: { id: string; title: string }[]): (NavItem | NavGroup)[] {
-  const tree: Record<string, any> = {};
+function buildTree(entries: Doc[]): NavNode[] {
+  const root: NavNode[] = [];
 
   for (const entry of entries) {
-    const segments = entry.id.split('/');
-    let cursor = tree;
-
-    for (let i = 0; i < segments.length - 1; i++) {
-      const seg = segments[i];
-      if (!cursor[seg]) cursor[seg] = {};
-      cursor = cursor[seg];
-    }
-
-    cursor._items ??= [];
-    cursor._items.push({
-      title: entry.title,
-      href: `/docs/${entry.id}`,
-    });
-  }
-
-  function toNav(node: Record<string, any>): (NavItem | NavGroup)[] {
-    const result: (NavItem | NavGroup)[] = [];
-
-    for (const [key, val] of Object.entries(node)) {
-      if (key.startsWith('_')) continue;
-      const children = toNav(val);
-      if (children.length > 0) {
-        result.push({ title: humanize(key), items: children });
+    let level = root;
+    for (const segment of entry.id.split('/').slice(0, -1)) {
+      const title = humanize(segment);
+      const last = level.at(-1);
+      if (last && 'items' in last && last.title === title) {
+        level = last.items;
+      } else {
+        const group: NavGroup = { title, items: [] };
+        level.push(group);
+        level = group.items;
       }
     }
-
-    if (node._items) {
-      result.push(...node._items);
-    }
-
-    return result;
+    level.push({ title: entry.data.title, href: `/docs/${entry.id}` });
   }
 
-  return toNav(tree);
+  return root;
 }
 
-// ── sort helpers ─────────────────────────────────────
 const docs = await getCollection('docs');
-const sorted = docs
-  .map((d) => ({ id: d.id, title: d.data.title, order: d.data.order }))
-  .sort((a, b) => (a.order ?? 999) - (b.order ?? 999) || a.title.localeCompare(b.title));
-
-const navigationTree = buildTree(sorted);
+const navigation = buildTree(docs);
 ---
 
 <aside
@@ -80,7 +52,7 @@ const navigationTree = buildTree(sorted);
 >
   <nav class="flex flex-col gap-4" aria-label="Navegación principal">
     <ul class="flex flex-col gap-2">
-      {navigationTree.map((node) => <SidebarNode node={node} currentPath={currentPath} />)}
+      {navigation.map((node) => <SidebarNode node={node} currentPath={currentPath} />)}
     </ul>
   </nav>
 </aside>
