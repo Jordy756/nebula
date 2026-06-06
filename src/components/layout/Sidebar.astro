@@ -1,6 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
-import SidebarNode, { type NavGroup, type NavNode } from './SidebarNode.astro';
+import SidebarNode, { type NavNode } from './SidebarNode.astro';
 
 type Doc = CollectionEntry<'docs'>;
 
@@ -11,42 +11,38 @@ interface Props {
 const { class: className } = Astro.props;
 const currentPath = Astro.url.pathname;
 
-function humanize(segment: string): string {
-  return segment
-    .replace(/^\d+-/, '')
-    .replace(/[-_]+/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
 function buildTree(entries: Doc[]): NavNode[] {
-  const root: NavNode[] = [];
+  const levels = new Map<string, NavNode[]>([['', []]]);
 
-  for (const entry of entries) {
-    let level = root;
-    for (const segment of entry.id.split('/').slice(0, -1)) {
-      const title = humanize(segment);
-      const last = level.at(-1);
-      if (last && 'items' in last && last.title === title) {
-        level = last.items;
-      } else {
-        const group: NavGroup = { title, items: [] };
-        level.push(group);
-        level = group.items;
+  for (const { id, data: { title } } of entries) {
+    const segments = id.split('/');
+    segments.pop();
+    let parentPath = '';
+
+    for (const segment of segments) {
+      const path = `${parentPath}/${segment}`;
+      if (!levels.has(path)) {
+        const items: NavNode[] = [];
+        levels.set(path, items);
+        levels.get(parentPath)!.push({ title, items });
       }
+      parentPath = path;
     }
-    level.push({ title: entry.data.title, href: `/docs/${entry.id}` });
+
+    levels.get(parentPath)!.push({ title, href: `/docs/${id}` });
   }
 
-  return root;
+  return levels.get('')!;
 }
 
 const docs = await getCollection('docs');
 const navigation = buildTree(docs);
+console.log(navigation);
 ---
 
 <aside
   class:list={[
-    'sticky top-14.75 left-0 flex max-h-[calc(100vh-59px)] flex-col overflow-y-auto border-r border-neutral-800 p-4',
+    'sticky top-14.75 left-0 flex max-h-[calc(100vh-59px)] w-75 flex-col overflow-y-auto border-r border-neutral-800 p-4',
     className,
   ]}
 >
