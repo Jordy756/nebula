@@ -14,6 +14,10 @@ const { title, description, headings = [] } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
+    <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+  </Fragment>
   <div class="relative grid min-h-screen grid-cols-[auto_1fr] grid-rows-[auto_1fr] overflow-clip">
     <Header class="col-span-2 col-start-1" />
     <Sidebar class="col-start-1 row-start-2" />
