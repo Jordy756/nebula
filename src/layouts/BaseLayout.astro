@@ -2,6 +2,7 @@
 import '@styles/global.css';
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
+import SearchModal from '@components/ui/SearchModal.astro';
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+// const isProd = !import.meta.env.DEV;
 ---
 
 <!doctype html>
@@ -23,6 +25,13 @@ const { title, description } = Astro.props;
     <Font cssVariable="--font-host-grotesk" preload />
     <Font cssVariable="--font-inter" preload />
 
+    <!-- {isProd && (
+      <>
+        <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
+        <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+      </>
+    )} -->
+
     <meta name="description" content={description} />
 
     <ClientRouter />
@@ -31,5 +40,7 @@ const { title, description } = Astro.props;
   </head>
   <body class="bg-neutral-950 text-base font-light text-pretty text-neutral-50">
     <slot />
+    <!-- {isProd && <SearchModal />} -->
+    <SearchModal />
   </body>
 </html>

@@ -26,6 +26,10 @@
   --font-mono: var(--font-inter), Montserrat, sans-serif;
 }
 
+@utility bg-glass {
+  @apply bg-[#141414]/20 backdrop-blur-md;
+}
+
 @layer base {
   :root {
     interpolate-size: allow-keywords;
@@ -67,12 +71,26 @@
     @apply text-lg;
   }
 
+  code {
+    @apply font-sans;
+  }
+
   :is(button, a) {
     @apply cursor-pointer;
   }
 
-  code {
-    @apply font-sans;
+  dialog {
+    @apply fixed z-999 transition-discrete duration-500 ease-in-out;
+    inset: unset;
+  }
+
+  dialog::backdrop {
+    @apply bg-black/0 backdrop-blur-[0px] transition-[background-color,backdrop-blur] duration-500 ease-in-out;
+
+  }
+
+  dialog[open]::backdrop {
+    @apply bg-black/10 backdrop-blur-xs starting:bg-black/0 starting:backdrop-blur-[0px];
   }
 }
 
@@ -94,4 +112,26 @@
       @apply rounded-sm bg-neutral-800 px-1 py-0.5 font-mono text-sm font-medium text-neutral-200;
     }
   }
+
+  /* .pagefind-result-section {
+    @apply mb-1 text-xs tracking-wide text-iron-slate uppercase;
+  }
+  .pagefind-result-title {
+    @apply text-base font-semibold text-neutral-50;
+  }
+  .pagefind-result-excerpt {
+    @apply mt-1 line-clamp-2 text-sm text-iron-slate;
+  }
+  .pagefind-result-item {
+    @apply flex flex-col gap-1 border-b border-neutral-800 py-3;
+  }
+  .pagefind-result-item a {
+    @apply block;
+  }
+  .pagefind-sub-results {
+    @apply mt-2 flex flex-col gap-1 border-l border-neutral-800 pl-3;
+  }
+  .pagefind-sub-results a {
+    @apply text-xs text-iron-slate hover:text-iridescent-glow;
+  } */
 }

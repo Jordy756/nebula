@@ -1,7 +1,7 @@
 ---
-import Logo from '@components/ui/Logo.astro';
-import Search from '@components/icons/Search.astro';
 import Github from '@components/icons/Github.astro';
+import Logo from '@components/ui/Logo.astro';
+import SearchTrigger from '@components/ui/SearchTrigger.astro';
 
 interface Props {
   class?: string;
@@ -19,19 +19,13 @@ const { class: className } = Astro.props;
   <a href="/">
     <Logo width={131.25} height={32} />
   </a>
-  <div class="relative flex items-center gap-2 rounded-sm border border-neutral-800 p-2 w-[min(400px,100%)]">
-    <button>
-      <Search width={20} height={20} class="size-5 text-neutral-50" />
-    </button>
-    <input type="search" placeholder="Buscar..." class="outline-0" />
-    <span class="absolute top-1/2 right-2 -translate-y-1/2 rounded-sm bg-neutral-900 px-2 text-sm">Ctrl + K</span>
-  </div>
+  <SearchTrigger />
   <div class="flex items-center gap-2">
-    <button class="">
+    <a href="https://github.com/withastro/astro" target="_blank">
       <Github width={24} height={24} class="size-6 text-neutral-50" />
-    </button>
-    <button class="">
+    </a>
+    <a href="https://twitter.com/withastro" target="_blank">
       <Github width={24} height={24} class="size-6 text-neutral-50" />
-    </button>
+    </a>
   </div>
 </header>

@@ -1,0 +1,67 @@
+---
+
+---
+
+<dialog
+  id="search-modal"
+  closedby="any"
+  data-pagefind-ignore
+  class="top-1/2 left-1/2 w-[min(700px,100%)] -translate-1/2 scale-150 flex-col gap-4 bg-red-500 p-4 text-neutral-50 opacity-0 transition-[display,overlay,scale,opacity] open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
+  aria-label="Buscar en la documentación"
+>
+  <div class="flex items-center justify-between gap-2 border-b border-neutral-800 px-4 py-3">
+    <pagefind-input
+      class="flex-1 border-0 bg-transparent font-sans text-base text-neutral-50 outline-0 placeholder:text-iron-slate"
+      placeholder="Buscar en la documentación..."
+      autofocus></pagefind-input>
+    <button
+      type="button"
+      command="close"
+      commandfor="search-modal"
+      data-search-close
+      aria-label="Cerrar búsqueda"
+      class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-sm text-iron-slate transition-colors hover:bg-neutral-900 hover:text-neutral-50"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="size-4"
+        aria-hidden="true"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <!-- 
+
+  <div class="flex items-center gap-3 border-b border-neutral-800 px-4 py-2 text-sm">
+    <pagefind-filter-dropdown filter="category" label="Categoría" class="text-iron-slate"></pagefind-filter-dropdown>
+    <pagefind-summary class="text-iron-slate" default-message="Empezá a escribir para buscar..."></pagefind-summary>
+  </div>
+
+  <div class="max-h-[60vh] overflow-y-auto px-4 py-2">
+    <pagefind-results class="block"></pagefind-results>
+    <script type="text/pagefind-template">
+      <li class="pagefind-result-item">
+        <a href="{{ meta.url | default(url) | safeUrl }}">
+          <span class="pagefind-result-section">{{ meta.section | default('') }}</span>
+          <h3 class="pagefind-result-title">{{ meta.title | default("Sin título") }}</h3>
+          {{#if excerpt}}<p class="pagefind-result-excerpt">{{+ excerpt +}}</p>{{/if}}
+        </a>
+        {{#if sub_results}}
+        <ul class="pagefind-sub-results">
+          {{#each sub_results as sub}}
+          <li><a href="{{ sub.url | safeUrl }}">{{ sub.title }}</a></li>
+          {{/each}}
+        </ul>
+        {{/if}}
+      </li>
+    </script>
+  </div> -->
+</dialog>

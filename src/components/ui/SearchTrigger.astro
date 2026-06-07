@@ -1,0 +1,24 @@
+---
+import Search from '@components/icons/Search.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<button
+  command="show-modal"
+  commandfor="search-modal"
+  data-search-open
+  aria-label="Abrir búsqueda"
+  class:list={[
+    'flex w-[min(400px,100%)] items-center gap-2 rounded-sm border border-neutral-800 p-2 text-neutral-400',
+    className,
+  ]}
+>
+  <Search width={20} height={20} class="size-5" />
+  <span class="flex-1 truncate text-left">Buscar</span>
+  <kbd class="hidden items-center rounded-sm bg-neutral-900 px-1.5 py-0.5 text-xs md:inline-flex">Ctrl + K</kbd>
+</button>
