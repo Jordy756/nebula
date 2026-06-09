@@ -1,15 +1,18 @@
+export type PagefindSubResult = {
+  title: string;
+  url: string;
+  excerpt: string;
+};
+
 export type PagefindResultData = {
   url: string;
   excerpt: string;
   meta: {
     title?: string;
-    description?: string;
+    image?: string;
+    [key: string]: string | undefined;
   };
-  sub_results: Array<{
-    title: string;
-    url: string;
-    excerpt: string;
-  }>;
+  sub_results: PagefindSubResult[];
 };
 
 export type PagefindResult = {
@@ -17,22 +20,27 @@ export type PagefindResult = {
   data: () => Promise<PagefindResultData>;
 };
 
-export type PagefindModule = {
+export type PagefindSearchResponse = {
+  results: PagefindResult[];
+};
+
+export type Pagefind = {
   init: () => Promise<void>;
-  search: (term: string) => Promise<{ results: PagefindResult[] }>;
-  debouncedSearch: (term: string) => Promise<{ results: PagefindResult[] } | null>;
+  search: (term: string) => Promise<PagefindSearchResponse>;
+  debouncedSearch: (term: string) => Promise<PagefindSearchResponse | null>;
   preload: (term: string) => Promise<void>;
   filters: () => Promise<Record<string, Record<string, number>>>;
   destroy: () => Promise<void>;
+  options: (options: Record<string, unknown>) => Promise<void>;
 };
 
 const PAGEFIND_URL = '/pagefind/pagefind.js';
 
-let instance: PagefindModule | null = null;
+let instance: Pagefind | null = null;
 
-export const getPagefind = async (): Promise<PagefindModule> => {
+export const getPagefind = async (): Promise<Pagefind> => {
   if (instance) return instance;
-  const mod: unknown = await import(PAGEFIND_URL);
-  instance = (mod as { default?: PagefindModule }).default ?? (mod as PagefindModule);
+  const mod = (await import(PAGEFIND_URL)) as { default: Pagefind };
+  instance = mod.default;
   return instance;
 };
