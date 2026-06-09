@@ -1,51 +1,8 @@
-import { getPagefind } from '@scripts/config/pagefind';
+import { getPagefind, type PagefindResultData } from '@scripts/config/pagefind';
 
-const setup = () => {
-  const dialog = document.getElementById('search-modal') as HTMLDialogElement | null;
-
-  if (!dialog) return;
-
-  const input = dialog.querySelector<HTMLInputElement>('input');
-  const status = dialog.querySelector<HTMLElement>('#search-status');
-  const list = dialog.querySelector<HTMLElement>('#search-results');
-
-  if (!input || !status || !list) return;
-
-  let lastTerm = '';
-
-  const render = async (term: string) => {
-    if (term === lastTerm) return;
-    lastTerm = term;
-
-    if (!term) {
-      status.textContent = 'Empezá a escribir para buscar...';
-      list.innerHTML = '';
-      return;
-    }
-
-    let pagefind;
-    try {
-      pagefind = await getPagefind();
-    } catch {
-      status.textContent = 'La búsqueda no está disponible. Ejecutá pnpm build para generarla.';
-      list.innerHTML = '';
-      return;
-    }
-
-    const search = await pagefind.debouncedSearch(term);
-
-    if (!search || lastTerm !== term) return;
-
-    const data = await Promise.all(search.results.map((r) => r.data()));
-    if (lastTerm !== term) return;
-
-    const totalItems = data.reduce((sum, r) => sum + r.sub_results.length, 0);
-
-    status.textContent =
-      totalItems === 0 ? `Sin resultados para "${term}"` : `${totalItems} resultado${totalItems === 1 ? '' : 's'}`;
-
-    list.innerHTML = data
-      .map((result) => {
+const generateList = (results: PagefindResultData[]) => {
+  return results
+    .map((result) => {
         const [parent, ...children] = result.sub_results;
         if (!parent) return '';
 
@@ -66,7 +23,7 @@ const setup = () => {
 
         return `
           <li class="flex flex-col gap-2">
-          ${result.meta.section ? `<span class="text-xs text-neutral-400">${result.meta.section}</span>` : ''}
+          ${result.meta.title ? `<span class="text-xs text-neutral-400">${result.meta.title}</span>` : ''}
             <a href="${parent.url}" class="flex flex-col gap-1">
               <h3 class="text-xl">${parent.title}</h3>
               <p class="text-sm text-neutral-400">${parent.excerpt}</p>
@@ -76,6 +33,53 @@ const setup = () => {
         `;
       })
       .join('');
+};
+
+const setup = () => {
+  const dialog = document.getElementById('search-modal') as HTMLDialogElement | null;
+
+  if (!dialog) return;
+
+  const input = dialog.querySelector<HTMLInputElement>('input');
+  const status = dialog.querySelector<HTMLElement>('#search-status');
+  const list = dialog.querySelector<HTMLElement>('#search-results');
+
+  if (!input || !status || !list) return;
+
+  let lastTerm = '';
+
+  const render = async (term: string) => {
+    status.textContent = "0 resultados";
+    if (term === lastTerm) return;
+    lastTerm = term;
+
+    if (!term) {
+      list.innerHTML = '';
+      return;
+    }
+
+    let pagefind;
+    try {
+      pagefind = await getPagefind();
+    } catch {
+      list.innerHTML = '';
+      return;
+    }
+
+    const search = await pagefind.debouncedSearch(term);
+
+    if (!search || lastTerm !== term) return;
+
+    const data = await Promise.all(search.results.map((r) => r.data()));
+    if (lastTerm !== term) return;
+
+    const totalItems = data.reduce((sum, r) => sum + r.sub_results.length, 0);
+
+    if(totalItems === 0) return;
+    
+      status.textContent = `${totalItems} resultado${totalItems === 1 ? '' : 's'}`;
+      list.innerHTML = generateList(data);
+    
   };
 
   input.addEventListener('input', (e) => {

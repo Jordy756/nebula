@@ -117,7 +117,7 @@
     }
   }
 
-  .search-results mark {
+  #search-results mark {
     @apply bg-transparent font-semibold text-neutral-50;
   }
 }
