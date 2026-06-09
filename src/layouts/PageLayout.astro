@@ -1,5 +1,5 @@
 ---
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
 interface Props {
   title: string;
@@ -10,7 +10,7 @@ const { title, description } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="relative flex min-h-screen flex-col overflow-clip">
+  <div class="relative flex min-h-screen flex-col overflow-clip" data-pagefind-ignore>
     <slot />
   </div>
 </BaseLayout>

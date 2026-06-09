@@ -35,10 +35,6 @@ const { data } = entry;
 const { title, description } = data;
 const { Content, headings } = await render(entry);
 
-const pathSegments = entry.id.split('/');
-pathSegments.pop();
-const { category, subcategory, section } = getCategoryLabels(pathSegments);
-
 // TODO: IMPROVE UNDERLINE STYLES FOR LINKS
 // TODO: IMPROVE BLOCKQUOTE STYLES WHEN HAS A TITLE INSIDE
 // TODO: REVIEW LISTS STYLES, ESPECIALLY NESTED ONES WITH FLEXBOX, BECAUSE DISAPPEAR DISC AND DECIMAL NUMBERS STYLES
@@ -48,9 +44,6 @@ const { category, subcategory, section } = getCategoryLabels(pathSegments);
 ---
 
 <DocsLayout title={title} description={description} headings={headings}>
-  <span data-pagefind-filter="category" hidden>{category}</span>
-  <span data-pagefind-filter="subcategory" hidden>{subcategory ?? ''}</span>
-  <span data-pagefind-meta="section" hidden>{section}</span>
   <section class="flex flex-3 flex-col items-center">
     <Article title={title} description={description}>
       <Content
