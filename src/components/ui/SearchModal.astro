@@ -1,17 +1,30 @@
 ---
-
+import Search from '@components/icons/Search.astro';
 ---
 
 <dialog
   id="search-modal"
   closedby="any"
   data-pagefind-ignore
-  class="top-1/2 left-1/2 w-[min(700px,100%)] -translate-1/2 scale-150 flex-col gap-4 bg-red-500 p-4 text-neutral-50 opacity-0 transition-[display,overlay,scale,opacity] open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
+  open
+  class="top-1/2 left-1/2 max-h-[80vh] w-[min(700px,100%)] -translate-1/2 scale-150 flex-col bg-glass text-neutral-50 opacity-0 transition-[display,overlay,scale,opacity] open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
   aria-label="Buscar en la documentación"
 >
-  <pagefind-input
-    class="w-full border-0 bg-transparent font-sans text-base text-neutral-50 outline-0 placeholder:text-iron-slate"
-    placeholder="Buscar en la documentación..."
-    autofocus></pagefind-input>
-  <pagefind-results class="block"></pagefind-results>
+  <header class="flex items-center gap-2 p-4">
+    <Search width={20} height={20} class="size-5" />
+    <input
+      id="search-input"
+      type="search"
+      placeholder="Buscar en la documentación..."
+      autofocus
+      autocomplete="off"
+      class="w-full outline-none"
+    />
+  </header>
+  <section class="overflow-auto p-4">
+    <div id="search-status" class="hidden text-sm text-neutral-400">Escribe para buscar...</div>
+    <ul id="search-results" class="flex flex-col gap-8"></ul>
+  </section>
 </dialog>
+
+<script src="../../scripts/lib/search.ts"></script>

@@ -27,7 +27,7 @@
 }
 
 @utility bg-glass {
-  @apply bg-[#141414]/20 backdrop-blur-md;
+  @apply bg-[#141414]/80 backdrop-blur-md;
 }
 
 @layer base {
@@ -92,6 +92,10 @@
   dialog[open]::backdrop {
     @apply bg-black/10 backdrop-blur-xs starting:bg-black/0 starting:backdrop-blur-[0px];
   }
+
+  #search-modal .pf-results {
+    @apply bg-blue-500;
+  }
 }
 
 @layer components {
@@ -111,5 +115,9 @@
     & :not(pre) > code {
       @apply rounded-sm bg-neutral-800 px-1 py-0.5 font-mono text-sm font-medium text-neutral-200;
     }
+  }
+
+  .search-results mark {
+    @apply bg-transparent font-semibold text-neutral-50;
   }
 }

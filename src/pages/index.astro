@@ -10,9 +10,11 @@ const description =
 ---
 
 <PageLayout title={title} description={description}>
-  <Header />
-  <main class="flex flex-1 flex-col gap-4 p-4">
-    <Hero />
-  </main>
-  <Footer />
+  <div data-pagefind-ignore class="contents">
+    <Header />
+    <main class="flex flex-1 flex-col gap-4 p-4">
+      <Hero />
+    </main>
+    <Footer />
+  </div>
 </PageLayout>
