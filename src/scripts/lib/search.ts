@@ -1,7 +1,5 @@
 import { getPagefind, type PagefindResultData } from '@scripts/config/pagefind';
-
-const EMPTY = 'Empezá a escribir para buscar...';
-const UNAVAILABLE = 'La búsqueda no está disponible. Ejecutá pnpm build para generarla.';
+import { debounce } from '@scripts/utils/debounce';
 
 const escape = (value: string): string =>
   value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
@@ -49,41 +47,34 @@ const setup = () => {
   let currentToken = 0;
 
   const render = async (term: string) => {
-    if (!term) {
+    console.log({ term });
+    if (term === '') {
       list.innerHTML = '';
-      status.textContent = EMPTY;
+      status.textContent = '0 resultados';
       return;
     }
 
     const token = ++currentToken;
-    status.textContent = '';
-
     const pagefind = await getPagefind();
-    if (token !== currentToken) return;
-    if (!pagefind) {
-      status.textContent = UNAVAILABLE;
-      return;
-    }
 
-    const search = await pagefind.debouncedSearch(term);
-    if (token !== currentToken || !search) return;
+    if (token !== currentToken || !pagefind) return;
+
+    const search = await pagefind.search(term);
+
+    if (!search) return;
 
     const data = await Promise.all(search.results.map((r) => r.data()));
-    if (token !== currentToken) return;
-
     const totalItems = data.reduce((sum, r) => sum + r.sub_results.length, 0);
-    if (totalItems === 0) {
-      status.textContent = `Sin resultados para "${term}"`;
-      return;
-    }
 
     status.textContent = `${totalItems} resultado${totalItems === 1 ? '' : 's'}`;
     list.innerHTML = renderList(data);
   };
 
+  const debouncedRender = debounce(render, 300);
+
   input.addEventListener('input', (e) => {
     const term = (e.currentTarget as HTMLInputElement).value.trim();
-    render(term);
+    debouncedRender(term);
   });
 };
 
