@@ -44,23 +44,20 @@ const setup = () => {
   const list = dialog.querySelector<HTMLElement>('#search-results');
   if (!input || !status || !list) return;
 
-  let currentToken = 0;
-
   const render = async (term: string) => {
-    console.log({ term });
     if (term === '') {
       list.innerHTML = '';
       status.textContent = '0 resultados';
       return;
     }
 
-    const token = ++currentToken;
-    const pagefind = await getPagefind();
-
-    if (token !== currentToken || !pagefind) return;
+    const pagefind = await getPagefind().catch(() => null);
+    if (!pagefind) {
+      status.textContent = 'La búsqueda no está disponible. Ejecutá pnpm build para generarla.';
+      return;
+    }
 
     const search = await pagefind.search(term);
-
     if (!search) return;
 
     const data = await Promise.all(search.results.map((r) => r.data()));
@@ -75,6 +72,11 @@ const setup = () => {
   input.addEventListener('input', (e) => {
     const term = (e.currentTarget as HTMLInputElement).value.trim();
     debouncedRender(term);
+  });
+
+  list.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest('a');
+    link && dialog.close();
   });
 };
 
