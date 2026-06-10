@@ -86,7 +86,6 @@
 
   dialog::backdrop {
     @apply bg-black/0 backdrop-blur-[0px] transition-[background-color,backdrop-blur] duration-500 ease-in-out;
-
   }
 
   dialog[open]::backdrop {

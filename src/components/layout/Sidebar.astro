@@ -14,7 +14,10 @@ const currentPath = Astro.url.pathname;
 function buildTree(entries: Doc[]): NavNode[] {
   const levels = new Map<string, NavNode[]>([['', []]]);
 
-  for (const { id, data: { title } } of entries) {
+  for (const {
+    id,
+    data: { title },
+  } of entries) {
     const segments = id.split('/');
     segments.pop();
     let parentPath = '';

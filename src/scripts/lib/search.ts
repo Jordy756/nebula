@@ -4,9 +4,7 @@ const EMPTY = 'Empezá a escribir para buscar...';
 const UNAVAILABLE = 'La búsqueda no está disponible. Ejecutá pnpm build para generarla.';
 
 const escape = (value: string): string =>
-  value.replace(/[&<>"']/g, (char) =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!,
-  );
+  value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
 
 const renderSubResult = (sub: PagefindResultData['sub_results'][number]): string => `
   <li class="relative pl-4 before:absolute before:top-0 before:left-0 before:h-[calc(100%+16px)] before:w-px before:bg-neutral-400 after:absolute after:top-1/2 after:left-0 after:h-px after:w-3 after:bg-neutral-400 last:before:h-1/2">
@@ -20,9 +18,7 @@ const renderResult = (result: PagefindResultData): string => {
   const [parent, ...children] = result.sub_results;
   if (!parent) return '';
 
-  const section = result.meta.title
-    ? `<span class="text-xs text-neutral-400">${escape(result.meta.title)}</span>`
-    : '';
+  const section = result.meta.title ? `<span class="text-xs text-neutral-400">${escape(result.meta.title)}</span>` : '';
 
   const childrenList = children.length
     ? `<ul class="ml-4 flex flex-col gap-4">${children.map(renderSubResult).join('')}</ul>`
@@ -39,8 +35,7 @@ const renderResult = (result: PagefindResultData): string => {
     </li>`;
 };
 
-const renderList = (results: PagefindResultData[]): string =>
-  results.map(renderResult).join('');
+const renderList = (results: PagefindResultData[]): string => results.map(renderResult).join('');
 
 const setup = () => {
   const dialog = document.getElementById('search-modal') as HTMLDialogElement | null;
@@ -63,11 +58,7 @@ const setup = () => {
     const token = ++currentToken;
     status.textContent = '';
 
-    const pagefind = await getPagefind().catch((err) => {
-      console.error('Error al cargar Pagefind:', err);
-      return null;
-    });
-    
+    const pagefind = await getPagefind();
     if (token !== currentToken) return;
     if (!pagefind) {
       status.textContent = UNAVAILABLE;
