@@ -39,13 +39,16 @@ const PAGEFIND_URL = '/pagefind/pagefind.js';
 let instance: Pagefind | null = null;
 
 export const getPagefind = async (): Promise<Pagefind | null> => {
+  console.log({ instance });
   if (instance) return instance;
+  console.log('Loading Pagefind...');
 
   try {
-    console.log('Cargando Pagefind desde:');
-    return (await import(/* @vite-ignore */ PAGEFIND_URL)) as Pagefind;
+    instance = (await import(/* @vite-ignore */ PAGEFIND_URL)) as unknown as Pagefind;
+    return instance;
   } catch (error) {
-    console.error('Error al cargar Pagefind:', error);
+    instance = null;
+    console.error('Failed to load Pagefind', error);
     return null;
   }
 };
