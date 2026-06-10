@@ -42,9 +42,8 @@ export const getPagefind = async (): Promise<Pagefind | null> => {
   if (instance) return instance;
 
   try {
-    const mod = (await import(/* @vite-ignore */ PAGEFIND_URL)) as { default: Pagefind };
-    instance = mod.default;
-    return instance;
+    console.log('Cargando Pagefind desde:');
+    return (await import(/* @vite-ignore */ PAGEFIND_URL)) as Pagefind;
   } catch (error) {
     console.error('Error al cargar Pagefind:', error);
     return null;
