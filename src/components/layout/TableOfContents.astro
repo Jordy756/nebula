@@ -9,18 +9,23 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
 <aside
   data-pagefind-ignore
-  class="sticky top-14.75 left-0 flex max-h-[calc(100vh-59px)] flex-1 flex-col overflow-y-auto border-l border-neutral-800 p-4"
+  class="sticky top-[3.7rem] left-0 flex max-h-[calc(100vh-3.7rem)] flex-1 flex-col overflow-y-auto border-l border-neutral-800 p-4"
 >
   <nav class="flex flex-col gap-2" aria-label="Tabla de contenidos">
-    <h3 class="text-lg font-semibold">En esta página</h3>
-    <ul class="flex flex-col gap-2 text-sm" id="toc-list">
-      <li class="pl-2 text-neutral-300">
-        <a href="#top" data-toc-link>Inicio</a>
+    <h3 class="text-lg font-semibold text-neutral-50">En esta página</h3>
+    <ul class="flex flex-col gap-2 text-sm">
+      <li class="relative pl-2 text-neutral-300 transition-[color] duration-300 ease-in-out hover:text-neutral-200">
+        <a href="#top" data-toc-link class="toc-link">Inicio</a>
       </li>
       {
         filteredHeadings.map((heading) => (
-          <li class:list={[heading.depth === 2 ? 'pl-2 text-neutral-300' : 'pl-6 text-neutral-400']}>
-            <a href={`#${heading.slug}`} data-toc-link data-heading-slug={heading.slug}>
+          <li
+            class:list={[
+              'relative text-neutral-400 transition-[color] duration-300 ease-in-out hover:text-neutral-200',
+              heading.depth === 2 ? 'pl-2' : 'pl-6',
+            ]}
+          >
+            <a href={`#${heading.slug}`} data-toc-link data-heading-slug={heading.slug} class="toc-link">
               {heading.text}
             </a>
           </li>
@@ -30,124 +35,4 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
   </nav>
 </aside>
 
-<script>
-  // IntersectionObserver para detectar el heading activo
-  // CSS se encarga del styling visual (transiciones suaves)
-  function initTocObserver() {
-    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
-    if (!tocLinks.length) return;
-
-    // Map slug -> link para lookup rápido
-    const slugToLink = new Map<string, HTMLAnchorElement>();
-    tocLinks.forEach((link) => {
-      const slug = link.dataset.headingSlug;
-      if (slug) slugToLink.set(slug, link);
-    });
-
-    // Los headings reales en el contenido (h2, h3)
-    const headings = document.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]');
-    if (!headings.length) return;
-
-    let currentLink: HTMLAnchorElement | null = null;
-
-    function setActiveLink(link: HTMLAnchorElement | null) {
-      if (link === currentLink) return;
-      if (currentLink) {
-        currentLink.removeAttribute('aria-current');
-      }
-      if (link) {
-        link.setAttribute('aria-current', 'true');
-      }
-      currentLink = link;
-    }
-
-    // IntersectionObserver con rootMargin para activarse antes de que el heading llegue al top
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Encontrar el heading visible más cercano al top del viewport
-        let topEntry: IntersectionObserverEntry | null = null;
-        let topOffset = Infinity;
-
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const rect = entry.boundingClientRect;
-            if (rect.top < topOffset) {
-              topOffset = rect.top;
-              topEntry = entry;
-            }
-          }
-        });
-
-        if (topEntry) {
-          const heading = topEntry.target as HTMLHeadingElement;
-          const link = slugToLink.get(heading.id);
-          if (link) {
-            setActiveLink(link);
-          }
-        }
-      },
-      {
-        // Empezar a detectar cuando el heading está 100px debajo del top del viewport
-        rootMargin: '-80px 0px -70% 0px',
-        threshold: 0,
-      },
-    );
-
-    headings.forEach((h) => observer.observe(h));
-
-    // Tambien observe elementos entre headings para detectar cuando scrolleaseamos
-    // sin detenernos en un heading
-    const content = document.querySelector('article') || document.querySelector('main');
-    if (content) {
-      function walkDOM(element: Element) {
-        Array.from(element.children).forEach((child) => {
-          const tagName = child.tagName.toLowerCase();
-          if (tagName === 'h2' || tagName === 'h3') return; // ya se observa
-          if (!child.querySelector('h2') && !child.querySelector('h3')) {
-            observer.observe(child);
-          } else {
-            walkDOM(child);
-          }
-        });
-      }
-      walkDOM(content);
-    }
-  }
-
-  // Ejecutar cuando el DOM esté listo
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTocObserver);
-  } else {
-    initTocObserver();
-  }
-</script>
-
-<style>
-  [data-toc-link] {
-    transition: color 150ms ease-out;
-  }
-
-  [data-toc-link][aria-current='true'] {
-    color: var(--color-accent, #e11d48);
-    position: relative;
-  }
-
-  /* Indicador visual: barra vertical */
-  [data-toc-link][aria-current='true']::before {
-    content: '';
-    position: absolute;
-    left: -0.5rem;
-    top: 50%;
-    transform: translateY(-50%) scaleY(0);
-    width: 2px;
-    height: 0.75em;
-    background-color: var(--color-accent, #e11d48);
-    border-radius: 1px;
-    transition: transform 150ms ease-out;
-    transform-origin: center;
-  }
-
-  [data-toc-link][aria-current='true']::before {
-    transform: translateY(-50%) scaleY(1);
-  }
-</style>
+<script src="../../scripts/lib/toc.ts"></script>
