@@ -1,12 +1,20 @@
 ---
 import Chevron from '@components/icons/Chevron.astro';
 
-interface Props {
+interface PageLink {
+  href: string;
   title: string;
   description: string;
 }
 
-const { title, description } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  prev?: PageLink;
+  next?: PageLink;
+}
+
+const { title, description, prev, next } = Astro.props;
 ---
 
 <article data-pagefind-body class="flex max-w-[65ch] flex-col gap-4 px-4 py-12">
@@ -18,31 +26,37 @@ const { title, description } = Astro.props;
     <slot />
   </div>
   <footer class="mt-12 flex items-center gap-4">
-    <a
-      href=""
-      class="flex flex-1 flex-col gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
-    >
-      <div class="flex items-center gap-1 font-semibold">
-        <Chevron class="size-5 rotate-90" />
-        <span>Previous</span>
-      </div>
-      <p class="truncate">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia atque repellat doloribus aliquid? Alias atque
-        nihil ipsa consectetur ab tempora impedit, maxime est dignissimos. Autem voluptatum magnam dicta ex non?
-      </p>
-    </a>
-    <a
-      href=""
-      class="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
-    >
-      <div class="flex items-center gap-1 self-end font-semibold">
-        <span>Next</span>
-        <Chevron class="size-5 -rotate-90" />
-      </div>
-      <p class="truncate">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia atque repellat doloribus aliquid? Alias atque
-        nihil ipsa consectetur ab tempora impedit, maxime est dignissimos. Autem voluptatum magnam dicta ex non?
-      </p>
-    </a>
+    {
+      prev && (
+        <a
+          href={prev.href}
+          class="flex flex-1 flex-col gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
+          rel="prev"
+        >
+          <span class="sr-only">Ir a la página anterior:</span>
+          <div class="flex items-center gap-1 font-semibold">
+            <Chevron class="size-5 rotate-90" aria-hidden="true" />
+            <span>{prev.title}</span>
+          </div>
+          <p class="truncate">{prev.description}</p>
+        </a>
+      )
+    }
+    {
+      next && (
+        <a
+          href={next.href}
+          class="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
+          rel="next"
+        >
+          <span class="sr-only">Ir a la página siguiente:</span>
+          <div class="flex items-center gap-1 self-end font-semibold">
+            <span>{next.title}</span>
+            <Chevron class="size-5 -rotate-90" aria-hidden="true" />
+          </div>
+          <p class="truncate text-right">{next.description}</p>
+        </a>
+      )
+    }
   </footer>
 </article>

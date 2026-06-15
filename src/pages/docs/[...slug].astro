@@ -33,18 +33,21 @@ const { entry } = Astro.props;
 const { data } = entry;
 const { title, description } = data;
 const { Content, headings } = await render(entry);
-
-// TODO: IMPROVE UNDERLINE STYLES FOR LINKS
-// TODO: IMPROVE BLOCKQUOTE STYLES WHEN HAS A TITLE INSIDE
-// TODO: REVIEW LISTS STYLES, ESPECIALLY NESTED ONES WITH FLEXBOX, BECAUSE DISAPPEAR DISC AND DECIMAL NUMBERS STYLES
-// TODO: IMPROVE CODE BLOCK STYLES, LABEL PRE, CODE,...
-// TODO: IMPROVE MARGIN STYLES
-// TODO: ADD ID'S TO HEADINGS FOR BETTER NAVIGATION
+const docsEntries = await getCollection('docs');
+const currentIndex = docsEntries.findIndex((e) => e.id === entry.id);
+const prev = currentIndex > 0 ? docsEntries[currentIndex - 1] : undefined;
+const next = currentIndex < docsEntries.length - 1 ? docsEntries[currentIndex + 1] : undefined;
+const prevData = prev
+  ? { href: `/docs/${prev.id}`, title: prev.data.title, description: prev.data.description }
+  : undefined;
+const nextData = next
+  ? { href: `/docs/${next.id}`, title: next.data.title, description: next.data.description }
+  : undefined;
 ---
 
 <DocsLayout title={title} description={description} headings={headings}>
   <section class="flex flex-3 flex-col items-center">
-    <Article title={title} description={description}>
+    <Article title={title} description={description} prev={prevData} next={nextData}>
       <Content
         components={{
           p: Paragraph,
