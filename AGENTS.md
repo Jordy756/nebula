@@ -62,7 +62,7 @@ There is **no `test`, `lint`, or `format` script** in `package.json` and no CI. 
 
 - `src/components/layout/Sidebar.astro` has a leftover `console.log(navigation)` debug line. Remove before commit.
 - `src/components/layout/SidebarNode.astro` is half-finished: both the `isGroup` and the leaf branch are wrapped in HTML comments; only a placeholder `<li>` renders. The recursion call (`<Astro.self ... />`) in the group branch is also commented out, so the file is effectively dead code. If you need to render a nested tree, finish this component first.
-- `src/scripts/lib/toc.ts` is an empty file. ToC data is currently fed by Astro from `headings` (`getCollection` + `render` in `[...slug].astro`).
+- `src/scripts/lib/toc.ts` tracks active ToC section via IntersectionObserver and passive scroll listener.
 - `src/scripts/config/lenis.ts` exists but is **not imported anywhere** (the `<script src="...">` in `BaseLayout.astro` is commented out). Lenis is installed but does nothing yet.
 - `@astrojs/markdown-satteri` is in `dependencies` and was just re-added in the uncommitted diff, but `processor: satteri({...})` in `astro.config.mjs` is commented out. Do not assume the satteri processor is active.
 - `astro.config.mjs` has `site: 'https://example.com'` — placeholder. Update before relying on `@astrojs/sitemap` output URLs.
@@ -77,3 +77,7 @@ There is **no `test`, `lint`, or `format` script** in `package.json` and no CI. 
 - No CI workflows, pre-commit hooks, or automated test suite. Don't waste cycles looking for them.
 - Project-local skills live in `.agents/skills/` (symlinked into `.claude/skills/`). Index at `.atl/skill-registry.md` (gitignored, auto-generated). Most relevant here: `astro`, `tailwind-css-patterns`, `frontend-design`, `accessibility`, `seo`.
 - `.astro/` is generated (gitignored) and contains content collection types, fonts, and data store. Don't commit it; let `astro dev`/`build` regenerate.
+
+## Prohibitions
+
+- **Never write comments in code.** Use clean, self-documenting code. Function/variable names should explain intent. This is non-negotiable.

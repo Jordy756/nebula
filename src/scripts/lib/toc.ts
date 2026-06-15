@@ -1,69 +1,73 @@
-const initTocObserver = (): void => {
-  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
-  if (tocLinks.length === 0) return;
+const initTocObserver = () => {
+  const tocLinks = document.querySelectorAll('[data-toc-link]');
+  if (!tocLinks.length) return;
 
-  const slugToLink = new Map<string, HTMLAnchorElement>(
+  const slugToLink = new Map(
     Array.from(tocLinks)
-      .map((link) => [link.dataset.headingSlug ?? '', link] as const)
-      .filter(([slug]) => slug !== ''),
+      .map((l) => [l.dataset.headingSlug ?? '', l])
+      .filter(([slug]) => slug),
   );
 
-  const headings = document.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]');
-  if (headings.length === 0) return;
+  const headings = document.querySelectorAll('h2[id], h3[id]');
+  if (!headings.length) return;
 
-  let currentLink: HTMLAnchorElement | null = null;
+  let currentLink = null;
 
-  const setActiveLink = (link: HTMLAnchorElement | null): void => {
+  const setActive = (link) => {
     if (link === currentLink) return;
     currentLink?.removeAttribute('aria-current');
     link?.setAttribute('aria-current', 'true');
     currentLink = link;
   };
 
+  const getNearestHeading = () => {
+    let nearest = null;
+    let nearestTop = Infinity;
+
+    for (const h of headings) {
+      const top = h.getBoundingClientRect().top;
+      if (top >= 0 && top < nearestTop) {
+        nearestTop = top;
+        nearest = h;
+      }
+    }
+
+    if (!nearest) nearest = headings[headings.length - 1];
+    return nearest;
+  };
+
+  const updateNearest = () => {
+    const nearest = getNearestHeading();
+    if (!nearest) return;
+    const link = slugToLink.get(nearest.id);
+    if (link) setActive(link);
+  };
+
+  window.addEventListener('scroll', updateNearest, { passive: true });
+
   const observer = new IntersectionObserver(
     (entries) => {
-      let topEntry: IntersectionObserverEntry | null = null;
-      let topOffset = Infinity;
-
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
-        const offset = entry.boundingClientRect.top;
-        if (offset < topOffset) {
-          topOffset = offset;
-          topEntry = entry;
+        let el = entry.target;
+        while (el && el !== document.body) {
+          const tag = el.tagName.toLowerCase();
+          if (tag === 'h2' || tag === 'h3') {
+            const link = slugToLink.get(el.id);
+            if (link) {
+              setActive(link);
+              return;
+            }
+          }
+          el = el.parentElement;
         }
       }
-
-      if (!topEntry) return;
-
-      const heading = topEntry.target as HTMLHeadingElement;
-      const link = slugToLink.get(heading.id);
-      if (link) setActiveLink(link);
     },
-    {
-      rootMargin: '-80px 0px -70% 0px',
-      threshold: 0,
-    },
+    { rootMargin: '-80px 0px 0px 0px', threshold: 0 },
   );
 
   headings.forEach((h) => observer.observe(h));
-
-  const content = document.querySelector('article') ?? document.querySelector('main');
-  if (!content) return;
-
-  const walkDOM = (element: Element): void => {
-    for (const child of element.children) {
-      const tag = child.tagName.toLowerCase();
-      if (tag === 'h2' || tag === 'h3') continue;
-      if (!child.querySelector('h2') && !child.querySelector('h3')) {
-        observer.observe(child);
-      } else {
-        walkDOM(child);
-      }
-    }
-  };
-
-  walkDOM(content);
+  updateNearest();
 };
 
 document.addEventListener('DOMContentLoaded', initTocObserver);

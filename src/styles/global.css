@@ -91,14 +91,6 @@
   dialog[open]::backdrop {
     @apply bg-black/10 backdrop-blur-xs starting:bg-black/0 starting:backdrop-blur-[0px];
   }
-
-  [data-toc-link][aria-current='true'] {
-    @apply text-vivid-crimson;
-
-    &::before {
-      @apply absolute top-0 left-0 h-full w-0.5 rounded-sm bg-vivid-crimson content-[''];
-    }
-  }
 }
 
 @layer components {
@@ -122,5 +114,13 @@
 
   #search-results mark {
     @apply bg-transparent font-semibold text-neutral-50;
+  }
+
+  [data-toc-link][aria-current='true'] {
+    @apply text-vivid-crimson;
+
+    &::before {
+      @apply absolute top-0 left-0 h-full w-0.5 rounded-sm bg-vivid-crimson content-[''];
+    }
   }
 }
