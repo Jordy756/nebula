@@ -1,8 +1,5 @@
 const initTocObserver = () => {
   const tocLinks = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
-
-  console.log('Found TOC links:', tocLinks);
-
   if (!tocLinks.length) return;
 
   const slugToLink = new Map<string, HTMLAnchorElement>(
@@ -11,13 +8,7 @@ const initTocObserver = () => {
       .filter(([slug]) => slug),
   );
 
-  console.log('Slug to link mapping:', slugToLink);
-
-  const headings = document.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]');
-
-  console.log('Found headings:', headings);
-
-  if (!headings.length) return;
+  if (!slugToLink.size) return;
 
   let currentLink: HTMLAnchorElement | null = null;
 
@@ -28,49 +19,45 @@ const initTocObserver = () => {
     currentLink = link;
   };
 
-  const getNearestHeading = (): HTMLHeadingElement | null => {
-    let nearest: HTMLHeadingElement | null = null;
-    let nearestTop = Infinity;
+  // Cache de posiciones absolutas: slug → posición
+  const headingTops = new Map<string, number>();
 
-    for (const heading of headings) {
-      const top = heading.getBoundingClientRect().top;
+  const updateHeadingPositions = () => {
+    for (const slug of slugToLink.keys()) {
+      const heading = document.getElementById(slug);
+      if (heading) headingTops.set(slug, heading.getBoundingClientRect().top + window.scrollY);
+    }
+  };
 
-      if (top < 0 || top >= nearestTop) continue;
+  const getNearestHeading = (): string | null => {
+    const scrollY = window.scrollY + 80;
+    let nearestSlug: string | null = null;
+    let nearestDistance = Infinity;
 
-      nearestTop = top;
-      nearest = heading;
+    for (const [slug, top] of headingTops) {
+      const distance = scrollY - top;
+      if (distance >= 0 && distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestSlug = slug;
+      }
     }
 
-    return nearest ?? headings[headings.length - 1] ?? null;
+    return nearestSlug ?? [...headingTops.keys()].at(-1) ?? null;
   };
 
   const updateNearest = () => {
-    const nearest = getNearestHeading();
-
-    if (!nearest) return;
-
-    const link = slugToLink.get(nearest.id);
-
+    const slug = getNearestHeading();
+    if (!slug) return;
+    const link = slugToLink.get(slug);
     if (link) setActive(link);
   };
 
   const observer = new IntersectionObserver(
     (entries) => {
-      console.log('Intersection entries:', entries);
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
-
-        let el: Element | null = entry.target;
-
-        while (el) {
-          const tag = el.tagName.toLowerCase();
-          const link = slugToLink.get(el.id);
-
-          if ((tag !== 'h2' && tag !== 'h3') || !link) {
-            el = el.parentElement;
-            continue;
-          }
-
+        const link = slugToLink.get((entry.target as HTMLElement).id);
+        if (link) {
           setActive(link);
           return;
         }
@@ -79,9 +66,19 @@ const initTocObserver = () => {
     { rootMargin: '-80px 0px 0px 0px', threshold: 0 },
   );
 
+  const resizeObserver = new ResizeObserver(updateHeadingPositions);
+  resizeObserver.observe(document.body);
+
   window.addEventListener('scroll', updateNearest, { passive: true });
-  headings.forEach((heading) => observer.observe(heading));
+
+  // observe desde el Map directamente
+  for (const slug of slugToLink.keys()) {
+    const heading = document.getElementById(slug);
+    if (heading) observer.observe(heading);
+  }
+
+  updateHeadingPositions();
   updateNearest();
 };
 
-document.addEventListener('DOMContentLoaded', initTocObserver);
+initTocObserver();

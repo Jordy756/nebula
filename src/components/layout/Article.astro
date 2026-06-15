@@ -1,5 +1,5 @@
 ---
-import Link from '@components/ui/Link.astro';
+import Chevron from '@components/icons/Chevron.astro';
 
 interface Props {
   title: string;
@@ -17,8 +17,32 @@ const { title, description } = Astro.props;
   <div class="markdown-body flex flex-1 flex-col gap-4">
     <slot />
   </div>
-  <footer class="flex items-center gap-4">
-    <Link href={''} variant="secondary" class="flex-1" target="_blank"> Previous </Link>
-    <Link href={''} class="flex-1" target="_blank"> Next</Link>
+  <footer class="mt-12 flex items-center gap-4">
+    <a
+      href=""
+      class="flex flex-1 flex-col gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
+    >
+      <div class="flex items-center gap-1 font-semibold">
+        <Chevron class="size-5 rotate-90" />
+        <span>Previous</span>
+      </div>
+      <p class="truncate">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia atque repellat doloribus aliquid? Alias atque
+        nihil ipsa consectetur ab tempora impedit, maxime est dignissimos. Autem voluptatum magnam dicta ex non?
+      </p>
+    </a>
+    <a
+      href=""
+      class="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
+    >
+      <div class="flex items-center gap-1 self-end font-semibold">
+        <span>Next</span>
+        <Chevron class="size-5 -rotate-90" />
+      </div>
+      <p class="truncate">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia atque repellat doloribus aliquid? Alias atque
+        nihil ipsa consectetur ab tempora impedit, maxime est dignissimos. Autem voluptatum magnam dicta ex non?
+      </p>
+    </a>
   </footer>
 </article>
