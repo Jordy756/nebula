@@ -8,7 +8,30 @@ interface Props {
 const { headings = [] } = Astro.props;
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 
-const getLineX = (depth: number) => (depth >= 3 ? 12 : 0);
+const getLineX = (depth: number) => (depth >= 3 ? 16.5 : 8.5);
+
+const links = filteredHeadings.map(({ slug, text, depth }, index) => {
+  const prevDepth = index > 0 ? filteredHeadings[index - 1].depth : depth;
+  const hasTransition = depth !== prevDepth;
+  const x = getLineX(depth);
+  const prevX = getLineX(prevDepth);
+  const isLast = index === filteredHeadings.length - 1;
+  const paddingStart = depth === 2 ? 20 : 32;
+  const svgWidth = depth === 2 ? 17 : 25;
+
+  return {
+    slug,
+    text,
+    depth,
+    index,
+    x,
+    prevX,
+    hasTransition,
+    isLast,
+    paddingStart,
+    svgWidth,
+  };
+});
 ---
 
 <aside
@@ -17,104 +40,44 @@ const getLineX = (depth: number) => (depth >= 3 ? 12 : 0);
 >
   <nav class="flex flex-col gap-2" aria-label="Tabla de contenidos">
     <h3 class="text-lg font-semibold text-neutral-50">En esta página</h3>
-    <ul class="relative flex flex-col" data-toc-container>
+    <ul class="relative z-10 flex flex-col" data-toc-container>
       {
-        filteredHeadings.map((heading, index) => {
-          const isH2 = heading.depth === 2;
-          const lineX = getLineX(heading.depth);
-          const prevLineX = getLineX(filteredHeadings[index - 1]?.depth ?? heading.depth);
-          const hasTransition = lineX !== prevLineX;
-          const svgWidth = isH2 ? 17 : 25;
-          const viewBoxEnd = isH2 ? 17 : 25;
-          const startY = hasTransition ? 16 : 0;
-
-          return (
-            <li class:list={['relative flex py-1.25 text-sm first:pt-0 last:pb-0', isH2 ? 'ps-5' : 'ps-8']}>
-              <a
-                href={`#${heading.slug}`}
-                class="group w-full text-neutral-400 transition-colors duration-300 ease-in-out hover:text-neutral-200 data-[active=true]:text-red-500"
-                data-toc-link
-                data-heading-slug={heading.slug}
+        links.map(({ slug, text, depth, index, x, prevX, hasTransition, isLast, paddingStart, svgWidth }) => (
+          <li class:list={['relative flex py-1.5 ps-2 text-sm first:pt-0']}>
+            <a
+              href={`#${slug}`}
+              class="group w-full text-neutral-400 transition-colors duration-300 ease-in-out hover:text-neutral-200 data-[active=true]:text-red-500"
+              data-toc-link
+              data-heading-slug={slug}
+              data-toc-index={index}
+              style={`padding-inline-start: ${paddingStart}px;`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class:list={['absolute inset-s-0 -top-1.5 -z-1 h-full rtl:-scale-x-100']}
+                style={`width: ${svgWidth}px;`}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox={`0 0 ${viewBoxEnd} 100`}
-                  preserveAspectRatio="none"
-                  class="absolute -inset-s-1.5 top-0 h-full rtl:-scale-x-100"
-                  style={`width: ${svgWidth}px;`}
-                >
-                  <defs>
-                    <clipPath id={`toc-active-clip-${heading.slug}`}>
-                      <rect x="0" y="0" width="100%" height="100%" class="toc-clip-rect" />
-                    </clipPath>
-                  </defs>
-                  {hasTransition && (
-                    <line
-                      x1={prevLineX}
-                      y1="0"
-                      x2={lineX}
-                      y2="16"
+                {hasTransition ? (
+                  <>
+                    <path
+                      d={`M ${prevX} 0 C ${prevX} 8 ${x} 4 ${x} 12`}
                       stroke-width="1"
+                      fill="none"
                       stroke-linecap="round"
-                      vector-effect="non-scaling-stroke"
-                      class="stroke-green-50"
+                      stroke-linejoin="round"
+                      class="stroke-neutral-50"
                     />
-                  )}
-                  <line
-                    x1={lineX}
-                    y1={startY}
-                    x2={lineX}
-                    y2="100%"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    vector-effect="non-scaling-stroke"
-                    class="stroke-neutral-50"
-                  />
-                  {/* {hasTransition && (
-                    <line
-                      x1={prevLineX}
-                      y1="0"
-                      x2={lineX}
-                      y2="16"
-                      stroke-width="1"
-                      stroke-linecap="round"
-                      vector-effect="non-scaling-stroke"
-                      class="stroke-yellow-500"
-                      clip-path={`url(#toc-active-clip-${heading.slug})`}
-                    />
-                  )} */}
-                  <line
-                    x1={lineX}
-                    y1={startY}
-                    x2={lineX}
-                    y2="100%"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    vector-effect="non-scaling-stroke"
-                    class="stroke-red-500"
-                    clip-path={`url(#toc-active-clip-${heading.slug})`}
-                  />
-                </svg>
-                {heading.text}
-              </a>
-            </li>
-          );
-        })
+                    <line x1={x} y1="12" x2={x} y2="100%" stroke-width="1" class="stroke-neutral-50" />
+                  </>
+                ) : (
+                  <line x1={x} y1="0" x2={x} y2="100%" stroke-width="1" class="stroke-neutral-50" />
+                )}
+              </svg>
+              {text}
+            </a>
+          </li>
+        ))
       }
     </ul>
   </nav>
 </aside>
-
-<style>
-  .toc-clip-rect {
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.3s ease-in-out;
-  }
-
-  [data-active='true'] .toc-clip-rect {
-    transform: scaleY(1);
-  }
-</style>
-
-<script src="../../scripts/lib/toc.ts"></script>
