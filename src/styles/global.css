@@ -116,11 +116,11 @@
     @apply bg-transparent font-semibold text-neutral-50;
   }
 
-  [data-toc-link][aria-current='true'] {
+  /* [data-toc-link][aria-current='true'] {
     @apply text-vivid-crimson;
 
     &::before {
       @apply absolute top-0 left-0 h-full w-0.5 rounded-sm bg-vivid-crimson content-[''];
     }
-  }
+  } */
 }

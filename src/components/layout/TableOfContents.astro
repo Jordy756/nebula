@@ -5,8 +5,19 @@ interface Props {
   headings: MarkdownHeading[];
 }
 
+type ConnectorType = 'straight' | 'curve-down' | 'curve-up' | 'straight-deep';
+
 const { headings = [] } = Astro.props;
-const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+
+const getConnectorType = (heading: MarkdownHeading, prev: MarkdownHeading | undefined): ConnectorType => {
+  const isH2 = heading.depth === 2;
+  const prevIsH3 = prev?.depth === 3;
+
+  if (isH2) return prevIsH3 ? 'curve-down' : 'straight';
+
+  return prevIsH3 ? 'straight-deep' : 'curve-up';
+};
 ---
 
 <aside
@@ -19,64 +30,65 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       {
         filteredHeadings.map((heading, index) => {
           const isH2 = heading.depth === 2;
-          const prevHeading = filteredHeadings[index - 1];
-          const prevIsH3 = prevHeading && prevHeading.depth === 3;
+          const prev = filteredHeadings[index - 1];
+          const connectorType = getConnectorType(heading, prev);
 
           return (
-            <li class="relative" data-toc-item data-depth={heading.depth}>
-              <a
-                href={`#${heading.slug}`}
-                data-toc-link
-                data-heading-slug={heading.slug}
-                class="prose relative block scroll-m-4 py-1.5 text-sm wrap-anywhere text-neutral-400 transition-colors duration-300 ease-in-out hover:text-neutral-200 data-[active=true]:text-neutral-50"
-                style={`padding-inline-start: ${isH2 ? '20px' : '32px'};`}
-              >
-                <svg
-                  class={`absolute -inset-s-1.5 top-0 -z-1 h-full rtl:-scale-x-100 ${isH2 ? 'bottom-1.5' : 'bottom-0'}`}
-                  style={`width: ${isH2 ? '17px' : '25px'};`}
-                  data-toc-connector
-                >
-                  {isH2 ? (
-                    prevIsH3 ? (
-                      <g data-toc-line>
-                        <path
-                          d="M 16.5 0 C 16.5 8 8.5 4 8.5 12"
-                          stroke-width="1"
-                          fill="none"
-                          class="stroke-neutral-800"
-                        />
-                        <line x1="8.5" y1="12" x2="8.5" y2="100%" stroke-width="1" class="stroke-neutral-800" />
-                      </g>
-                    ) : (
-                      <line
-                        x1="8.5"
-                        y1={index === 0 ? '6' : '0'}
-                        x2="8.5"
-                        y2="100%"
+            <li
+              class:list={[
+                'relative flex py-1.25 text-sm text-neutral-400 transition-colors duration-300 ease-in-out hover:text-neutral-200 data-[active=true]:text-neutral-50',
+                isH2 ? 'ps-5' : 'ps-8',
+              ]}
+              data-toc-item
+              data-depth={heading.depth}
+            >
+              <a href={`#${heading.slug}`} data-toc-link data-heading-slug={heading.slug}>
+                <svg class:list={['absolute -inset-s-2 top-0 -z-1 h-full']} data-toc-connector>
+                  {connectorType === 'straight' && (
+                    <line
+                      x1="8.5"
+                      y1="0"
+                      x2="8.5"
+                      y2="100%"
+                      stroke-width="1"
+                      class="stroke-red-500"
+                      data-toc-line
+                    />
+                  )}
+
+                  {connectorType === 'curve-down' && (
+                    <g data-toc-line>
+                      <path
+                        d="M 16.5 0 C 16.5 8 8.5 4 8.5 12"
                         stroke-width="1"
-                        class="stroke-neutral-800"
-                        data-toc-line
+                        fill="none"
+                        class="stroke-yellow-500"
                       />
-                    )
-                  ) : prevIsH3 ? (
+                      <line x1="8.5" y1="12" x2="8.5" y2="100%" stroke-width="1" class="stroke-yellow-800" />
+                    </g>
+                  )}
+
+                  {connectorType === 'straight-deep' && (
                     <line
                       x1="16.5"
                       y1="0"
                       x2="16.5"
                       y2="100%"
                       stroke-width="1"
-                      class="stroke-neutral-800"
+                      class="stroke-blue-500"
                       data-toc-line
                     />
-                  ) : (
+                  )}
+
+                  {connectorType === 'curve-up' && (
                     <g data-toc-line>
                       <path
                         d="M 8.5 0 C 8.5 8 16.5 4 16.5 12"
                         stroke-width="1"
                         fill="none"
-                        class="stroke-neutral-800"
+                        class="stroke-green-500"
                       />
-                      <line x1="16.5" y1="12" x2="16.5" y2="100%" stroke-width="1" class="stroke-neutral-800" />
+                      <line x1="16.5" y1="12" x2="16.5" y2="100%" stroke-width="1" class="stroke-cyan-500" />
                     </g>
                   )}
                 </svg>
