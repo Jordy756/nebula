@@ -5,19 +5,10 @@ interface Props {
   headings: MarkdownHeading[];
 }
 
-type ConnectorType = 'straight' | 'curve-down' | 'curve-up' | 'straight-deep';
-
 const { headings = [] } = Astro.props;
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 
-const getConnectorType = (heading: MarkdownHeading, prev: MarkdownHeading | undefined): ConnectorType => {
-  const isH2 = heading.depth === 2;
-  const prevIsH3 = prev?.depth === 3;
-
-  if (isH2) return prevIsH3 ? 'curve-down' : 'straight';
-
-  return prevIsH3 ? 'straight-deep' : 'curve-up';
-};
+const getLineX = (depth: number) => (depth >= 3 ? 12 : 0);
 ---
 
 <aside
@@ -30,67 +21,79 @@ const getConnectorType = (heading: MarkdownHeading, prev: MarkdownHeading | unde
       {
         filteredHeadings.map((heading, index) => {
           const isH2 = heading.depth === 2;
-          const prev = filteredHeadings[index - 1];
-          const connectorType = getConnectorType(heading, prev);
+          const lineX = getLineX(heading.depth);
+          const prevLineX = getLineX(filteredHeadings[index - 1]?.depth ?? heading.depth);
+          const hasTransition = lineX !== prevLineX;
+          const svgWidth = isH2 ? 17 : 25;
+          const viewBoxEnd = isH2 ? 17 : 25;
+          const startY = hasTransition ? 16 : 0;
 
           return (
-            <li
-              class:list={[
-                'relative flex py-1.25 text-sm text-neutral-400 transition-colors duration-300 ease-in-out hover:text-neutral-200 data-[active=true]:text-neutral-50',
-                isH2 ? 'ps-5' : 'ps-8',
-              ]}
-              data-toc-item
-              data-depth={heading.depth}
-            >
-              <a href={`#${heading.slug}`} data-toc-link data-heading-slug={heading.slug}>
-                <svg class:list={['absolute -inset-s-2 top-0 -z-1 h-full']} data-toc-connector>
-                  {connectorType === 'straight' && (
+            <li class:list={['relative flex py-1.25 text-sm first:pt-0 last:pb-0', isH2 ? 'ps-5' : 'ps-8']}>
+              <a
+                href={`#${heading.slug}`}
+                class="group w-full text-neutral-400 transition-colors duration-300 ease-in-out hover:text-neutral-200 data-[active=true]:text-red-500"
+                data-toc-link
+                data-heading-slug={heading.slug}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox={`0 0 ${viewBoxEnd} 100`}
+                  preserveAspectRatio="none"
+                  class="absolute -inset-s-1.5 top-0 h-full rtl:-scale-x-100"
+                  style={`width: ${svgWidth}px;`}
+                >
+                  <defs>
+                    <clipPath id={`toc-active-clip-${heading.slug}`}>
+                      <rect x="0" y="0" width="100%" height="100%" class="toc-clip-rect" />
+                    </clipPath>
+                  </defs>
+                  {hasTransition && (
                     <line
-                      x1="8.5"
+                      x1={prevLineX}
                       y1="0"
-                      x2="8.5"
-                      y2="100%"
+                      x2={lineX}
+                      y2="16"
                       stroke-width="1"
-                      class="stroke-red-500"
-                      data-toc-line
+                      stroke-linecap="round"
+                      vector-effect="non-scaling-stroke"
+                      class="stroke-green-50"
                     />
                   )}
-
-                  {connectorType === 'curve-down' && (
-                    <g data-toc-line>
-                      <path
-                        d="M 16.5 0 C 16.5 8 8.5 4 8.5 12"
-                        stroke-width="1"
-                        fill="none"
-                        class="stroke-yellow-500"
-                      />
-                      <line x1="8.5" y1="12" x2="8.5" y2="100%" stroke-width="1" class="stroke-yellow-800" />
-                    </g>
-                  )}
-
-                  {connectorType === 'straight-deep' && (
+                  <line
+                    x1={lineX}
+                    y1={startY}
+                    x2={lineX}
+                    y2="100%"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    vector-effect="non-scaling-stroke"
+                    class="stroke-neutral-50"
+                  />
+                  {/* {hasTransition && (
                     <line
-                      x1="16.5"
+                      x1={prevLineX}
                       y1="0"
-                      x2="16.5"
-                      y2="100%"
+                      x2={lineX}
+                      y2="16"
                       stroke-width="1"
-                      class="stroke-blue-500"
-                      data-toc-line
+                      stroke-linecap="round"
+                      vector-effect="non-scaling-stroke"
+                      class="stroke-yellow-500"
+                      clip-path={`url(#toc-active-clip-${heading.slug})`}
                     />
-                  )}
-
-                  {connectorType === 'curve-up' && (
-                    <g data-toc-line>
-                      <path
-                        d="M 8.5 0 C 8.5 8 16.5 4 16.5 12"
-                        stroke-width="1"
-                        fill="none"
-                        class="stroke-green-500"
-                      />
-                      <line x1="16.5" y1="12" x2="16.5" y2="100%" stroke-width="1" class="stroke-cyan-500" />
-                    </g>
-                  )}
+                  )} */}
+                  <line
+                    x1={lineX}
+                    y1={startY}
+                    x2={lineX}
+                    y2="100%"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    vector-effect="non-scaling-stroke"
+                    class="stroke-red-500"
+                    clip-path={`url(#toc-active-clip-${heading.slug})`}
+                  />
                 </svg>
                 {heading.text}
               </a>
@@ -101,5 +104,17 @@ const getConnectorType = (heading: MarkdownHeading, prev: MarkdownHeading | unde
     </ul>
   </nav>
 </aside>
+
+<style>
+  .toc-clip-rect {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  [data-active='true'] .toc-clip-rect {
+    transform: scaleY(1);
+  }
+</style>
 
 <script src="../../scripts/lib/toc.ts"></script>
