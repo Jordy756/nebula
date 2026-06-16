@@ -1,16 +1,14 @@
 ---
 import Header from '@components/layout/Header.astro';
 import Sidebar from '@components/layout/Sidebar.astro';
-import TableOfContents from '@components/layout/TableOfContents.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 
 interface Props {
   title: string;
   description: string;
-  headings?: { depth: number; slug: string; text: string }[];
 }
 
-const { title, description, headings = [] } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -19,7 +17,6 @@ const { title, description, headings = [] } = Astro.props;
     <Sidebar class="col-start-1 row-start-2" />
     <main class="col-start-2 row-start-2 flex">
       <slot />
-      {headings.length > 0 && <TableOfContents headings={headings} />}
     </main>
   </div>
 </BaseLayout>

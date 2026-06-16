@@ -1,5 +1,6 @@
 ---
 import Article from '@components/layout/Article.astro';
+import TableOfContents from '@components/layout/TableOfContents.astro';
 import Blockquote from '@components/mdx/Blockquote.astro';
 import Deleted from '@components/mdx/Deleted.astro';
 import Emphasis from '@components/mdx/Emphasis.astro';
@@ -45,7 +46,7 @@ const nextData = next
   : undefined;
 ---
 
-<DocsLayout title={title} description={description} headings={headings}>
+<DocsLayout title={title} description={description}>
   <section class="flex flex-3 flex-col items-center">
     <Article title={title} description={description} prev={prevData} next={nextData}>
       <Content
@@ -72,4 +73,5 @@ const nextData = next
       />
     </Article>
   </section>
+  {headings.length > 0 && <TableOfContents headings={headings} />}
 </DocsLayout>

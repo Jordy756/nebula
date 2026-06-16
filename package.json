@@ -8,7 +8,6 @@
   "scripts": {
     "dev": "astro dev --open",
     "build": "astro build",
-    "build:only": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

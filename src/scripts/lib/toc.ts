@@ -1,84 +1,104 @@
+interface TocLink {
+  slug: string;
+  depth: number;
+  index: number;
+  element: HTMLAnchorElement;
+}
+
 const initTocObserver = () => {
   const tocLinks = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
+
   if (!tocLinks.length) return;
 
-  const slugToLink = new Map<string, HTMLAnchorElement>(
-    Array.from(tocLinks)
-      .map((link) => [link.dataset.headingSlug ?? '', link] as [string, HTMLAnchorElement])
-      .filter(([slug]) => slug),
-  );
+  const tocContainer = document.querySelector('[data-toc-container]');
+  if (!tocContainer) return;
 
-  if (!slugToLink.size) return;
+  const tocItems: TocLink[] = Array.from(tocLinks).map((link) => ({
+    slug: link.dataset.headingSlug ?? '',
+    depth: parseInt(link.dataset.depth ?? '2', 10),
+    index: parseInt(link.dataset.index ?? '0', 10),
+    element: link,
+  }));
 
-  let currentLink: HTMLAnchorElement | null = null;
+  if (!tocItems.length) return;
 
-  const setActive = (link: HTMLAnchorElement | null) => {
-    if (link === currentLink) return;
-    currentLink?.removeAttribute('aria-current');
-    link?.setAttribute('aria-current', 'true');
-    currentLink = link;
+  const headingElements = new Map<string, HTMLElement>();
+  for (const item of tocItems) {
+    const heading = document.getElementById(item.slug);
+    if (heading) headingElements.set(item.slug, heading);
+  }
+
+  const setActive = (links: HTMLAnchorElement[]) => {
+    const currentlyActive = tocContainer.querySelectorAll('[data-active="true"]');
+    currentlyActive.forEach((el) => el.setAttribute('data-active', 'false'));
+
+    links.forEach((link) => link.setAttribute('data-active', 'true'));
   };
 
-  // Cache de posiciones absolutas: slug → posición
-  const headingTops = new Map<string, number>();
+  const getVisibleHeadings = (): TocLink[] => {
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const viewportTop = scrollY + 80;
+    const viewportBottom = scrollY + viewportHeight;
 
-  const updateHeadingPositions = () => {
-    for (const slug of slugToLink.keys()) {
-      const heading = document.getElementById(slug);
-      if (heading) headingTops.set(slug, heading.getBoundingClientRect().top + window.scrollY);
-    }
-  };
+    const visible: TocLink[] = [];
 
-  const getNearestHeading = (): string | null => {
-    const scrollY = window.scrollY + 80;
-    let nearestSlug: string | null = null;
-    let nearestDistance = Infinity;
+    for (const item of tocItems) {
+      const heading = headingElements.get(item.slug);
+      if (!heading) continue;
 
-    for (const [slug, top] of headingTops) {
-      const distance = scrollY - top;
-      if (distance >= 0 && distance < nearestDistance) {
-        nearestDistance = distance;
-        nearestSlug = slug;
+      const rect = heading.getBoundingClientRect();
+      const headingTop = scrollY + rect.top;
+      const headingBottom = headingTop + rect.height;
+
+      if (headingBottom > viewportTop && headingTop < viewportBottom) {
+        visible.push(item);
       }
     }
 
-    return nearestSlug ?? [...headingTops.keys()].at(-1) ?? null;
+    return visible;
   };
 
-  const updateNearest = () => {
-    const slug = getNearestHeading();
-    if (!slug) return;
-    const link = slugToLink.get(slug);
-    if (link) setActive(link);
+  const updateActiveByScroll = () => {
+    const visible = getVisibleHeadings();
+    if (visible.length > 0) {
+      setActive(visible.map((v) => v.element));
+    }
   };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        const link = slugToLink.get((entry.target as HTMLElement).id);
-        if (link) {
-          setActive(link);
-          return;
-        }
-      }
-    },
-    { rootMargin: '-80px 0px 0px 0px', threshold: 0 },
-  );
+  const observerOptions = {
+    rootMargin: '-80px 0px -60% 0px',
+    threshold: 0,
+  };
 
-  const resizeObserver = new ResizeObserver(updateHeadingPositions);
+  const observer = new IntersectionObserver((entries) => {
+    const visible: TocLink[] = [];
+
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      const id = (entry.target as HTMLElement).id;
+      const item = tocItems.find((t) => t.slug === id);
+      if (item) visible.push(item);
+    }
+
+    if (visible.length > 0) {
+      setActive(visible.map((v) => v.element));
+    }
+  }, observerOptions);
+
+  const resizeObserver = new ResizeObserver(() => {
+    updateActiveByScroll();
+  });
   resizeObserver.observe(document.body);
 
-  window.addEventListener('scroll', updateNearest, { passive: true });
+  window.addEventListener('scroll', updateActiveByScroll, { passive: true });
 
-  // observe desde el Map directamente
-  for (const slug of slugToLink.keys()) {
-    const heading = document.getElementById(slug);
+  for (const item of tocItems) {
+    const heading = headingElements.get(item.slug);
     if (heading) observer.observe(heading);
   }
 
-  updateHeadingPositions();
-  updateNearest();
+  updateActiveByScroll();
 };
 
-initTocObserver();
+document.addEventListener('astro:page-load', initTocObserver);
