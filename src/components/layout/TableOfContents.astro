@@ -34,7 +34,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
 >
   <nav class="flex flex-col gap-2" aria-label="Tabla de contenidos">
     <h3 class="text-lg font-semibold text-neutral-50">En esta página</h3>
-    <ul class="relative flex flex-col" data-toc-container>
+    <ul class="relative flex flex-col">
       {
         links.map(({ slug, text, depth, index, x, prevX, hasTransition }) => (
           <li class:list={['relative flex py-1.5 text-sm first:pt-0']}>
@@ -71,3 +71,5 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
     </ul>
   </nav>
 </aside>
+
+<script src="../../scripts/lib/toc.ts"></script>
