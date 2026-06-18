@@ -1,4 +1,5 @@
 type TocLink = {
+  slug: string;
   link: HTMLAnchorElement;
   section: HTMLElement;
 };
@@ -7,33 +8,18 @@ const initTocObserver = () => {
   const links = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
   if (!links.length) return;
 
-  const orderedSlugs: string[] = [];
-  const tocLinkBySlug: Record<string, TocLink> = {};
-
-  for (const link of links) {
-    const slug = link.dataset.headingSlug;
-    const section = slug ? document.getElementById(slug) : null;
-    if (!slug || !section) continue;
-
-    orderedSlugs.push(slug);
-    tocLinkBySlug[slug] = { link, section };
-  }
-
-  if (!orderedSlugs.length) return;
-
+  const tocLinks: TocLink[] = [];
   const visibleSlugs = new Set<string>();
 
-  const setLinkActive = (link: HTMLAnchorElement, isActive: boolean) => {
-    if (isActive) link.setAttribute('data-active', 'true');
-    else link.removeAttribute('data-active');
-  };
+  const setLinkActive = (link: HTMLAnchorElement, isActive: boolean) =>
+    isActive ? link.setAttribute('data-active', 'true') : link.removeAttribute('data-active');
 
   const findSlugAboveViewport = () => {
     let closestSlug = '';
     let maxTop = -Infinity;
 
-    for (const slug of orderedSlugs) {
-      const { top } = tocLinkBySlug[slug].section.getBoundingClientRect();
+    for (const { slug, section } of tocLinks) {
+      const { top } = section.getBoundingClientRect();
       if (top <= 0 && top > maxTop) {
         maxTop = top;
         closestSlug = slug;
@@ -44,11 +30,11 @@ const initTocObserver = () => {
   };
 
   const updateActiveLinks = () => {
-    const fallbackSlug = visibleSlugs.size > 0 ? null : findSlugAboveViewport() || orderedSlugs[0];
+    const fallbackSlug = visibleSlugs.size > 0 ? null : findSlugAboveViewport() || tocLinks[0]?.slug;
 
-    for (const slug of orderedSlugs) {
+    for (const { slug, link } of tocLinks) {
       const isActive = visibleSlugs.has(slug) || slug === fallbackSlug;
-      setLinkActive(tocLinkBySlug[slug].link, isActive);
+      setLinkActive(link, isActive);
     }
   };
 
@@ -56,17 +42,23 @@ const initTocObserver = () => {
     (entries) => {
       for (const entry of entries) {
         const slug = entry.target.id;
-        if (entry.isIntersecting) visibleSlugs.add(slug);
-        else visibleSlugs.delete(slug);
+        entry.isIntersecting ? visibleSlugs.add(slug) : visibleSlugs.delete(slug);
       }
       updateActiveLinks();
     },
-    { threshold: 0 }
+    { threshold: 0 },
   );
 
-  for (const { section } of Object.values(tocLinkBySlug)) {
+  for (const link of links) {
+    const slug = link.dataset.headingSlug;
+    const section = slug ? document.getElementById(slug) : null;
+    if (!slug || !section) continue;
+
+    tocLinks.push({ slug, link, section });
     observer.observe(section);
   }
+
+  if (!tocLinks.length) observer.disconnect();
 };
 
 document.addEventListener('astro:page-load', initTocObserver);
