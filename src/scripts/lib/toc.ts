@@ -10,6 +10,7 @@ const initTocObserver = () => {
 
   const tocLinks: TocLink[] = [];
   const visibleSlugs = new Set<string>();
+  let lastScrollY = window.scrollY;
 
   const setLinkActive = (link: HTMLAnchorElement, isActive: boolean) =>
     isActive ? link.setAttribute('data-active', 'true') : link.removeAttribute('data-active');
@@ -30,11 +31,26 @@ const initTocObserver = () => {
   };
 
   const updateActiveLinks = () => {
+    const scrollY = window.scrollY;
+    const scrollingDown = scrollY >= lastScrollY;
+    lastScrollY = scrollY;
+
     const fallbackSlug = visibleSlugs.size > 0 ? null : findSlugAboveViewport() || tocLinks[0]?.slug;
+    const activeSlugs: string[] = [];
+
+    for (const { slug } of tocLinks) {
+      if (visibleSlugs.has(slug) || slug === fallbackSlug) activeSlugs.push(slug);
+    }
+
+    const edgeSlug = scrollingDown ? activeSlugs[activeSlugs.length - 1] : activeSlugs[0];
 
     for (const { slug, link } of tocLinks) {
       const isActive = visibleSlugs.has(slug) || slug === fallbackSlug;
       setLinkActive(link, isActive);
+
+      slug === edgeSlug
+        ? link.setAttribute('data-active-edge', scrollingDown ? 'bottom' : 'top')
+        : link.removeAttribute('data-active-edge');
     }
   };
 

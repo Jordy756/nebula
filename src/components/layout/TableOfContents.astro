@@ -16,15 +16,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
   const x = getLineX(depth);
   const prevX = getLineX(prevDepth);
 
-  return {
-    slug,
-    text,
-    depth,
-    index,
-    x,
-    prevX,
-    hasTransition,
-  };
+  return { slug, text, depth, index, x, prevX, hasTransition };
 });
 ---
 
@@ -48,7 +40,10 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
               data-heading-slug={slug}
               data-toc-index={index}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-s-0 -top-1.5 -z-1 h-full rtl:-scale-x-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="absolute inset-s-0 -top-1.5 -z-1 h-full overflow-visible rtl:-scale-x-100"
+              >
                 {hasTransition ? (
                   <>
                     <path
@@ -78,6 +73,18 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
                     class="stroke-neutral-800 transition-colors duration-300 group-data-[active=true]:stroke-vivid-crimson"
                   />
                 )}
+                <circle
+                  cx={prevX}
+                  cy="0"
+                  r="2"
+                  class="z-999 fill-vivid-crimson opacity-0 transition-opacity duration-300 group-data-[active-edge=top]:opacity-100"
+                />
+                <circle
+                  cx={x}
+                  cy="100%"
+                  r="2"
+                  class="z-999 fill-vivid-crimson opacity-0 transition-opacity duration-300 group-data-[active-edge=bottom]:opacity-100"
+                />
               </svg>
               {text}
             </a>
