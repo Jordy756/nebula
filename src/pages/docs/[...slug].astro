@@ -47,31 +47,29 @@ const nextData = next
 ---
 
 <DocsLayout title={title} description={description}>
-  <section class="flex flex-3 flex-col items-center">
-    <Article title={title} description={description} prev={prevData} next={nextData}>
-      <Content
-        components={{
-          p: Paragraph,
-          a: Link,
-          ul: UnorderedList,
-          ol: OrderedList,
-          li: ListItem,
-          blockquote: Blockquote,
-          pre: Pre,
-          strong: Strong,
-          em: Emphasis,
-          del: Deleted,
-          hr: HorizontalRule,
-          img: Img,
-          table: Table,
-          thead: TableHead,
-          tbody: TableBody,
-          tr: TableRow,
-          th: TableHeader,
-          td: TableData,
-        }}
-      />
-    </Article>
-  </section>
-  {headings.length > 0 && <TableOfContents headings={headings} />}
+  <Article title={title} description={description} prev={prevData} next={nextData}>
+    <Content
+      components={{
+        p: Paragraph,
+        a: Link,
+        ul: UnorderedList,
+        ol: OrderedList,
+        li: ListItem,
+        blockquote: Blockquote,
+        pre: Pre,
+        strong: Strong,
+        em: Emphasis,
+        del: Deleted,
+        hr: HorizontalRule,
+        img: Img,
+        table: Table,
+        thead: TableHead,
+        tbody: TableBody,
+        tr: TableRow,
+        th: TableHeader,
+        td: TableData,
+      }}
+    />
+  </Article>
+  {headings.length > 0 && <TableOfContents slot="toc" headings={headings} />}
 </DocsLayout>
