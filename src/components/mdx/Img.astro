@@ -1,6 +1,8 @@
 ---
-import { Image } from 'astro:assets';
+import Expand from '@components/icons/Expand.astro';
+import Minimise from '@components/icons/Minimise.astro';
 import type { HTMLAttributes } from 'astro/types';
+import { Image } from 'astro:assets';
 
 interface Props extends HTMLAttributes<'img'> {
   src: string;
@@ -8,13 +10,15 @@ interface Props extends HTMLAttributes<'img'> {
   width?: number;
   height?: number;
 }
+
 const { src, alt, class: className, width = 644, height = 362, ...rest } = Astro.props;
+const dialogId = crypto.randomUUID();
 ---
 
-<figure>
+<figure class="relative">
   <Image
     src={src}
-    alt="A description of my image."
+    alt={alt}
     layout="constrained"
     width={width}
     height={height}
@@ -22,4 +26,42 @@ const { src, alt, class: className, width = 644, height = 362, ...rest } = Astro
     {...rest}
   />
   <figcaption class="sr-only">{alt}</figcaption>
+  <button
+    command="show-modal"
+    commandfor={dialogId}
+    aria-label="Expandir imagen"
+    title="Expandir imagen"
+    class="absolute right-2 bottom-2 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
+  >
+    <Expand width={16} height={16} class="size-4" />
+  </button>
 </figure>
+
+<dialog
+  id={dialogId}
+  closedby="any"
+  class="top-1/2 left-1/2 -translate-1/2 bg-transparent p-0 text-neutral-50 opacity-0 transition-[display,overlay,scale,opacity] backdrop:bg-black/70 open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
+  aria-label={`Imagen ampliada: ${alt}`}
+>
+  <figure class="flex h-[96vh] w-screen flex-col items-center overflow-y-auto rounded-sm">
+    <Image
+      src={src}
+      alt={alt}
+      layout="constrained"
+      width={width * 2}
+      height={height * 2}
+      class:list={['aspect-auto h-full w-auto rounded-sm object-contain', className]}
+      {...rest}
+    />
+    <figcaption class="sr-only">{alt}</figcaption>
+  </figure>
+  <button
+    command="close"
+    commandfor={dialogId}
+    aria-label="Cerrar imagen ampliada"
+    title="Cerrar imagen ampliada"
+    class="absolute right-4 bottom-2 z-10 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
+  >
+    <Minimise width={24} height={24} class="size-6 text-neutral-50" />
+  </button>
+</dialog>
