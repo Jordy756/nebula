@@ -38,16 +38,15 @@ const initTocObserver = () => {
     }
   };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        const slug = entry.target.id;
-        entry.isIntersecting ? visibleSlugs.add(slug) : visibleSlugs.delete(slug);
-      }
-      updateActiveLinks();
-    },
-    { threshold: 0 },
-  );
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    for (const entry of entries) {
+      const slug = entry.target.id;
+      entry.isIntersecting ? visibleSlugs.add(slug) : visibleSlugs.delete(slug);
+    }
+    updateActiveLinks();
+  };
+
+  const observer = new IntersectionObserver(handleIntersection, { threshold: 0 });
 
   for (const link of links) {
     const slug = link.dataset.headingSlug;
