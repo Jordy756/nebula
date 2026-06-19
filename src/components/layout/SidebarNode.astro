@@ -37,7 +37,7 @@ const isCurrentItem = !isGroup && hasActive(node, currentPath);
   isGroup ? (
     <li class="flex flex-col gap-2">
       <div class="flex items-center justify-between gap-2">
-        <h4 class:list={['text-sm font-light']}>{node.title}</h4>
+        <h2 class:list={['text-sm font-light']}>{node.title}</h2>
         <ChevronIcon width={20} height={20} class="w-5" />
       </div>
       <ul class="ml-1 flex flex-col gap-1 border-l border-neutral-800 pl-4">

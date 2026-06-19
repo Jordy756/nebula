@@ -8,6 +8,7 @@ const popoverId = `copy-popover-${crypto.randomUUID()}`;
   <pre class="overflow-x-auto p-4 font-mono leading-relaxed"><slot /></pre>
   <button
     popovertarget={popoverId}
+    aria-label="Copiar código"
     class="absolute top-4 right-4 flex items-center justify-center rounded-xs border border-neutral-800 p-1 opacity-0 transition-[background-color,opacity] duration-300 ease-in-out group-hover:opacity-100"
   >
     <CopyIcon width={24} height={24} class="h-6 w-6" />
