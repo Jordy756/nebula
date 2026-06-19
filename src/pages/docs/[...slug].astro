@@ -9,7 +9,6 @@ import Img from '@components/mdx/Img.astro';
 import Link from '@components/mdx/Link.astro';
 import ListItem from '@components/mdx/ListItem.astro';
 import OrderedList from '@components/mdx/OrderedList.astro';
-import Paragraph from '@components/mdx/Paragraph.astro';
 import Pre from '@components/mdx/Pre.astro';
 import Strong from '@components/mdx/Strong.astro';
 import Table from '@components/mdx/Table.astro';
@@ -50,7 +49,6 @@ const nextData = next
   <Article title={title} description={description} prev={prevData} next={nextData}>
     <Content
       components={{
-        p: Paragraph,
         a: Link,
         ul: UnorderedList,
         ol: OrderedList,
