@@ -13,7 +13,7 @@ const { title, description } = Astro.props;
 <BaseLayout title={title} description={description}>
   <div class="relative flex min-h-screen">
     <Sidebar class="flex-1" />
-    <main class="flex flex-3 flex-col items-center">
+    <main class="flex flex-2 flex-col items-center">
       <slot />
     </main>
     <slot name="toc" />

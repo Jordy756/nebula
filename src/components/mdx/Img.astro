@@ -1,6 +1,6 @@
 ---
-import Expand from '@components/icons/Expand.astro';
-import Minimise from '@components/icons/Minimise.astro';
+import ExpandIcon from '@components/icons/ExpandIcon.astro';
+import MinimiseIcon from '@components/icons/MinimiseIcon.astro';
 import type { HTMLAttributes } from 'astro/types';
 import { Image } from 'astro:assets';
 
@@ -33,7 +33,7 @@ const dialogId = crypto.randomUUID();
     title="Expandir imagen"
     class="absolute right-2 bottom-2 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
   >
-    <Expand width={16} height={16} class="size-4" />
+    <ExpandIcon width={16} height={16} class="size-4" />
   </button>
 </figure>
 
@@ -62,6 +62,6 @@ const dialogId = crypto.randomUUID();
     title="Cerrar imagen ampliada"
     class="absolute right-4 bottom-2 z-10 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
   >
-    <Minimise width={24} height={24} class="size-6 text-neutral-50" />
+    <MinimiseIcon width={24} height={24} class="size-6 text-neutral-50" />
   </button>
 </dialog>
