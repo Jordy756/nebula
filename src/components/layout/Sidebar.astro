@@ -4,6 +4,8 @@ import SidebarNode, { type NavNode } from './SidebarNode.astro';
 import Logo from '@components/ui/Logo.astro';
 import SearchTrigger from '@components/ui/SearchTrigger.astro';
 import GithubIcon from '@components/icons/GithubIcon.astro';
+import LightIcon from '@components/icons/LightIcon.astro';
+import DarkIcon from '@components/icons/DarkIcon.astro';
 
 type Doc = CollectionEntry<'docs'>;
 
@@ -76,7 +78,10 @@ const navigation = buildTree(docs);
         <GithubIcon width={24} height={24} class="size-6" />
       </a>
       <a href="https://twitter.com/withastro" target="_blank" rel="noopener noreferrer" aria-label="Twitter de Astro">
-        <GithubIcon width={24} height={24} class="size-6" />
+        <LightIcon width={24} height={24} class="size-6" />
+      </a>
+      <a href="https://twitter.com/withastro" target="_blank" rel="noopener noreferrer" aria-label="Twitter de Astro">
+        <DarkIcon width={24} height={24} class="size-6" />
       </a>
     </footer>
   </div>
