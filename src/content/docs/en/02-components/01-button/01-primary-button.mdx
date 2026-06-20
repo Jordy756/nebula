@@ -1,0 +1,20 @@
+---
+title: Primary Buttons
+description: Learn how to integrate interactive components directly into your Markdown files.
+---
+
+## Components in Markdown
+
+In Nebula, you are not limited to static text. You can use **MDX** to inject Astro, React, or Svelte components directly into your documentation.
+
+### Button Example
+
+Here is an example of how an interactive button would look if you had MDX support enabled:
+
+```jsx
+import Button from '../../components/ui/Button.astro';
+
+<Button variant="outline">Click here</Button>
+```
+
+> **Note:** By default, Astro supports pure `.md`. To use live components inside your files, you need to install `@astrojs/mdx`.

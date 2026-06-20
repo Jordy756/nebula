@@ -1,0 +1,24 @@
+---
+import { defaultLocale, locales, useTranslations } from '@i18n/ui';
+import Footer from '@components/layout/Footer.astro';
+import Header from '@components/layout/Header.astro';
+import Hero from '@components/sections/hero/Hero.astro';
+import PageLayout from '@layouts/PageLayout.astro';
+
+export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const t = useTranslations(locale);
+const title = t('landing.title');
+const description = t('landing.description');
+---
+
+<PageLayout title={title} description={description}>
+  <div data-pagefind-ignore class="contents">
+    <Header />
+    <main class="flex flex-1 flex-col gap-4 p-4">
+      <Hero />
+    </main>
+    <Footer />
+  </div>
+</PageLayout>

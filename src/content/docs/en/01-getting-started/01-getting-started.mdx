@@ -1,0 +1,68 @@
+---
+title: Getting Started
+description: Learn how to integrate interactive components directly into your Markdown files.
+---
+
+import Img from '@components/mdx/Img.astro';
+import Video from '@components/mdx/Video.astro';
+import Youtube from '@components/mdx/Youtube.astro';
+
+## Level 2 Heading — Section
+
+This is a sample paragraph to show how the base text looks. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+Here we test **strong text**, _emphasis_, ~~deleted text~~, and also **combinations like _italics inside bold_**.
+
+This is a [sample link](https://example.com) to see how the Link component renders.
+
+### Level 3 Heading — Subsection
+
+This is a normal paragraph with sample text. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+---
+
+## Lists
+
+### Unordered List
+
+- First unordered item
+- Second item with longer text to see wrapping
+- Third item with **bold formatting**
+  - Nested level 2 item
+
+### Ordered List
+
+1. First step in the sequence
+2. Second step with a longer description
+3. Third step with **formatting**
+
+---
+
+## Code
+
+### Inline Code
+
+Refer to `const user = "John"` or functions like `getUserById(id)`.
+
+### Code Block
+
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+const message = greet('World');
+console.log(message);
+```
+
+---
+
+## Media
+
+### Horizontal Image
+
+<Img src="https://raw.githubusercontent.com/Jordy756/cuts/refs/heads/main/examples/example_img_01.webp" alt="Placeholder" />
+
+### Local Video
+
+<Video src="/character-render-app.webm" />

@@ -1,0 +1,33 @@
+---
+title: Secondary Buttons
+description: Learn how to integrate interactive components directly into your Markdown files.
+---
+
+import Note from '@components/mdx/Note.astro';
+
+## Overview
+
+Secondary buttons follow the same flexible MDX pattern as primary buttons, but with a lower emphasis visual style.
+
+```bash
+npm install nebula-docs
+```
+
+## TypeScript Code
+
+```ts
+import { getCollection } from 'astro:content';
+const docsEntries = await getCollection('docs');
+```
+
+<Note type="info" title="Information note">
+  <p>This is an informational note.</p>
+</Note>
+
+<Note type="warning" title="Warning note">
+  <p>This is a warning note.</p>
+</Note>
+
+<Note type="error" title="Error note">
+  <p>This is an error note.</p>
+</Note>

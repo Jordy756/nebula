@@ -8,12 +8,10 @@ const description = 'La página que estás buscando no existe.';
 ---
 
 <PageLayout title={title} description={description}>
-  <div data-pagefind-ignore class="contents">
-    <Header />
-    <main class="flex flex-1 flex-col gap-4 p-4">
-      <h1>404 - Página no encontrada</h1>
-      <p>La página que estás buscando no existe.</p>
-    </main>
-    <Footer />
-  </div>
+  <Header />
+  <main class="flex flex-1 flex-col gap-4 p-4">
+    <h1>404 - Página no encontrada</h1>
+    <p>La página que estás buscando no existe.</p>
+  </main>
+  <Footer />
 </PageLayout>

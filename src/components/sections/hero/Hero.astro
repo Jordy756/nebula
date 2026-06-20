@@ -1,18 +1,18 @@
 ---
+import { defaultLocale, useTranslations } from '@i18n/ui';
 import Button from '@components/ui/Button.astro';
 import Link from '@components/ui/Link.astro';
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const t = useTranslations(locale);
 ---
 
 <section class="flex max-w-[65ch] flex-1 flex-col items-center justify-center gap-4 self-center text-center">
-  <h1>Nebula - Tu documentación sin cajas negras</h1>
-  <p class="text-center">
-    Nebula es una plataforma de documentación de código abierto que te permite crear, mantener y alojar tu documentación
-    sin depender de servicios de terceros. Con Nebula, puedes tener el control total sobre tu documentación, desde su
-    estructura hasta su apariencia, sin preocuparte por las limitaciones de las plataformas tradicionales.
-  </p>
+  <h1>{t('landing.title')}</h1>
+  <p class="text-center">{t('landing.description')}</p>
 
   <div class="flex gap-4">
-    <Link href="/docs/01-getting-started/01-getting-started">Empezar</Link>
-    <Button variant="secondary">Ver en GitHub</Button>
+    <Link href={`/${locale}/docs/01-getting-started/01-getting-started`}>{t('landing.start')}</Link>
+    <Button variant="secondary">{t('landing.github')}</Button>
   </div>
 </section>

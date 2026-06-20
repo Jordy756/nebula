@@ -1,6 +1,8 @@
 ---
+import { defaultLocale, useTranslations } from '@i18n/ui';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import SidebarNode, { type NavNode } from './SidebarNode.astro';
+import LanguagePicker from '@components/ui/LanguagePicker.astro';
 import Logo from '@components/ui/Logo.astro';
 import SearchTrigger from '@components/ui/SearchTrigger.astro';
 import GithubIcon from '@components/icons/GithubIcon.astro';
@@ -14,16 +16,20 @@ interface Props {
 }
 
 const { class: className } = Astro.props;
+const locale = Astro.currentLocale ?? defaultLocale;
+const t = useTranslations(locale);
 const currentPath = Astro.url.pathname;
+const currentLocale = Astro.currentLocale ?? 'es';
 
-function buildTree(entries: Doc[]): NavNode[] {
+function buildTree(entries: Doc[], locale: string): NavNode[] {
   const levels = new Map<string, NavNode[]>([['', []]]);
 
   for (const {
     id,
     data: { title },
   } of entries) {
-    const segments = id.split('/');
+    const slugParts = id.split('/').slice(1);
+    const segments = slugParts.slice();
     segments.pop();
     let parentPath = '';
 
@@ -37,14 +43,16 @@ function buildTree(entries: Doc[]): NavNode[] {
       parentPath = path;
     }
 
-    levels.get(parentPath)!.push({ title, href: `/docs/${id}` });
+    const slug = slugParts.join('/');
+    levels.get(parentPath)!.push({ title, href: `/${locale}/docs/${slug}` });
   }
 
   return levels.get('')!;
 }
 
 const docs = await getCollection('docs');
-const navigation = buildTree(docs);
+const localeDocs = docs.filter((entry) => entry.id.startsWith(`${currentLocale}/`));
+const navigation = buildTree(localeDocs, currentLocale);
 // console.log(navigation);
 ---
 
@@ -57,13 +65,14 @@ const navigation = buildTree(docs);
 >
   <div class="flex h-full w-[min(100%,275px)] flex-col">
     <header class="flex flex-col gap-4 p-4">
-      <h2 class="sr-only">Menú Lateral</h2>
-      <a href="/" aria-label="Ir al inicio">
+      <h2 class="sr-only">{t('nav.sidebar')}</h2>
+      <a href={`/${locale}/`} aria-label="Ir al inicio">
         <Logo width={100} height={24} />
       </a>
       <SearchTrigger />
+      <LanguagePicker />
     </header>
-    <nav class="flex-1 overflow-y-auto p-4" aria-label="Navegación principal">
+    <nav class="flex-1 overflow-y-auto p-4" aria-label={t('nav.main')}>
       <ul class="flex flex-col gap-2">
         {navigation.map((node) => <SidebarNode node={node} currentPath={currentPath} />)}
       </ul>

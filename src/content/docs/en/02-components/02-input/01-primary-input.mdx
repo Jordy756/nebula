@@ -1,0 +1,20 @@
+---
+title: Primary Inputs
+description: Learn how to integrate interactive components directly into your Markdown files.
+---
+
+## Components in Markdown
+
+In Nebula, you are not limited to static text. You can use **MDX** to inject Astro, React, or Svelte components directly into your documentation.
+
+### Input Example
+
+Here is an example of how an interactive input would look if you had MDX support enabled:
+
+```jsx
+import Input from '../../components/ui/Input.astro';
+
+<Input placeholder="Type something" />
+```
+
+> **Note:** By default, Astro supports pure `.md`. To use live components inside your files, you need to install `@astrojs/mdx`.

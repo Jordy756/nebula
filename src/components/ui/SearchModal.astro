@@ -1,5 +1,9 @@
 ---
+import { defaultLocale, useTranslations } from '@i18n/ui';
 import SearchIcon from '@components/icons/SearchIcon.astro';
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const t = useTranslations(locale);
 ---
 
 <dialog
@@ -7,14 +11,14 @@ import SearchIcon from '@components/icons/SearchIcon.astro';
   closedby="any"
   data-pagefind-ignore
   class="top-1/2 left-1/2 max-h-[80vh] w-[min(700px,100%)] -translate-1/2 scale-150 flex-col rounded-lg bg-glass text-neutral-50 opacity-0 transition-[display,overlay,scale,opacity] open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
-  aria-label="Buscar en la documentación"
+  aria-label={t('search.modalLabel')}
 >
   <header class="flex items-center gap-2 p-4">
     <SearchIcon width={20} height={20} class="size-5" />
     <input
       id="search-input"
       type="search"
-      placeholder="Buscar en la documentación..."
+      placeholder={t('search.placeholder')}
       autofocus
       autocomplete="off"
       class="w-full outline-none"
@@ -22,7 +26,7 @@ import SearchIcon from '@components/icons/SearchIcon.astro';
   </header>
   <ul id="search-results" class="flex-col gap-8 overflow-auto p-4"></ul>
   <footer class="flex justify-end border-t border-neutral-800 p-4">
-    <span id="search-status" class="text-sm text-neutral-400">0 resultados</span>
+    <span id="search-status" class="text-sm text-neutral-400">0 {t('search.results')}</span>
   </footer>
 </dialog>
 

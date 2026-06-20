@@ -1,0 +1,38 @@
+---
+import { defaultLocale, locales, useTranslations } from '@i18n/ui';
+
+const locale = Astro.currentLocale ?? defaultLocale;
+const t = useTranslations(locale);
+const currentPath = Astro.url.pathname.replace(`/${locale}`, '') || '/';
+---
+
+<div class="relative">
+  <button
+    type="button"
+    popovertarget="language-picker"
+    aria-label={t('languagePicker.label')}
+    class="flex cursor-pointer items-center gap-1 rounded-sm border border-neutral-800 px-2 py-1 text-sm text-neutral-400 transition-colors hover:text-neutral-200"
+  >
+    {locale.toUpperCase()}
+  </button>
+  <div
+    id="language-picker"
+    popover
+    class="rounded-sm border border-neutral-800 bg-neutral-900 p-2 shadow-sm"
+  >
+    <ul class="flex flex-col gap-1">
+      {locales.map((loc) => (
+        <li>
+          <a
+            href={`/${loc}${currentPath}`}
+            hreflang={loc}
+            aria-current={loc === locale ? 'true' : undefined}
+            class="block rounded-sm px-2 py-1 text-sm text-neutral-50 transition-colors hover:bg-neutral-800"
+          >
+            {loc.toUpperCase()}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

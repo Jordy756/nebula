@@ -1,0 +1,58 @@
+export const defaultLocale = 'en';
+
+export const locales = ['en', 'es'] as const;
+
+export type Locale = (typeof locales)[number];
+
+export const ui = {
+  es: {
+    'nav.main': 'Navegación principal',
+    'nav.sidebar': 'Menú Lateral',
+    'search.open': 'Abrir búsqueda',
+    'search.placeholder': 'Buscar en la documentación...',
+    'search.modalLabel': 'Buscar en la documentación',
+    'search.results': 'resultados',
+    'search.shortcut': 'Ctrl + K',
+    'toc.title': 'En esta página',
+    'article.prev': 'Ir a la página anterior:',
+    'article.next': 'Ir a la página siguiente:',
+    'image.expand': 'Expandir imagen',
+    'image.close': 'Cerrar imagen ampliada',
+    'code.copy': 'Copiar código',
+    'code.copied': 'Copiado',
+    'languagePicker.label': 'Seleccionar idioma',
+    'landing.title': 'Nebula - Tu documentación sin cajas negras',
+    'landing.description':
+      'Nebula es una plataforma de documentación de código abierto que te permite crear, mantener y alojar tu documentación sin depender de servicios de terceros.',
+    'landing.start': 'Empezar',
+    'landing.github': 'Ver en GitHub',
+  },
+  en: {
+    'nav.main': 'Main navigation',
+    'nav.sidebar': 'Sidebar menu',
+    'search.open': 'Open search',
+    'search.placeholder': 'Search documentation...',
+    'search.modalLabel': 'Search documentation',
+    'search.results': 'results',
+    'search.shortcut': 'Ctrl + K',
+    'toc.title': 'On this page',
+    'article.prev': 'Go to previous page:',
+    'article.next': 'Go to next page:',
+    'image.expand': 'Expand image',
+    'image.close': 'Close expanded image',
+    'code.copy': 'Copy code',
+    'code.copied': 'Copied',
+    'languagePicker.label': 'Select language',
+    'landing.title': 'Nebula - Documentation without black boxes',
+    'landing.description':
+      'Nebula is an open-source documentation platform that lets you create, maintain, and host your docs without relying on third-party services.',
+    'landing.start': 'Get started',
+    'landing.github': 'View on GitHub',
+  },
+} satisfies Record<Locale, Record<string, string>>;
+
+export function useTranslations(locale: Locale) {
+  return function t(key: keyof (typeof ui)[typeof defaultLocale]) {
+    return ui[locale]?.[key] ?? ui[defaultLocale][key];
+  };
+}

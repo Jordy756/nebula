@@ -1,6 +1,7 @@
 ---
 import ExpandIcon from '@components/icons/ExpandIcon.astro';
 import MinimiseIcon from '@components/icons/MinimiseIcon.astro';
+import { defaultLocale, useTranslations } from '@i18n/ui';
 import type { HTMLAttributes } from 'astro/types';
 import { Image } from 'astro:assets';
 
@@ -13,6 +14,8 @@ interface Props extends HTMLAttributes<'img'> {
 
 const { src, alt, class: className, width = 644, height = 362, ...rest } = Astro.props;
 const dialogId = crypto.randomUUID();
+const locale = Astro.currentLocale ?? defaultLocale;
+const t = useTranslations(locale);
 ---
 
 <figure class="relative">
@@ -29,8 +32,8 @@ const dialogId = crypto.randomUUID();
   <button
     command="show-modal"
     commandfor={dialogId}
-    aria-label="Expandir imagen"
-    title="Expandir imagen"
+    aria-label={t('image.expand')}
+    title={t('image.expand')}
     class="absolute right-2 bottom-2 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
   >
     <ExpandIcon width={16} height={16} class="size-4" />
@@ -58,8 +61,8 @@ const dialogId = crypto.randomUUID();
   <button
     command="close"
     commandfor={dialogId}
-    aria-label="Cerrar imagen ampliada"
-    title="Cerrar imagen ampliada"
+    aria-label={t('image.close')}
+    title={t('image.close')}
     class="absolute right-4 bottom-2 z-10 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
   >
     <MinimiseIcon width={24} height={24} class="size-6 text-neutral-50" />
