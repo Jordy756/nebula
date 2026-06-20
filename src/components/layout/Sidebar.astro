@@ -1,5 +1,5 @@
 ---
-import { defaultLocale, useTranslations } from '@i18n/ui';
+import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import SidebarNode, { type NavNode } from './SidebarNode.astro';
 import LanguagePicker from '@components/ui/LanguagePicker.astro';
@@ -16,10 +16,9 @@ interface Props {
 }
 
 const { class: className } = Astro.props;
-const locale = Astro.currentLocale ?? defaultLocale;
+const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(locale);
 const currentPath = Astro.url.pathname;
-const currentLocale = Astro.currentLocale ?? 'es';
 
 function buildTree(entries: Doc[], locale: string): NavNode[] {
   const levels = new Map<string, NavNode[]>([['', []]]);
@@ -51,8 +50,8 @@ function buildTree(entries: Doc[], locale: string): NavNode[] {
 }
 
 const docs = await getCollection('docs');
-const localeDocs = docs.filter((entry) => entry.id.startsWith(`${currentLocale}/`));
-const navigation = buildTree(localeDocs, currentLocale);
+const localeDocs = docs.filter((entry) => entry.id.startsWith(`${locale}/`));
+const navigation = buildTree(localeDocs, locale);
 // console.log(navigation);
 ---
 
@@ -70,27 +69,40 @@ const navigation = buildTree(localeDocs, currentLocale);
         <Logo width={100} height={24} />
       </a>
       <SearchTrigger />
-      <LanguagePicker />
     </header>
     <nav class="flex-1 overflow-y-auto p-4" aria-label={t('nav.main')}>
       <ul class="flex flex-col gap-2">
         {navigation.map((node) => <SidebarNode node={node} currentPath={currentPath} />)}
       </ul>
     </nav>
-    <footer class="flex items-center gap-4 p-4">
+    <footer class="flex items-center p-4">
+      <LanguagePicker />
       <a
         href="https://github.com/withastro/astro"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub de Astro"
+        class="rounded-sm border border-neutral-800 p-1.5 text-sm"
       >
-        <GithubIcon width={24} height={24} class="size-6" />
+        <GithubIcon width={20} height={20} class="size-5" />
       </a>
-      <a href="https://twitter.com/withastro" target="_blank" rel="noopener noreferrer" aria-label="Twitter de Astro">
-        <LightIcon width={24} height={24} class="size-6" />
+      <a
+        href="https://twitter.com/withastro"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Twitter de Astro"
+        class="rounded-sm border border-neutral-800 p-1.5 text-sm"
+      >
+        <LightIcon width={20} height={20} class="size-5" />
       </a>
-      <a href="https://twitter.com/withastro" target="_blank" rel="noopener noreferrer" aria-label="Twitter de Astro">
-        <DarkIcon width={24} height={24} class="size-6" />
+      <a
+        href="https://twitter.com/withastro"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Twitter de Astro"
+        class="rounded-sm border border-neutral-800 p-1.5 text-sm"
+      >
+        <DarkIcon width={20} height={20} class="size-5" />
       </a>
     </footer>
   </div>

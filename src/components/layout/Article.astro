@@ -1,5 +1,5 @@
 ---
-import { defaultLocale, useTranslations } from '@i18n/ui';
+import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
 import ChevronIcon from '@components/icons/ChevronIcon.astro';
 
 interface PageLink {
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { title, description, prev, next } = Astro.props;
-const locale = Astro.currentLocale ?? defaultLocale;
+const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(locale);
 ---
 

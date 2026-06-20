@@ -1,8 +1,8 @@
 ---
-import { defaultLocale, useTranslations } from '@i18n/ui';
+import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
 import SearchIcon from '@components/icons/SearchIcon.astro';
 
-const locale = Astro.currentLocale ?? defaultLocale;
+const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(locale);
 ---
 

@@ -3,12 +3,14 @@ import GithubIcon from '@components/icons/GithubIcon.astro';
 import LanguagePicker from '@components/ui/LanguagePicker.astro';
 import Logo from '@components/ui/Logo.astro';
 import SearchTrigger from '@components/ui/SearchTrigger.astro';
+import { defaultLocale, type Locale } from '@i18n/ui';
 
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
+const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
 ---
 
 <header
@@ -18,7 +20,7 @@ const { class: className } = Astro.props;
     className,
   ]}
 >
-  <a href={`/${Astro.currentLocale ?? 'es'}/`}>
+  <a href={`/${locale}/`}>
     <Logo width={131.25} height={32} />
   </a>
   <SearchTrigger />

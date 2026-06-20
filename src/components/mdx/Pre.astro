@@ -1,9 +1,9 @@
 ---
 import CopyIcon from '@components/icons/CopyIcon.astro';
-import { defaultLocale, useTranslations } from '@i18n/ui';
+import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
 
 const popoverId = `copy-popover-${crypto.randomUUID()}`;
-const locale = Astro.currentLocale ?? defaultLocale;
+const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(locale);
 ---
 

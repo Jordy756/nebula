@@ -18,6 +18,7 @@ import TableHead from '@components/mdx/TableHead.astro';
 import TableHeader from '@components/mdx/TableHeader.astro';
 import TableRow from '@components/mdx/TableRow.astro';
 import UnorderedList from '@components/mdx/UnorderedList.astro';
+import { defaultLocale, type Locale } from '@i18n/ui';
 import DocsLayout from '@layouts/DocsLayout.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -36,17 +37,25 @@ const { entry } = Astro.props;
 const { data } = entry;
 const { title, description } = data;
 const { Content, headings } = await render(entry);
-const currentLocale = Astro.currentLocale ?? 'es';
+const currentLocale = (Astro.currentLocale ?? defaultLocale) as Locale;
 const docsEntries = await getCollection('docs');
 const localeEntries = docsEntries.filter((e) => e.id.startsWith(`${currentLocale}/`));
 const currentIndex = localeEntries.findIndex((e) => e.id === entry.id);
 const prev = currentIndex > 0 ? localeEntries[currentIndex - 1] : undefined;
 const next = currentIndex < localeEntries.length - 1 ? localeEntries[currentIndex + 1] : undefined;
 const prevData = prev
-  ? { href: `/${currentLocale}/docs/${prev.id.split('/').slice(1).join('/')}`, title: prev.data.title, description: prev.data.description }
+  ? {
+      href: `/${currentLocale}/docs/${prev.id.split('/').slice(1).join('/')}`,
+      title: prev.data.title,
+      description: prev.data.description,
+    }
   : undefined;
 const nextData = next
-  ? { href: `/${currentLocale}/docs/${next.id.split('/').slice(1).join('/')}`, title: next.data.title, description: next.data.description }
+  ? {
+      href: `/${currentLocale}/docs/${next.id.split('/').slice(1).join('/')}`,
+      title: next.data.title,
+      description: next.data.description,
+    }
   : undefined;
 ---
 

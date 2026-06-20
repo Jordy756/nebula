@@ -1,5 +1,5 @@
 ---
-import { defaultLocale, useTranslations } from '@i18n/ui';
+import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
 import TocIcon from '@components/icons/TocIcon.astro';
 import type { MarkdownHeading } from 'astro';
 
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { headings = [] } = Astro.props;
-const locale = Astro.currentLocale ?? defaultLocale;
+const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(locale);
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 

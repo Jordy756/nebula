@@ -1,6 +1,6 @@
 ---
 import SearchModal from '@components/ui/SearchModal.astro';
-import { defaultLocale, locales } from '@i18n/ui';
+import { defaultLocale, locales, type Locale } from '@i18n/ui';
 import '@styles/global.css';
 import { Font } from 'astro:assets';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const currentLocale = Astro.currentLocale ?? defaultLocale;
+const currentLocale = (Astro.currentLocale ?? defaultLocale) as Locale;
 const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 ---
 
@@ -30,6 +30,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 
     <slot name="head" />
 
+    <link rel="canonical" href={getAbsoluteLocaleUrl(defaultLocale, currentPath)} />
     {
       locales.map((locale) => (
         <link rel="alternate" hreflang={locale} href={getAbsoluteLocaleUrl(locale, currentPath)} />
