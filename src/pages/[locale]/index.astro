@@ -1,13 +1,13 @@
 ---
-import { defaultLocale, locales, useTranslations, type Locale } from '@i18n/ui';
 import Footer from '@components/layout/Footer.astro';
 import Header from '@components/layout/Header.astro';
 import Hero from '@components/sections/hero/Hero.astro';
+import { getCurrentLocale, locales, useTranslations } from '@i18n/ui';
 import PageLayout from '@layouts/PageLayout.astro';
-
+ 
 export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
 
-const currentLocale = (Astro.currentLocale ?? defaultLocale) as Locale;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 const title = t('landing.title');
 const description = t('landing.description');

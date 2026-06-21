@@ -1,18 +1,17 @@
 ---
 import Button from '@components/ui/Button.astro';
 import Link from '@components/ui/Link.astro';
-import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
+import { getCurrentLocale, useTranslations } from '@i18n/ui';
 
-const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
-const t = useTranslations(locale);
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 ---
 
 <section class="flex max-w-[65ch] flex-1 flex-col items-center justify-center gap-4 self-center text-center">
   <h1>{t('landing.title')}</h1>
   <p class="text-center">{t('landing.description')}</p>
-
   <div class="flex gap-4">
-    <Link href={`/${locale}/docs/01-getting-started/01-getting-started`}>{t('landing.start')}</Link>
+    <Link href={`/${currentLocale}/docs/01-getting-started/01-getting-started`}>{t('landing.start')}</Link>
     <Button variant="secondary">{t('landing.github')}</Button>
   </div>
 </section>

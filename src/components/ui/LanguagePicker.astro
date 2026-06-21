@@ -1,8 +1,8 @@
 ---
 import LanguageIcon from '@components/icons/LanguageIcon.astro';
-import { defaultLocale, locales, useTranslations, type Locale } from '@i18n/ui';
+import { getCurrentLocale, locales, useTranslations } from '@i18n/ui';
 
-const currentLocale = (Astro.currentLocale ?? defaultLocale) as Locale;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 ---

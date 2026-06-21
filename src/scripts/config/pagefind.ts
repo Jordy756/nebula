@@ -1,3 +1,5 @@
+import { PAGEFIND_URL } from '@scripts/constants/pagefind';
+
 export type PagefindSubResult = {
   title: string;
   url: string;
@@ -33,8 +35,6 @@ export type Pagefind = {
   destroy: () => Promise<void>;
   options: (options: Record<string, unknown>) => Promise<void>;
 };
-
-const PAGEFIND_URL = '/pagefind/pagefind.js';
 
 let instance: Pagefind | null = null;
 

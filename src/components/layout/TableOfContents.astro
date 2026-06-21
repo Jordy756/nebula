@@ -1,6 +1,6 @@
 ---
-import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
 import TocIcon from '@components/icons/TocIcon.astro';
+import { getCurrentLocale, useTranslations } from '@i18n/ui';
 import type { MarkdownHeading } from 'astro';
 
 interface Props {
@@ -8,8 +8,8 @@ interface Props {
 }
 
 const { headings = [] } = Astro.props;
-const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
-const t = useTranslations(locale);
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
 
 const getLineX = (depth: number) => (depth >= 3 ? 16.5 : 8.5);

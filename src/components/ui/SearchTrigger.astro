@@ -1,14 +1,14 @@
 ---
-import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
 import SearchIcon from '@components/icons/SearchIcon.astro';
+import { getCurrentLocale, useTranslations } from '@i18n/ui';
 
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
-const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
-const t = useTranslations(locale);
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 ---
 
 <button

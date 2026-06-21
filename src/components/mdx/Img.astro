@@ -1,7 +1,7 @@
 ---
 import ExpandIcon from '@components/icons/ExpandIcon.astro';
 import MinimiseIcon from '@components/icons/MinimiseIcon.astro';
-import { defaultLocale, useTranslations, type Locale } from '@i18n/ui';
+import { getCurrentLocale, useTranslations } from '@i18n/ui';
 import type { HTMLAttributes } from 'astro/types';
 import { Image } from 'astro:assets';
 
@@ -14,8 +14,8 @@ interface Props extends HTMLAttributes<'img'> {
 
 const { src, alt, class: className, width = 644, height = 362, ...rest } = Astro.props;
 const dialogId = crypto.randomUUID();
-const locale = (Astro.currentLocale ?? defaultLocale) as Locale;
-const t = useTranslations(locale);
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 ---
 
 <figure class="relative">

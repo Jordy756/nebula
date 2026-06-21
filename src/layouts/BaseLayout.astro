@@ -1,6 +1,6 @@
 ---
 import SearchModal from '@components/ui/SearchModal.astro';
-import { defaultLocale, locales, type Locale } from '@i18n/ui';
+import { defaultLocale, getCurrentLocale, locales } from '@i18n/ui';
 import '@styles/global.css';
 import { Font } from 'astro:assets';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const currentLocale = (Astro.currentLocale ?? defaultLocale) as Locale;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
 const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 ---
 
@@ -21,7 +21,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
 
@@ -30,7 +30,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 
     <slot name="head" />
 
-    <link rel="canonical" href={getAbsoluteLocaleUrl(defaultLocale, currentPath)} />
+    <link rel="canonical" href={getAbsoluteLocaleUrl(currentLocale, currentPath)} />
     {
       locales.map((locale) => (
         <link rel="alternate" hreflang={locale} href={getAbsoluteLocaleUrl(locale, currentPath)} />
