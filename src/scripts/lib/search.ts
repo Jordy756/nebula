@@ -9,29 +9,21 @@ const escape = (value: string): string =>
 
 const renderSubResult = (sub: PagefindResultData['sub_results'][number]): string => `
   <li class="relative pl-4 before:absolute before:top-0 before:left-0 before:h-[calc(100%+16px)] before:w-px before:bg-neutral-400 after:absolute after:top-1/2 after:left-0 after:h-px after:w-3 after:bg-neutral-400 last:before:h-1/2">
-    <a href="${sub.url}" class="flex flex-col">
-      <h4 class="text-lg text-neutral-50">${escape(sub.title)}</h4>
-      <p class="text-sm text-neutral-400">${sub.excerpt}</p>
+    <a href="${sub.url}" class="flex flex-col text-sm text-neutral-400">
+      ${escape(sub.excerpt)}
     </a>
   </li>`;
 
-const renderResult = (result: PagefindResultData): string => {
-  const [parent, ...children] = result.sub_results;
-  if (!parent) return '';
+const renderResult = ({ meta, sub_results: subResults }: PagefindResultData): string => {
+  if (!subResults) return '';
 
-  const section = result.meta.title ? `<span class="text-xs text-neutral-400">${escape(result.meta.title)}</span>` : '';
-
-  const childrenList = children.length
-    ? `<ul class="ml-4 flex flex-col gap-4">${children.map(renderSubResult).join('')}</ul>`
+  const childrenList = subResults.length
+    ? `<ul class="ml-4 flex flex-col gap-2">${subResults.map(renderSubResult).join('')}</ul>`
     : '';
 
   return `
     <li class="flex flex-col gap-2">
-      ${section}
-      <a href="${parent.url}" class="flex flex-col gap-1">
-        <h3 class="text-xl">${escape(parent.title)}</h3>
-        <p class="text-sm text-neutral-400">${parent.excerpt}</p>
-      </a>
+      <h3 class="text-xl font-semibold">${escape(meta.title ?? '')}</h3>
       ${childrenList}
     </li>`;
 };

@@ -40,7 +40,7 @@
   }
 
   html {
-    @apply scroll-pt-18.75 scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
+    @apply scroll-pt-12 scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
@@ -113,6 +113,6 @@
   }
 
   #search-results mark {
-    @apply bg-transparent font-semibold text-neutral-50;
+    @apply bg-transparent text-vivid-crimson underline;
   }
 }
