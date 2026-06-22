@@ -2,6 +2,7 @@ export const ui = {
   es: {
     'nav.main': 'Navegación principal',
     'nav.sidebar': 'Menú Lateral',
+    'nav.home': 'Ir al inicio',
     'search.open': 'Abrir búsqueda',
     'search.placeholder': 'Buscar en la documentación...',
     'search.modalLabel': 'Buscar en la documentación',
@@ -19,6 +20,7 @@ export const ui = {
   en: {
     'nav.main': 'Main navigation',
     'nav.sidebar': 'Sidebar menu',
+    'nav.home': 'Go to home',
     'search.open': 'Open search',
     'search.placeholder': 'Search documentation...',
     'search.modalLabel': 'Search documentation',

@@ -31,27 +31,38 @@ function hasActive(node: NavNode, path: string): boolean {
 }
 
 const isCurrentItem = !isGroup && hasActive(node, currentPath);
+const isOpen = isGroup && hasActive(node, currentPath);
 ---
 
 {
   isGroup ? (
-    <li class="flex flex-col gap-2">
-      <div class="flex items-center justify-between gap-2">
-        <h2 class:list={['text-sm font-light']}>{node.title}</h2>
-        <ChevronIcon width={20} height={20} class="w-5" />
-      </div>
-      <ul class="ml-1 flex flex-col gap-1 border-l border-neutral-800 pl-4">
-        {node?.items.map((child) => (
-          <Astro.self node={child} currentPath={currentPath} />
-        ))}
-      </ul>
+    <li>
+      <details open={isOpen} class="group">
+        <summary class="flex cursor-pointer items-center justify-between gap-2 rounded-xs py-1 pr-1 text-sm text-neutral-400 outline-none hover:text-neutral-50">
+          <span class="font-medium">{node.title}</span>
+          <ChevronIcon
+            width={16}
+            height={16}
+            class="size-4 shrink-0 rotate-0 text-neutral-500 transition-none group-open:rotate-90"
+          />
+        </summary>
+        <ul class="mt-1 ml-3 flex flex-col gap-1 border-l border-neutral-800 pl-3">
+          {node.items.map((child) => (
+            <Astro.self node={child} currentPath={currentPath} />
+          ))}
+        </ul>
+      </details>
     </li>
   ) : (
     <li>
       <a
         href={node.href}
         aria-label={node.ariaLabel}
-        class:list={['block py-1 text-sm transition-colors', isCurrentItem ? 'font-medium text-orange-500' : '']}
+        aria-current={isCurrentItem ? 'page' : undefined}
+        class:list={[
+          'block rounded-xs py-1 text-sm transition-colors',
+          isCurrentItem ? 'font-medium text-vivid-crimson' : 'text-neutral-400 hover:text-neutral-50',
+        ]}
       >
         {node.title}
       </a>
