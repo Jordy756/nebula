@@ -1,6 +1,6 @@
 ---
-import Footer from '@components/layout/Footer.astro';
-import Header from '@components/layout/Header.astro';
+import Footer from '@components/shell/Footer.astro';
+import Header from '@components/shell/Header.astro';
 import Hero from '@components/sections/hero/Hero.astro';
 import { getCurrentLocale, locales, useTranslations } from '@i18n/utils.ts';
 import PageLayout from '@layouts/PageLayout.astro';
@@ -9,8 +9,9 @@ export const getStaticPaths = () => locales.map((locale) => ({ params: { locale 
 
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
-const title = t('landing.title');
-const description = t('landing.description');
+
+const title = 'Nebula';
+const description = 'Nebula is a open-source, self-hosted platform for managing your knowledge base.';
 ---
 
 <PageLayout title={title} description={description}>
