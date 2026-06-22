@@ -1,1 +1,0 @@
-export const PAGEFIND_URL = '/pagefind/pagefind.js';

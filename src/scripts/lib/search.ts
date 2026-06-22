@@ -1,16 +1,13 @@
-import { getPagefind, reinitializePagefind, type PagefindResultData } from '@scripts/config/pagefind';
-import { debounce } from '@scripts/utils/debounce';
+import { getPagefind, reinitializePagefind, type PagefindResultData } from '@scripts/config/pagefind.ts';
+import { debounce } from '@scripts/utils/debounce.ts';
 
 let lastLocale: string | null = null;
 let searchAbortController: AbortController | null = null;
 
-const escape = (value: string): string =>
-  value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
-
 const renderSubResult = (sub: PagefindResultData['sub_results'][number]): string => `
   <li class="relative pl-4 before:absolute before:top-0 before:left-0 before:h-[calc(100%+16px)] before:w-px before:bg-neutral-400 after:absolute after:top-1/2 after:left-0 after:h-px after:w-3 after:bg-neutral-400 last:before:h-1/2">
-    <a href="${sub.url}" class="flex flex-col text-sm text-neutral-400">
-      ${escape(sub.excerpt)}
+    <a href="${sub.url}" class="text-sm text-neutral-400">
+      ${sub.excerpt}
     </a>
   </li>`;
 
@@ -23,7 +20,7 @@ const renderResult = ({ meta, sub_results: subResults }: PagefindResultData): st
 
   return `
     <li class="flex flex-col gap-2">
-      <h3 class="text-xl font-semibold">${escape(meta.title ?? '')}</h3>
+      <h3 class="text-base font-semibold">${meta.title ?? ''}</h3>
       ${childrenList}
     </li>`;
 };
@@ -40,7 +37,7 @@ const setup = async () => {
   if (!input || !status || !list) return;
 
   const currentLocale = document.documentElement.lang;
-  const pagefind = await getPagefind().catch(() => null);
+  const pagefind = await getPagefind();
 
   if (!pagefind) {
     status.textContent = 'La búsqueda no está disponible. Ejecutá pnpm build para generarla.';

@@ -1,4 +1,4 @@
-import { PAGEFIND_URL } from '@scripts/constants/pagefind';
+export const PAGEFIND_URL = '/pagefind/pagefind.js';
 
 export type PagefindSubResult = {
   title: string;
