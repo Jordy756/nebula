@@ -1,5 +1,8 @@
-import { getPagefind, type PagefindResultData } from '@scripts/config/pagefind';
+import { getPagefind, reinitializePagefind, type PagefindResultData } from '@scripts/config/pagefind';
 import { debounce } from '@scripts/utils/debounce';
+
+let lastLocale: string | null = null;
+let searchAbortController: AbortController | null = null;
 
 const escape = (value: string): string =>
   value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
@@ -35,7 +38,7 @@ const renderResult = (result: PagefindResultData): string => {
 
 const renderList = (results: PagefindResultData[]): string => results.map(renderResult).join('');
 
-const setup = () => {
+const setup = async () => {
   const dialog = document.getElementById('search-modal') as HTMLDialogElement | null;
   if (!dialog) return;
 
@@ -44,16 +47,29 @@ const setup = () => {
   const list = dialog.querySelector<HTMLElement>('#search-results');
   if (!input || !status || !list) return;
 
+  const currentLocale = document.documentElement.lang;
+  const pagefind = await getPagefind().catch(() => null);
+
+  if (!pagefind) {
+    status.textContent = 'La búsqueda no está disponible. Ejecutá pnpm build para generarla.';
+    return;
+  }
+
+  if (lastLocale !== currentLocale) {
+    await reinitializePagefind();
+    lastLocale = currentLocale;
+    input.value = '';
+    list.innerHTML = '';
+    status.textContent = '0 resultados';
+  }
+
+  searchAbortController?.abort();
+  searchAbortController = new AbortController();
+
   const render = async (term: string) => {
     if (term === '') {
       list.innerHTML = '';
       status.textContent = '0 resultados';
-      return;
-    }
-
-    const pagefind = await getPagefind().catch(() => null);
-    if (!pagefind) {
-      status.textContent = 'La búsqueda no está disponible. Ejecutá pnpm build para generarla.';
       return;
     }
 
@@ -69,15 +85,18 @@ const setup = () => {
 
   const debouncedRender = debounce(render, 300);
 
-  input.addEventListener('input', (e) => {
+  const handleInput = (e: Event) => {
     const term = (e.currentTarget as HTMLInputElement).value.trim();
     debouncedRender(term);
-  });
+  };
 
-  list.addEventListener('click', (e) => {
+  const handleClick = (e: Event) => {
     const link = (e.target as HTMLElement).closest('a');
     link && dialog.close();
-  });
+  };
+
+  input.addEventListener('input', handleInput, { signal: searchAbortController.signal });
+  list.addEventListener('click', handleClick, { signal: searchAbortController.signal });
 };
 
 document.addEventListener('astro:page-load', setup);

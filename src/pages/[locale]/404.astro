@@ -2,6 +2,9 @@
 import Footer from '@components/shell/Footer.astro';
 import Header from '@components/shell/Header.astro';
 import PageLayout from '@layouts/PageLayout.astro';
+import { locales } from '@i18n/utils.ts';
+
+export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
 
 const title = '404 - Página no encontrada';
 const description = 'La página que estás buscando no existe.';

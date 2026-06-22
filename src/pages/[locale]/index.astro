@@ -1,9 +1,10 @@
 ---
 import Footer from '@components/shell/Footer.astro';
 import Header from '@components/shell/Header.astro';
-import Hero from '@components/sections/hero/Hero.astro';
 import { getCurrentLocale, locales, useTranslations } from '@i18n/utils.ts';
 import PageLayout from '@layouts/PageLayout.astro';
+import Link from '@components/ui/Link.astro';
+import Button from '@components/ui/Button.astro';
 
 export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
 
@@ -17,7 +18,17 @@ const description = 'Nebula is a open-source, self-hosted platform for managing 
 <PageLayout title={title} description={description}>
   <Header />
   <main class="flex flex-1 flex-col gap-4 p-4">
-    <Hero />
+    <section class="flex max-w-[65ch] flex-1 flex-col items-center justify-center gap-4 self-center text-center">
+      <h1>Nebula</h1>
+      <p class="text-center">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus excepturi, possimus maxime sunt dolore dicta,
+        tempore deleniti quae, vero voluptatum et. Porro quo magni iure ipsum facere harum recusandae reiciendis?
+      </p>
+      <div class="flex gap-4">
+        <Link href={`/${currentLocale}/docs/01-getting-started/01-getting-started`}>Get Started</Link>
+        <Button variant="secondary">GitHub</Button>
+      </div>
+    </section>
   </main>
   <Footer />
 </PageLayout>

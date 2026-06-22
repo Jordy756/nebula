@@ -36,17 +36,32 @@ export type Pagefind = {
   options: (options: Record<string, unknown>) => Promise<void>;
 };
 
-let instance: Pagefind | null = null;
+let pagefind: Pagefind | null = null;
 
 export const getPagefind = async (): Promise<Pagefind | null> => {
-  if (instance) return instance;
+  if (pagefind) return pagefind;
 
   try {
-    instance = (await import(/* @vite-ignore */ PAGEFIND_URL)) as unknown as Pagefind;
-    return instance;
+    pagefind = (await import(/* @vite-ignore */ PAGEFIND_URL)) as unknown as Pagefind;
+    return pagefind;
   } catch (error) {
-    instance = null;
     console.error('Failed to load Pagefind', error);
+    pagefind = null;
+    return null;
+  }
+};
+
+export const reinitializePagefind = async (): Promise<Pagefind | null> => {
+  try {
+    const pagefind = await getPagefind();
+    if (!pagefind) throw new Error('Pagefind is not available');
+
+    await pagefind.destroy();
+    await pagefind.init();
+
+    return pagefind;
+  } catch (error) {
+    console.error('Failed to reinitialize Pagefind', error);
     return null;
   }
 };
