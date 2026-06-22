@@ -15,11 +15,6 @@ export const ui = {
     'code.copy': 'Copiar código',
     'code.copied': 'Copiado',
     'languagePicker.label': 'Seleccionar idioma',
-    'landing.title': 'Nebula - Tu documentación sin cajas negras',
-    'landing.description':
-      'Nebula es una plataforma de documentación de código abierto que te permite crear, mantener y alojar tu documentación sin depender de servicios de terceros.',
-    'landing.start': 'Empezar',
-    'landing.github': 'Ver en GitHub',
   },
   en: {
     'nav.main': 'Main navigation',
@@ -37,10 +32,5 @@ export const ui = {
     'code.copy': 'Copy code',
     'code.copied': 'Copied',
     'languagePicker.label': 'Select language',
-    'landing.title': 'Nebula - Documentation without black boxes',
-    'landing.description':
-      'Nebula is an open-source documentation platform that lets you create, maintain, and host your docs without relying on third-party services.',
-    'landing.start': 'Get started',
-    'landing.github': 'View on GitHub',
   },
 } as const;
