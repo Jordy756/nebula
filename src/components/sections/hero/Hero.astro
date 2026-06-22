@@ -1,7 +1,7 @@
 ---
 import Button from '@components/ui/Button.astro';
 import Link from '@components/ui/Link.astro';
-import { getCurrentLocale, useTranslations } from '@i18n/ui';
+import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
 
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);

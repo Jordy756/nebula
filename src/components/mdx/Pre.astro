@@ -1,6 +1,6 @@
 ---
 import CopyIcon from '@components/icons/CopyIcon.astro';
-import { getCurrentLocale, useTranslations } from '@i18n/ui';
+import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
 
 const popoverId = `copy-popover-${crypto.randomUUID()}`;
 const currentLocale = getCurrentLocale(Astro.currentLocale);

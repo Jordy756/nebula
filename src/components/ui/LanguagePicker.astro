@@ -1,6 +1,6 @@
 ---
 import LanguageIcon from '@components/icons/LanguageIcon.astro';
-import { getCurrentLocale, locales, useTranslations } from '@i18n/ui';
+import { getCurrentLocale, locales, useTranslations } from '@i18n/utils.ts';
 
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
