@@ -37,20 +37,23 @@ const isOpen = isGroup && hasActive(node, currentPath);
 {
   isGroup ? (
     <li>
-      <details open={isOpen} class="group">
-        <summary class="flex cursor-pointer items-center justify-between gap-2 rounded-xs py-1 pr-1 text-sm text-neutral-400 outline-none hover:text-neutral-50">
+      <details open={isOpen} class="group sidebar-details">
+        <summary class="group flex cursor-pointer items-center justify-between gap-2 py-1 pr-1 text-sm text-neutral-400 outline-none details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto hover:text-neutral-50">
           <span class="font-medium">{node.title}</span>
           <ChevronIcon
             width={16}
             height={16}
-            class="size-4 shrink-0 rotate-0 text-neutral-500 transition-none group-open:rotate-90"
+            class="size-4 rotate-0 text-neutral-500 transition-transform duration-300 group-open:rotate-90"
           />
         </summary>
-        <ul class="mt-1 ml-3 flex flex-col gap-1 border-l border-neutral-800 pl-3">
-          {node.items.map((child) => (
-            <Astro.self node={child} currentPath={currentPath} />
-          ))}
-        </ul>
+        <div class="flex gap-3 pt-1">
+          <div class="w-px bg-neutral-800" />
+          <ul class="flex flex-1 flex-col gap-1">
+            {node.items.map((child) => (
+              <Astro.self node={child} currentPath={currentPath} />
+            ))}
+          </ul>
+        </div>
       </details>
     </li>
   ) : (

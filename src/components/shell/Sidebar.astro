@@ -1,4 +1,5 @@
 ---
+import GithubIcon from '@components/icons/GithubIcon.astro';
 import LanguagePicker from '@components/ui/LanguagePicker.astro';
 import Logo from '@components/ui/Logo.astro';
 import SearchTrigger from '@components/ui/SearchTrigger.astro';
@@ -67,48 +68,38 @@ const navigation = buildTree(localeDocs, currentLocale);
       </a>
       <SearchTrigger />
     </header>
-    <hr class="mx-4 border-neutral-800">
-    <nav class="flex-1 overflow-y-auto p-4" aria-label={t('nav.main')}>
+    <nav class="flex-1 overflow-y-auto p-4" aria-label={t('nav.main')} transition:persist>
       <ul class="flex flex-col gap-1">
+        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
+        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
+        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
+        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
+        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
+        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
+        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
       </ul>
     </nav>
-    <hr class="mx-4 border-neutral-800">
-    <footer class="flex flex-col gap-4 p-4">
-      <div class="flex items-center justify-between gap-3">
-        <LanguagePicker />
+    <!-- <hr class="mx-4 border-neutral-800" /> -->
+    <footer class="flex flex-col gap-4 p-4 border-t border-neutral-800 rounded-sm">
+      <section class="flex items-center justify-between gap-3">
         <ThemePicker />
-      </div>
-
-      <!-- <div class="flex items-center gap-2">
+        <LanguagePicker />
+      </section>
+      <button class="w-full rounded-sm border border-neutral-700 px-2 py-1"> Siguenos </button>
+      
+      <!-- <section class="flex flex-col gap-2">
         <a
           href="https://github.com/withastro/astro"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          class="inline-flex rounded-sm p-2 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-50"
+          class="flex items-center gap-2 rounded-sm border border-neutral-700 p-2"
         >
-          <GithubIcon width={18} height={18} class="size-4.5" />
+          <GithubIcon width={24} height={24} class="size-6" />
+          Siguenos en GitHub
         </a>
-        <a
-          href="https://github.com/withastro/astro"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          class="inline-flex rounded-sm p-2 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-50"
-        >
-          <GithubIcon width={18} height={18} class="size-4.5" />
-        </a>
-        <a
-          href="https://github.com/withastro/astro"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          class="inline-flex rounded-sm p-2 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-50"
-        >
-          <GithubIcon width={18} height={18} class="size-4.5" />
-        </a>
-      </div> -->
+      </section> -->
     </footer>
   </div>
 </aside>
