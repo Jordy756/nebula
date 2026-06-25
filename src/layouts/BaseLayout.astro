@@ -41,7 +41,9 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 
     <ClientRouter />
   </head>
-  <body class="overflow-x-clip bg-neutral-950 text-base font-light text-pretty text-neutral-50">
+  <body
+    class="overflow-x-clip bg-neutral-50 text-base font-light text-pretty text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50"
+  >
     <slot />
   </body>
 </html>

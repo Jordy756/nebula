@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-iron-slate: #a1a1a1;
   --color-halo-pale: #f4f0ff;

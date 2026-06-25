@@ -1,5 +1,4 @@
 ---
-import LanguageIcon from '@components/icons/LanguageIcon.astro';
 import { getCurrentLocale, locales, useTranslations } from '@i18n/utils.ts';
 
 const currentLocale = getCurrentLocale(Astro.currentLocale);
@@ -7,14 +6,19 @@ const t = useTranslations(currentLocale);
 const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 ---
 
-<button type="button" popovertarget="language-picker" aria-label={t('languagePicker.label')}>
-  <LanguageIcon width={20} height={20} class="size-5" />
+<button
+  type="button"
+  popovertarget="language-picker"
+  aria-label={t('languagePicker.label')}
+  class:list={['rounded-xs bg-neutral-800 px-2 py-1 text-sm transition-opacity hover:opacity-75']}
+>
+  {currentLocale.toUpperCase()}
 </button>
 
 <ul
   id="language-picker"
   popover
-  class="inset-auto mb-2 flex-col gap-1 rounded-sm border border-neutral-800 bg-neutral-900 p-1 shadow-sm position-area-top open:flex"
+  class="inset-auto mb-1 flex-col gap-1 rounded-sm border border-neutral-800 bg-neutral-900 p-1 position-area-top open:flex"
 >
   {
     locales.map((locale) => (
@@ -24,7 +28,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
           hreflang={locale}
           aria-current={locale === currentLocale ? 'true' : undefined}
           class:list={[
-            'block rounded-xs px-2 py-1 text-sm text-neutral-50 transition-colors hover:bg-neutral-800',
+            'block rounded-xs px-2 py-1 text-sm text-neutral-50 transition-[background-color] hover:bg-neutral-800',
             locale === currentLocale && 'bg-neutral-800',
           ]}
         >

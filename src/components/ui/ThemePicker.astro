@@ -4,14 +4,16 @@ import LightIcon from '@components/icons/LightIcon.astro';
 ---
 
 <button
-  id="theme-toggle"
+  id="toggle-theme-btn"
   aria-label="Toggle theme"
   class="flex items-center gap-0.5 overflow-hidden rounded-full bg-neutral-800 p-0.5"
 >
-  <span class="rounded-full bg-neutral-700">
-    <LightIcon width={16} height={16} class="size-4 p-0.5 text-neutral-50" />
+  <span class="rounded-full p-0.5">
+    <LightIcon width={24} height={24} class="size-5 text-neutral-50 dark:text-neutral-800" />
   </span>
-  <span class="rounded-full">
-    <DarkIcon width={16} height={16} class="size-4 p-0.5 text-neutral-400" />
+  <span class="rounded-full p-0.5 dark:bg-neutral-700">
+    <DarkIcon width={24} height={24} class="size-5 text-neutral-800 dark:text-neutral-50" />
   </span>
 </button>
+
+<script src="../../scripts/lib/theme.ts"></script>
