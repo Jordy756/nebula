@@ -57,13 +57,13 @@ const navigation = buildTree(localeDocs, currentLocale);
 <aside
   data-pagefind-ignore
   class:list={[
-    'sticky top-0 left-0 flex max-h-screen flex-col items-end border-r border-neutral-800 bg-neutral-900 before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-neutral-900',
+    'sticky top-0 left-0 flex max-h-screen flex-col items-end border-r border-neutral-200 bg-neutral-100 before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 dark:before:bg-neutral-900',
     className,
   ]}
 >
   <div class="flex h-full w-[min(100%,275px)] flex-col">
     <header
-      class="relative flex flex-col gap-4 p-4 after:absolute after:top-full after:left-0 after:z-10 after:h-4 after:w-full after:bg-linear-to-b after:from-neutral-900 after:to-transparent"
+      class="relative flex flex-col gap-4 p-4 after:absolute after:top-full after:left-0 after:z-10 after:h-4 after:w-full after:bg-linear-to-b after:from-neutral-100 after:to-transparent dark:after:from-neutral-900"
     >
       <h2 class="sr-only">{t('nav.sidebar')}</h2>
       <a href={`/${currentLocale}/`} aria-label={t('nav.home')} class="inline-flex">
@@ -71,8 +71,8 @@ const navigation = buildTree(localeDocs, currentLocale);
       </a>
       <SearchTrigger />
     </header>
-    <nav class="flex-1 overflow-y-auto p-4" aria-label={t('nav.main')}>
-      <ul class="flex flex-col gap-2 px-0">
+    <nav class="w-full flex-1 overflow-y-auto p-4" aria-label={t('nav.main')}>
+      <ul class="flex flex-col gap-2 bg-red-500">
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
@@ -84,14 +84,14 @@ const navigation = buildTree(localeDocs, currentLocale);
       </ul>
     </nav>
     <footer
-      class="p-4 relative after:absolute after:bottom-full after:left-0 after:h-4 after:w-full after:bg-linear-to-b after:from-transparent after:to-neutral-900"
+      class="relative p-4 after:absolute after:bottom-full after:left-0 after:h-4 after:w-full after:bg-linear-to-b after:from-transparent after:to-neutral-100 dark:after:to-neutral-900"
     >
-      <div class="flex flex-col gap-2 rounded-sm border border-neutral-800 p-2">
+      <div class="flex flex-col gap-2 rounded-sm border border-neutral-200 p-2 dark:border-neutral-800">
         <section class="flex items-center justify-between gap-2">
           <LanguagePicker />
           <ThemePicker />
         </section>
-        <hr class="border-neutral-800" />
+        <hr class="border-neutral-200 dark:border-neutral-800" />
         <section class="flex flex-col gap-2">
           <a
             href="https://github.com/withastro/astro"

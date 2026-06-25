@@ -24,7 +24,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
 });
 ---
 
-<aside data-pagefind-ignore class="sticky top-0 left-0 flex max-h-screen flex-1 flex-col overflow-y-auto pr-4 py-12">
+<aside data-pagefind-ignore class="sticky top-0 left-0 flex max-h-screen flex-1 flex-col overflow-y-auto py-12 pr-4">
   <nav class="flex flex-col gap-2" aria-label="Tabla de contenidos">
     <div class="flex items-center gap-2">
       <TocIcon width={24} height={24} class="size-6" />
@@ -37,7 +37,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
             <a
               href={`#${slug}`}
               class:list={[
-                'group w-full text-neutral-400 transition-[color] duration-300 ease-in-out hover:text-neutral-200 data-[active=true]:text-vivid-crimson',
+                'group w-full text-neutral-600 transition-[color] duration-300 ease-in-out hover:text-neutral-800 data-[active=true]:text-vivid-crimson dark:text-neutral-400 dark:hover:text-neutral-200',
                 depth === 2 ? 'ps-5' : 'ps-8',
               ]}
               data-toc-link
@@ -56,7 +56,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
                       fill="none"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="stroke-neutral-800 transition-colors duration-300 group-data-[active=true]:stroke-vivid-crimson"
+                      class="stroke-neutral-200 transition-colors duration-300 group-data-[active=true]:stroke-vivid-crimson dark:stroke-neutral-800"
                     />
                     <line
                       x1={x}
@@ -64,7 +64,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
                       x2={x}
                       y2="100%"
                       stroke-width="1"
-                      class="stroke-neutral-800 transition-colors duration-300 group-data-[active=true]:stroke-vivid-crimson"
+                      class="stroke-neutral-200 transition-colors duration-300 group-data-[active=true]:stroke-vivid-crimson dark:stroke-neutral-800"
                     />
                   </>
                 ) : (
@@ -74,7 +74,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
                     x2={x}
                     y2="100%"
                     stroke-width="1"
-                    class="stroke-neutral-800 transition-colors duration-300 group-data-[active=true]:stroke-vivid-crimson"
+                    class="stroke-neutral-200 transition-colors duration-300 group-data-[active=true]:stroke-vivid-crimson dark:stroke-neutral-800"
                   />
                 )}
                 <circle

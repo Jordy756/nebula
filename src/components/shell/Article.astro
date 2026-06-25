@@ -21,7 +21,7 @@ const t = useTranslations(currentLocale);
 ---
 
 <article data-pagefind-body class="flex max-w-[65ch] flex-col gap-4 px-4 py-12">
-  <header class="flex flex-col gap-4 border-b border-neutral-800">
+  <header class="flex flex-col gap-4 border-b border-neutral-200 dark:border-neutral-800">
     <h1 data-pagefind-meta="title">{title}</h1>
     <p data-pagefind-meta="description" class="mb-12">{description}</p>
   </header>
@@ -33,7 +33,7 @@ const t = useTranslations(currentLocale);
       prev && (
         <a
           href={prev.href}
-          class="flex flex-1 flex-col gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
+          class="flex flex-1 flex-col gap-2 overflow-hidden rounded-sm border border-neutral-200 p-4 transition-[border-color] hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
           rel="prev"
         >
           <span class="sr-only">{t('article.prev')}</span>
@@ -49,7 +49,7 @@ const t = useTranslations(currentLocale);
       next && (
         <a
           href={next.href}
-          class="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-sm border border-neutral-800 p-4 transition-[border-color] hover:border-neutral-600"
+          class="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-sm border border-neutral-200 p-4 transition-[border-color] hover:border-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700"
           rel="next"
         >
           <span class="sr-only">{t('article.next')}</span>
