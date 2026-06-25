@@ -6,12 +6,12 @@ import LightIcon from '@components/icons/LightIcon.astro';
 <button
   id="theme-toggle"
   aria-label="Toggle theme"
-  class="flex items-center gap-1 rounded-full bg-neutral-700 p-1 text-neutral-400"
+  class="flex items-center gap-0.5 overflow-hidden rounded-full bg-neutral-800 p-0.5"
 >
-  <span class="rounded-full bg-neutral-700 p-1">
-    <LightIcon width={16} height={16} class="size-4 text-neutral-50" />
+  <span class="rounded-full bg-neutral-700">
+    <LightIcon width={16} height={16} class="size-4 p-0.5 text-neutral-50" />
   </span>
-  <span class="rounded-full p-1">
-    <DarkIcon width={16} height={16} class="size-4" />
+  <span class="rounded-full">
+    <DarkIcon width={16} height={16} class="size-4 p-0.5 text-neutral-400" />
   </span>
 </button>

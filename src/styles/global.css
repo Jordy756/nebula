@@ -18,7 +18,12 @@
     rgb(106, 106, 106) 100%
   );
 
-  --shadow-subtle: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset;
+  --max-width: 1856px;
+
+  --tw-position-area-top: top;
+  --tw-position-area-bottom: bottom;
+  --tw-position-area-left: left;
+  --tw-position-area-right: right;
 }
 
 @theme inline {
@@ -28,6 +33,10 @@
 
 @utility bg-glass {
   @apply bg-[#141414]/80 backdrop-blur-md;
+}
+
+@utility position-area-* {
+  position-area: --value(--tw-position-area-*, [*]);
 }
 
 @layer base {

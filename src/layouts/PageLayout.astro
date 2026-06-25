@@ -1,4 +1,5 @@
 ---
+import SearchModal from '@components/ui/SearchModal.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 
 interface Props {
@@ -10,7 +11,8 @@ const { title, description } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="relative flex min-h-screen flex-col overflow-clip" data-pagefind-ignore>
+  <div class="relative flex min-h-screen flex-col" data-pagefind-ignore>
     <slot />
+    <SearchModal />
   </div>
 </BaseLayout>

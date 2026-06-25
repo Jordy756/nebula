@@ -1,5 +1,6 @@
 ---
 import Sidebar from '@components/shell/Sidebar.astro';
+import SearchModal from '@components/ui/SearchModal.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 
 interface Props {
@@ -11,11 +12,12 @@ const { title, description } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="relative flex min-h-screen overflow-clip">
+  <div class="relative mx-auto flex min-h-screen max-w-(--max-width)">
     <Sidebar class="flex-1" />
     <main class="flex flex-2 flex-col items-center">
       <slot />
     </main>
     <slot name="toc" />
+    <SearchModal />
   </div>
 </BaseLayout>

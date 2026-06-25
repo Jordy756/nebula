@@ -1,5 +1,4 @@
 ---
-import SearchModal from '@components/ui/SearchModal.astro';
 import { defaultLocale, getCurrentLocale, locales } from '@i18n/utils.ts';
 import '@styles/global.css';
 import { Font } from 'astro:assets';
@@ -42,8 +41,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 
     <ClientRouter />
   </head>
-  <body class="bg-neutral-950 text-base font-light text-pretty text-neutral-50">
+  <body class="overflow-x-clip bg-neutral-950 text-base font-light text-pretty text-neutral-50">
     <slot />
-    <SearchModal />
   </body>
 </html>
