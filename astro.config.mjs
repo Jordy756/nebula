@@ -29,7 +29,10 @@ export default defineConfig({
     }),
     syntaxHighlight: 'shiki',
     shikiConfig: {
-      theme: 'github-dark-default',
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark-default',
+      },
       wrap: false,
     },
   },

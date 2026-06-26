@@ -71,8 +71,8 @@ const navigation = buildTree(localeDocs, currentLocale);
       </a>
       <SearchTrigger />
     </header>
-    <nav class="w-full flex-1 overflow-y-auto p-4" aria-label={t('nav.main')}>
-      <ul class="flex flex-col gap-2 bg-red-500">
+    <nav class="w-full flex-1 scrollbar-none overflow-y-auto p-4" aria-label={t('nav.main')}>
+      <ul class="flex flex-col gap-2">
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
