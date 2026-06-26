@@ -43,9 +43,12 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 
     <script is:inline>
       const applyTheme = () => {
-        const theme =
-          localStorage.getItem('theme') ??
-          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const theme = (() => {
+          const localStorageTheme = localStorage?.getItem('theme') ?? '';
+          if (['dark', 'light'].includes(localStorageTheme)) return localStorageTheme;
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+          return 'light';
+        })();
 
         document.documentElement.classList.toggle('dark', theme === 'dark');
       };
