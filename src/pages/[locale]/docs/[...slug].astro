@@ -9,8 +9,8 @@ import Img from '@components/mdx/Img.astro';
 import Link from '@components/mdx/Link.astro';
 import ListItem from '@components/mdx/ListItem.astro';
 import OrderedList from '@components/mdx/OrderedList.astro';
-import Pre from '@components/mdx/Pre.astro';
 import Strong from '@components/mdx/Strong.astro';
+import CodeBlockEnhancer from '@components/scripts/CodeBlockEnhancer.astro';
 import Table from '@components/mdx/Table.astro';
 import TableBody from '@components/mdx/TableBody.astro';
 import TableData from '@components/mdx/TableData.astro';
@@ -67,7 +67,6 @@ const nextData = next
         ol: OrderedList,
         li: ListItem,
         blockquote: Blockquote,
-        pre: Pre,
         strong: Strong,
         em: Emphasis,
         del: Deleted,
@@ -83,4 +82,5 @@ const nextData = next
     />
   </Article>
   {headings.length > 0 && <TableOfContents slot="toc" headings={headings} />}
+  <CodeBlockEnhancer />
 </DocsLayout>

@@ -1,15 +1,13 @@
 // @ts-check
-import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import pagefind from 'astro-pagefind';
-import { defineConfig, fontProviders, logHandlers } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
-  logger: logHandlers.compose(logHandlers.console(), logHandlers.json()),
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],
@@ -17,16 +15,7 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  integrations: [mdx(), sitemap(), pagefind()],
   markdown: {
-    processor: satteri({
-      features: {
-        directive: true,
-        math: true,
-        headingAttributes: true,
-        gfm: true,
-      },
-    }),
     syntaxHighlight: 'shiki',
     shikiConfig: {
       themes: {
@@ -36,6 +25,7 @@ export default defineConfig({
       wrap: false,
     },
   },
+  integrations: [mdx(), sitemap(), pagefind()],
   fonts: [
     {
       name: 'Host Grotesk',
