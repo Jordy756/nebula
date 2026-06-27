@@ -1,4 +1,5 @@
 // @ts-check
+import { satteri } from '@astrojs/markdown-satteri';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
@@ -16,7 +17,17 @@ export default defineConfig({
     },
   },
   markdown: {
-    syntaxHighlight: 'shiki',
+    processor: satteri({
+      features: {
+        gfm: true,
+        frontmatter: true,
+        headingAttributes: true,
+        smartPunctuation: true,
+        directive: true,
+        math: true,
+      },
+    }),
+    syntaxHighlight: 'prism',
     shikiConfig: {
       themes: {
         light: 'github-light',
