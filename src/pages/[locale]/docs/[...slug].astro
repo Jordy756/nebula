@@ -10,7 +10,6 @@ import Link from '@components/mdx/Link.astro';
 import ListItem from '@components/mdx/ListItem.astro';
 import OrderedList from '@components/mdx/OrderedList.astro';
 import Strong from '@components/mdx/Strong.astro';
-import CodeBlockEnhancer from '@components/scripts/CodeBlockEnhancer.astro';
 import Table from '@components/mdx/Table.astro';
 import TableBody from '@components/mdx/TableBody.astro';
 import TableData from '@components/mdx/TableData.astro';
@@ -82,5 +81,6 @@ const nextData = next
     />
   </Article>
   {headings.length > 0 && <TableOfContents slot="toc" headings={headings} />}
-  <CodeBlockEnhancer />
 </DocsLayout>
+
+<script src="../../../scripts/lib/codeBlocks.ts"></script>

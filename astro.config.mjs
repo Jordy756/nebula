@@ -27,7 +27,7 @@ export default defineConfig({
         math: true,
       },
     }),
-    syntaxHighlight: 'prism',
+    syntaxHighlight: 'shiki',
     shikiConfig: {
       themes: {
         light: 'github-light',
