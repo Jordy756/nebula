@@ -31,8 +31,8 @@ export default defineConfig({
     syntaxHighlight: 'shiki',
     shikiConfig: {
       themes: {
-        light: 'tokyo-night',
-        dark: 'tokyo-night',
+        light: 'github-dark-default',
+        dark: 'github-dark-default',
       },
       wrap: false,
     },
