@@ -1,5 +1,6 @@
 // @ts-check
 import { satteri } from '@astrojs/markdown-satteri';
+import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
@@ -30,13 +31,19 @@ export default defineConfig({
     syntaxHighlight: 'shiki',
     shikiConfig: {
       themes: {
-        light: 'github-light',
-        dark: 'github-dark-default',
+        light: 'tokyo-night',
+        dark: 'tokyo-night',
       },
       wrap: false,
     },
   },
-  integrations: [mdx(), sitemap(), pagefind()],
+  integrations: [
+    mdx({
+      processor: unified(),
+    }),
+    sitemap(),
+    pagefind(),
+  ],
   fonts: [
     {
       name: 'Host Grotesk',
