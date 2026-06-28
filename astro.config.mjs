@@ -18,6 +18,14 @@ export default defineConfig({
     },
   },
   markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      themes: {
+        light: 'github-light-default',
+        dark: 'github-dark-default',
+      },
+      wrap: false,
+    },
     processor: satteri({
       features: {
         gfm: true,
@@ -28,14 +36,6 @@ export default defineConfig({
         math: true,
       },
     }),
-    syntaxHighlight: 'shiki',
-    shikiConfig: {
-      themes: {
-        light: 'github-dark-default',
-        dark: 'github-dark-default',
-      },
-      wrap: false,
-    },
   },
   integrations: [
     mdx({
