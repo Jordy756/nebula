@@ -6,7 +6,7 @@ let searchAbortController: AbortController | null = null;
 
 const renderSubResult = (sub: PagefindResultData['sub_results'][number]): string => `
   <li class="relative pl-4 before:absolute before:top-0 before:left-0 before:h-[calc(100%+16px)] before:w-px before:bg-neutral-400 after:absolute after:top-1/2 after:left-0 after:h-px after:w-3 after:bg-neutral-400 last:before:h-1/2">
-    <a href="${sub.url}" class="text-sm text-neutral-400">
+    <a href="${sub.url}" class="text-sm">
       ${sub.excerpt}
     </a>
   </li>`;

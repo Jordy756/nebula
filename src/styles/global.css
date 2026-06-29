@@ -16,8 +16,12 @@
   --font-mono: var(--font-inter), Montserrat, sans-serif;
 }
 
-@utility bg-glass {
+@utility bg-glass-dark {
   @apply bg-[#141414]/80 backdrop-blur-md;
+}
+
+@utility bg-glass-light {
+  @apply bg-white/80 backdrop-blur-md;
 }
 
 @utility position-area-* {
@@ -27,6 +31,11 @@
 @layer base {
   :root {
     interpolate-size: allow-keywords;
+    color-scheme: light;
+  }
+
+  :root.dark {
+    color-scheme: dark;
   }
 
   :is(*, *::before, *::after) {
@@ -99,7 +108,7 @@
   }
 
   #search-results mark {
-    @apply bg-transparent font-normal text-rose-600 underline dark:text-rose-500;
+    @apply bg-transparent font-normal text-rose-600 underline dark:text-rose-400;
   }
 
   .dark .astro-code,
