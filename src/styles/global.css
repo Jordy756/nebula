@@ -16,15 +16,11 @@
   --color-primary-950: var(--color-rose-950);
 
   --color-primary: light-dark(var(--color-primary-600), var(--color-primary-400));
-  --color-primary-foreground: light-dark(#fafafa, #0a0a0a);
 
   --color-background: light-dark(var(--color-neutral-50), var(--color-neutral-950));
   --color-surface: light-dark(var(--color-neutral-100), var(--color-neutral-900));
   --color-foreground: light-dark(var(--color-neutral-950), var(--color-neutral-50));
-  --color-muted-foreground: light-dark(var(--color-neutral-600), var(--color-neutral-400));
   --color-line: light-dark(var(--color-neutral-200), var(--color-neutral-800));
-  --color-code-bg: light-dark(var(--color-neutral-800), var(--color-neutral-200));
-  --color-code-fg: light-dark(var(--color-neutral-200), var(--color-neutral-800));
 
   --max-width: 1856px;
 
@@ -114,7 +110,7 @@
     }
 
     & :not(pre) > code {
-      @apply rounded-sm bg-code-bg px-1 py-0.5 font-mono text-sm font-medium text-code-fg;
+      @apply rounded-sm bg-neutral-800 px-1 py-0.5 font-mono text-sm font-medium text-neutral-200 dark:bg-neutral-200 dark:text-neutral-800;
     }
 
     & pre > code {
