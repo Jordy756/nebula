@@ -3,6 +3,29 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --color-primary-50: var(--color-rose-50);
+  --color-primary-100: var(--color-rose-100);
+  --color-primary-200: var(--color-rose-200);
+  --color-primary-300: var(--color-rose-300);
+  --color-primary-400: var(--color-rose-400);
+  --color-primary-500: var(--color-rose-500);
+  --color-primary-600: var(--color-rose-600);
+  --color-primary-700: var(--color-rose-700);
+  --color-primary-800: var(--color-rose-800);
+  --color-primary-900: var(--color-rose-900);
+  --color-primary-950: var(--color-rose-950);
+
+  --color-primary: light-dark(var(--color-primary-600), var(--color-primary-400));
+  --color-primary-foreground: light-dark(#fafafa, #0a0a0a);
+
+  --color-background: light-dark(var(--color-neutral-50), var(--color-neutral-950));
+  --color-surface: light-dark(var(--color-neutral-100), var(--color-neutral-900));
+  --color-foreground: light-dark(var(--color-neutral-950), var(--color-neutral-50));
+  --color-muted-foreground: light-dark(var(--color-neutral-600), var(--color-neutral-400));
+  --color-line: light-dark(var(--color-neutral-200), var(--color-neutral-800));
+  --color-code-bg: light-dark(var(--color-neutral-800), var(--color-neutral-200));
+  --color-code-fg: light-dark(var(--color-neutral-200), var(--color-neutral-800));
+
   --max-width: 1856px;
 
   --tw-position-area-top: top;
@@ -14,14 +37,6 @@
 @theme inline {
   --font-sans: var(--font-host-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-inter), Montserrat, sans-serif;
-}
-
-@utility bg-glass-dark {
-  @apply bg-[#141414]/80 backdrop-blur-md;
-}
-
-@utility bg-glass-light {
-  @apply bg-white/80 backdrop-blur-md;
 }
 
 @utility position-area-* {
@@ -99,7 +114,7 @@
     }
 
     & :not(pre) > code {
-      @apply rounded-sm bg-neutral-800 px-1 py-0.5 font-mono text-sm font-medium text-neutral-200 dark:bg-neutral-200 dark:text-neutral-800;
+      @apply rounded-sm bg-code-bg px-1 py-0.5 font-mono text-sm font-medium text-code-fg;
     }
 
     & pre > code {
@@ -108,7 +123,7 @@
   }
 
   #search-results mark {
-    @apply bg-transparent font-normal text-rose-600 underline dark:text-rose-400;
+    @apply bg-transparent font-normal text-primary underline;
   }
 
   .dark .astro-code,

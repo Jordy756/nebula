@@ -57,9 +57,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
       document.addEventListener('astro:after-swap', applyTheme);
     </script>
   </head>
-  <body
-    class="overflow-x-clip bg-neutral-50 text-base font-light text-pretty text-neutral-950 transition-colors dark:bg-neutral-950 dark:text-neutral-50"
-  >
+  <body class="overflow-x-clip bg-background text-base font-light text-pretty text-foreground transition-colors">
     <slot />
   </body>
 </html>

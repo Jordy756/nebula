@@ -6,12 +6,18 @@ interface Props extends HTMLAttributes<'video'> {
   src: string;
 }
 
-const { src, class: className, ...rest } = Astro.props;
+const { src, class: className, controls = true, playsinline = false, preload = 'metadata', ...rest } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 ---
 
-<video controls playsinline preload="metadata" class:list={['h-auto w-full rounded-sm', className]} {...rest}>
+<video
+  controls={controls}
+  playsinline={playsinline}
+  preload={preload}
+  class:list={['h-auto w-full rounded-sm', className]}
+  {...rest}
+>
   <source src={src} type={`video/${src.split('.').pop()}`} />
   {t('video.fallback')}
 </video>

@@ -10,7 +10,7 @@ const t = useTranslations(currentLocale);
   id="search-modal"
   closedby="any"
   data-pagefind-ignore
-  class="top-1/2 left-1/2 max-h-[80vh] w-[min(700px,100%)] -translate-1/2 scale-150 flex-col rounded-lg border border-neutral-200 bg-neutral-50 text-neutral-950 opacity-0 transition-[display,overlay,scale,opacity] open:flex open:scale-100 open:opacity-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50 starting:open:scale-150 starting:open:opacity-0"
+  class="top-1/2 left-1/2 max-h-[80vh] w-[min(700px,100%)] -translate-1/2 scale-150 flex-col rounded-lg border border-line bg-surface opacity-0 transition-[display,overlay,scale,opacity] open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
   aria-label={t('search.modalLabel')}
 >
   <header class="flex items-center gap-2 p-4">
@@ -24,15 +24,11 @@ const t = useTranslations(currentLocale);
       class="w-full outline-none"
     />
   </header>
-  <ul id="search-results" class="flex flex-col gap-8 overflow-auto p-4 text-neutral-600 dark:text-neutral-400"></ul>
+  <ul id="search-results" class="flex flex-col gap-8 overflow-auto p-4"></ul>
   <footer
-    class="flex items-center justify-between border-t border-neutral-200 p-4 text-sm text-neutral-600 dark:border-neutral-800 dark:text-neutral-400"
+    class="flex items-center justify-between border-t border-line p-4 text-sm text-neutral-600 dark:text-neutral-400"
   >
-    <button
-      class="rounded-sm border border-neutral-200 bg-neutral-100 px-2 py-1 dark:border-neutral-800 dark:bg-neutral-900"
-      command="close"
-      commandfor="search-modal"
-    >
+    <button class="rounded-sm border border-line bg-surface px-2 py-1" command="close" commandfor="search-modal">
       ESC
     </button>
     <span id="search-status">0 {t('search.results')}</span>

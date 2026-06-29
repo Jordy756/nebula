@@ -7,14 +7,12 @@ const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 ---
 
-<figure
-  class="astro-code group relative overflow-hidden rounded-sm border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
->
+<figure class="astro-code group relative overflow-hidden rounded-sm border border-line bg-surface">
   <pre class="overflow-x-auto p-4 leading-relaxed"><slot /></pre>
   <button
     popovertarget={popoverId}
     aria-label={t('code.copy')}
-    class="absolute top-4 right-4 flex items-center justify-center rounded-xs border border-neutral-200 p-1 opacity-0 transition-[background-color,opacity] duration-300 ease-in-out group-hover:opacity-100 dark:border-neutral-800"
+    class="absolute top-4 right-4 flex items-center justify-center rounded-xs border border-line p-1 opacity-0 transition-[background-color,opacity] duration-300 ease-in-out group-hover:opacity-100"
   >
     <CopyIcon width={24} height={24} class="size-6" />
   </button>
