@@ -1,4 +1,5 @@
 ---
+import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'video'> {
@@ -6,9 +7,11 @@ interface Props extends HTMLAttributes<'video'> {
 }
 
 const { src, class: className, ...rest } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 ---
 
 <video controls playsinline preload="metadata" class:list={['h-auto w-full rounded-sm', className]} {...rest}>
   <source src={src} type={`video/${src.split('.').pop()}`} />
-  Tu navegador no soporta video HTML5.
+  {t('video.fallback')}
 </video>

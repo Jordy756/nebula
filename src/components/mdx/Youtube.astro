@@ -1,4 +1,5 @@
 ---
+import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'iframe'> {
@@ -6,7 +7,9 @@ interface Props extends HTMLAttributes<'iframe'> {
   title?: string;
 }
 
-const { src, title = 'Video incrustado de plataforma externa', class: className, ...rest } = Astro.props;
+const { src, title, class: className, ...rest } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 
 const match = src.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
 const videoId = match && match[2].length === 11 ? match[2] : null;
@@ -16,7 +19,7 @@ const youtubeSrc = videoId ? `https://www.youtube-nocookie.com/embed/${videoId}`
 <div class:list={['flex aspect-video h-auto w-full overflow-hidden rounded-sm', className]}>
   <iframe
     src={youtubeSrc}
-    title={title}
+    title={title ?? t('video.defaultTitle')}
     class="h-full w-full"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
