@@ -53,9 +53,8 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
         document.documentElement.classList.toggle('dark', theme === 'dark');
       };
 
-      document.addEventListener('astro:after-swap', applyTheme);
-
       applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
     </script>
   </head>
   <body
