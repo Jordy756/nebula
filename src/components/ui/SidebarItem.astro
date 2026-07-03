@@ -36,9 +36,12 @@ const isOpen = isGroup && hasActive(node, currentPath);
 
 {
   isGroup ? (
-    <li>
-      <details open={isOpen} class="group sidebar-details">
-        <summary class="group flex cursor-pointer items-center justify-between gap-2 py-1 pr-1 text-sm outline-none details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto hover:text-neutral-50">
+    <li class="">
+      <details
+        open
+        class="group sidebar-details details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto"
+      >
+        <summary class="group flex cursor-pointer items-center justify-between gap-2 py-1 pr-1 text-sm outline-none hover:text-neutral-50">
           <span class="font-medium">{node.title}</span>
           <ChevronIcon
             width={16}

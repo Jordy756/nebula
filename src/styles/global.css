@@ -53,6 +53,12 @@
     @apply scrollbar-thin;
   }
 
+  *::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
   html {
     @apply scroll-pt-12 scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
   }

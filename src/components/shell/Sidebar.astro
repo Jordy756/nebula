@@ -57,16 +57,16 @@ const navigation = buildTree(localeDocs, currentLocale);
 <aside
   data-pagefind-ignore
   class:list={[
-    'sticky top-0 left-0 flex max-h-screen flex-col items-end border-r border-line bg-surface before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-surface',
+    'sticky top-0 left-0 max-h-screen border-r border-line bg-surface before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-surface',
     className,
   ]}
 >
-  <div class="flex h-full w-[min(100%,275px)] flex-col">
+  <div class="ml-auto flex h-full w-[min(100%,300px)] flex-col">
     <header
       class="relative flex flex-col gap-4 p-4 after:absolute after:top-full after:left-0 after:z-10 after:h-4 after:w-full after:bg-linear-to-b after:from-surface after:to-transparent"
     >
       <h2 class="sr-only">{t('nav.sidebar')}</h2>
-      <a href={`/${currentLocale}/`} aria-label={t('nav.home')} class="inline-flex">
+      <a href={`/${currentLocale}/`} aria-label={t('nav.home')}>
         <Logo width={100} height={24} />
       </a>
       <SearchTrigger />
@@ -76,35 +76,36 @@ const navigation = buildTree(localeDocs, currentLocale);
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
-        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
-        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
-        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
-        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
-        {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
       </ul>
     </nav>
     <footer
       class="relative p-4 after:absolute after:bottom-full after:left-0 after:h-4 after:w-full after:bg-linear-to-t after:from-surface after:to-transparent"
     >
-      <div class="flex flex-col gap-2 rounded-sm border border-line p-2">
+      <div class="flex items-center gap-4 justify-between">
+        <div class="flex items-center gap-2">
+          <GithubIcon width={16} height={16} class="size-6" />
+          <GithubIcon width={16} height={16} class="size-6" />
+        </div>
+        
         <section class="flex items-center justify-between gap-2">
-          <LanguagePicker />
           <ThemePicker />
+          <LanguagePicker />
         </section>
-        <hr class="border-line" />
-        <section class="flex flex-col gap-2">
-          <a
-            href="https://github.com/withastro/astro"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            class="flex items-center gap-2"
-          >
-            <GithubIcon width={20} height={20} class="size-5" />
-            Siguenos
-            <ArrowOutwardIcon width={20} height={20} class="bg ml-auto size-5" />
-          </a>
-        </section>
+        <!-- <a
+          href="https://github.com/withastro/astro"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          class="group text-muted-foreground flex items-center gap-2 rounded-sm px-2 py-1.5 text-base transition-colors hover:bg-line hover:text-foreground"
+        >
+          <GithubIcon width={16} height={16} class="size-4" />
+          <span class="flex-1">{t('footer.github')}</span>
+          <ArrowOutwardIcon
+            width={16}
+            height={16}
+            class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          />
+        </a> -->
       </div>
     </footer>
   </div>

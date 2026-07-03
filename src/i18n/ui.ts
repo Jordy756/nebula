@@ -18,6 +18,7 @@ export const ui = {
     'video.fallback': 'Tu navegador no soporta video HTML5.',
     'video.defaultTitle': 'Video incrustado de plataforma externa',
     'languagePicker.label': 'Seleccionar idioma',
+    'footer.github': 'Síguenos',
   },
   en: {
     'nav.main': 'Main navigation',
@@ -38,5 +39,6 @@ export const ui = {
     'video.fallback': 'Your browser does not support HTML5 video.',
     'video.defaultTitle': 'Embedded video from external platform',
     'languagePicker.label': 'Select language',
+    'footer.github': 'Follow us',
   },
 } as const;
