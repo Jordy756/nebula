@@ -81,31 +81,35 @@ const navigation = buildTree(localeDocs, currentLocale);
     <footer
       class="relative p-4 after:absolute after:bottom-full after:left-0 after:h-4 after:w-full after:bg-linear-to-t after:from-surface after:to-transparent"
     >
-      <div class="flex items-center gap-4 justify-between">
-        <div class="flex items-center gap-2">
-          <GithubIcon width={16} height={16} class="size-6" />
-          <GithubIcon width={16} height={16} class="size-6" />
-        </div>
-        
+      <div class="flex flex-col gap-2 rounded-sm border border-line p-2">
         <section class="flex items-center justify-between gap-2">
-          <ThemePicker />
-          <LanguagePicker />
+          <a
+            href="https://github.com/withastro/astro"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="transition-opacity hover:opacity-75"
+          >
+            <GithubIcon width={24} height={24} class="size-6" />
+          </a>
+          <div class="flex items-center gap-2">
+            <LanguagePicker />
+            <ThemePicker />
+          </div>
         </section>
-        <!-- <a
-          href="https://github.com/withastro/astro"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          class="group text-muted-foreground flex items-center gap-2 rounded-sm px-2 py-1.5 text-base transition-colors hover:bg-line hover:text-foreground"
-        >
-          <GithubIcon width={16} height={16} class="size-4" />
-          <span class="flex-1">{t('footer.github')}</span>
-          <ArrowOutwardIcon
-            width={16}
-            height={16}
-            class="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
-        </a> -->
+        <hr class="border-line" />
+        <section class="flex flex-col gap-2">
+          <a
+            href="https://github.com/withastro/astro"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="flex items-center gap-2 transition-opacity hover:opacity-75"
+          >
+            <span class="flex-1">{t('footer.github')}</span>
+            <ArrowOutwardIcon width={20} height={20} class="size-5" />
+          </a>
+        </section>
       </div>
     </footer>
   </div>
