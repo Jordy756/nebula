@@ -1,6 +1,11 @@
 ---
 import { getCurrentLocale, locales, useTranslations } from '@i18n/utils.ts';
 
+interface Props {
+  languagePickerPosition?: 'top' | 'bottom' | 'left' | 'right';
+}
+
+const { languagePickerPosition = 'top' } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
@@ -10,7 +15,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
   type="button"
   popovertarget="language-picker"
   aria-label={t('languagePicker.label')}
-  class="rounded-xs bg-line px-2 py-1 text-sm transition-opacity hover:opacity-75"
+  class="rounded-sm border border-line bg-line/50 px-2 py-1 text-sm transition-opacity hover:opacity-75"
 >
   {currentLocale.toUpperCase()}
 </button>
@@ -18,23 +23,33 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 <ul
   id="language-picker"
   popover
-  class="inset-auto mb-1 flex-col gap-1 rounded-sm border border-line bg-surface p-1 position-area-top open:flex"
+  class:list={[
+    'inset-auto mb-1 flex-col gap-1 rounded-sm border border-line bg-surface p-1 open:flex',
+    `position-area-${languagePickerPosition}`,
+  ]}
 >
   {
-    locales.map((locale) => (
-      <li>
-        <a
-          href={`/${locale}${currentPath}`}
-          hreflang={locale}
-          aria-current={locale === currentLocale ? 'true' : undefined}
-          class:list={[
-            'block rounded-xs px-2 py-1 text-sm text-foreground transition-[background-color] hover:bg-line',
-            locale === currentLocale && 'bg-line',
-          ]}
-        >
-          {locale.toUpperCase()}
-        </a>
-      </li>
-    ))
+    locales.map((locale) => {
+      const isCurrent = locale === currentLocale;
+      const baseClasses = 'block rounded-xs px-2 py-1 text-sm text-foreground cursor-pointer';
+
+      return (
+        <li>
+          {isCurrent ? (
+            <span class:list={[baseClasses, 'bg-line/50 font-semibold select-none']} aria-current="page">
+              {locale.toUpperCase()}
+            </span>
+          ) : (
+            <a
+              href={`/${locale}${currentPath}`}
+              hreflang={locale}
+              class:list={[baseClasses, 'transition-[background-color] hover:bg-line']}
+            >
+              {locale.toUpperCase()}
+            </a>
+          )}
+        </li>
+      );
+    })
   }
 </ul>

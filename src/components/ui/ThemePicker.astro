@@ -6,14 +6,10 @@ import LightIcon from '@components/icons/LightIcon.astro';
 <button
   id="toggle-theme-btn"
   aria-label="Toggle theme"
-  class="text-muted-foreground flex items-center justify-center rounded-sm bg-line px-1.5 py-1 transition-colors hover:text-foreground"
+  class="rounded-sm border border-line bg-line/50 px-1.5 py-1 transition-opacity hover:opacity-75"
 >
-  <span class="block dark:hidden">
-    <LightIcon width={20} height={20} class="size-5" />
-  </span>
-  <span class="hidden dark:block">
-    <DarkIcon width={20} height={20} class="size-5" />
-  </span>
+  <LightIcon width={20} class="block size-5 dark:hidden" />
+  <DarkIcon width={20} class="hidden size-5 dark:block" />
 </button>
 
 <script>

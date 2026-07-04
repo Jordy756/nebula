@@ -24,7 +24,10 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
 });
 ---
 
-<aside data-pagefind-ignore class="sticky top-0 left-0 flex max-h-screen flex-1 flex-col overflow-y-auto py-12 pr-4">
+<aside
+  data-pagefind-ignore
+  class="sticky top-0 left-0 flex max-h-screen flex-1 scrollbar-none flex-col overflow-y-auto py-12 pr-4"
+>
   <nav class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
       <TocIcon width={24} height={24} class="size-6" />
