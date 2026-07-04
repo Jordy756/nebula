@@ -32,28 +32,22 @@ function hasActive(node: NavNode, path: string): boolean {
 
 const isCurrentItem = !isGroup && hasActive(node, currentPath);
 const isOpen = isGroup && hasActive(node, currentPath);
-
-const test = 'a-${}';
 ---
 
 {
   isGroup ? (
-    <li class="">
+    <li>
       <details
         open
-        class="group sidebar-details details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto"
+        class="group details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto"
       >
-        <summary class="group flex cursor-pointer items-center justify-between gap-2 py-1 pr-1 text-sm outline-none hover:text-neutral-50">
+        <summary class="group flex cursor-pointer items-center justify-between gap-2 text-sm">
           <span class="font-medium">{node.title}</span>
-          <ChevronIcon
-            width={16}
-            height={16}
-            class="size-4 rotate-0 text-neutral-500 transition-transform duration-300 group-open:rotate-90"
-          />
+          <ChevronIcon width={16} height={16} class="size-4 transition-transform duration-300 group-open:rotate-180" />
         </summary>
-        <div class="flex gap-3 pt-1">
+        <div class="flex gap-3 transition-[margin] duration-500 group-open:mt-2">
           <div class="ml-2 w-px bg-line" />
-          <ul class="flex flex-1 flex-col gap-1">
+          <ul class="flex flex-1 flex-col gap-2">
             {node.items.map((child) => (
               <Astro.self node={child} currentPath={currentPath} />
             ))}
@@ -67,10 +61,7 @@ const test = 'a-${}';
         href={node.href}
         aria-label={node.ariaLabel}
         aria-current={isCurrentItem ? 'page' : undefined}
-        class:list={[
-          'block rounded-xs py-1 text-sm transition-colors',
-          isCurrentItem ? 'font-medium text-primary' : 'text-neutral-400 hover:text-neutral-50',
-        ]}
+        class:list={['block rounded-xs text-sm transition-colors', isCurrentItem ? 'font-medium text-primary' : '']}
       >
         {node.title}
       </a>
