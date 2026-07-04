@@ -32,6 +32,8 @@ function hasActive(node: NavNode, path: string): boolean {
 
 const isCurrentItem = !isGroup && hasActive(node, currentPath);
 const isOpen = isGroup && hasActive(node, currentPath);
+
+const test = 'a-${}';
 ---
 
 {
