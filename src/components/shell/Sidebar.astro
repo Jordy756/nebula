@@ -52,6 +52,17 @@ const docs = await getCollection('docs');
 const localeDocs = docs.filter((entry) => entry.id.startsWith(`${currentLocale}/`));
 const navigation = buildTree(localeDocs, currentLocale);
 // console.log(navigation);
+
+const test = {
+  es: [
+    { href: '#asd', title: 'Siguenos' },
+    { href: '#asd2', title: 'Siguenos 2' },
+  ],
+  en: [
+    { href: '#asd', title: 'Follow us' },
+    { href: '#asd2', title: 'Follow us 2' },
+  ],
+};
 ---
 
 <aside
@@ -63,7 +74,7 @@ const navigation = buildTree(localeDocs, currentLocale);
 >
   <div class="ml-auto flex h-full w-[min(100%,300px)] flex-col">
     <header
-      class="relative flex flex-col gap-4 p-4 after:absolute after:top-full after:left-0 after:z-10 after:h-4 after:w-full after:bg-linear-to-b after:from-surface after:to-transparent"
+      class="relative flex flex-col gap-4 p-4 after:absolute after:top-full after:left-0 after:h-4 after:w-full after:bg-linear-to-b after:from-surface after:to-transparent"
     >
       <h2 class="sr-only">{t('nav.sidebar')}</h2>
       <a href={`/${currentLocale}/`} aria-label={t('nav.home')}>
@@ -97,26 +108,19 @@ const navigation = buildTree(localeDocs, currentLocale);
         </section>
         <hr class="border-line" />
         <section class="flex flex-col gap-2">
-          <a
-            href="https://github.com/withastro/astro"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            class="group flex items-center gap-2 transition-opacity hover:opacity-75"
-          >
-            <span class="flex-1">{t('footer.github')}</span>
-            <ArrowOutwardIcon width={20} class="size-5 rotate-45 transition-[rotate] group-hover:rotate-0" />
-          </a>
-          <a
-            href="https://github.com/withastro/astro"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            class="group flex items-center gap-2 transition-opacity hover:opacity-75"
-          >
-            <span class="flex-1">{t('footer.github')}</span>
-            <ArrowOutwardIcon width={20} class="size-5 rotate-45 transition-[rotate] group-hover:rotate-0" />
-          </a>
+          {
+            test[currentLocale].map((item) => (
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-2 transition-opacity hover:opacity-75"
+              >
+                <span class="flex-1">{item.title}</span>
+                <ArrowOutwardIcon width={20} class="size-5 rotate-45 transition-[rotate] group-hover:rotate-0" />
+              </a>
+            ))
+          }
         </section>
       </div>
     </footer>
