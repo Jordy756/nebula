@@ -53,16 +53,7 @@ const localeDocs = docs.filter((entry) => entry.id.startsWith(`${currentLocale}/
 const navigation = buildTree(localeDocs, currentLocale);
 // console.log(navigation);
 
-const test = {
-  es: [
-    { href: '#asd', title: 'Siguenos' },
-    { href: '#asd2', title: 'Siguenos 2' },
-  ],
-  en: [
-    { href: '#asd', title: 'Follow us' },
-    { href: '#asd2', title: 'Follow us 2' },
-  ],
-};
+const socialLinks = [{ href: 'https://nebula-drab-five.vercel.app/', title: t('nav.nebula') }];
 ---
 
 <aside
@@ -91,37 +82,42 @@ const test = {
       class="relative p-4 after:absolute after:bottom-full after:left-0 after:h-4 after:w-full after:bg-linear-to-t after:from-surface after:to-transparent"
     >
       <div class="flex flex-col gap-2 rounded-sm border border-line p-2">
-        <section class="flex items-center justify-between gap-4">
+        <div class="flex items-center justify-between gap-4">
           <a
             href="https://github.com/withastro/astro"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="GitHub"
+            aria-label={t('nav.github.ariaLabel')}
+            title={t('nav.github.ariaLabel')}
             class="transition-opacity hover:opacity-75"
           >
             <GithubIcon width={22} class="size-5.5" />
           </a>
           <div class="flex items-center gap-1">
-            <LanguagePicker />
+            <LanguagePicker className="position-area-top" />
             <ThemePicker />
           </div>
-        </section>
+        </div>
         <hr class="border-line" />
-        <section class="flex flex-col gap-2">
-          {
-            test[currentLocale].map((item) => (
-              <a
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex items-center gap-2 transition-opacity hover:opacity-75"
-              >
-                <span class="flex-1">{item.title}</span>
-                <ArrowOutwardIcon width={20} class="size-5 rotate-45 transition-[rotate] group-hover:rotate-0" />
-              </a>
-            ))
-          }
-        </section>
+        <nav>
+          <ul class="flex flex-col gap-2">
+            {
+              socialLinks.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex items-center gap-2 transition-opacity hover:opacity-75"
+                  >
+                    <span class="flex-1">{item.title}</span>
+                    <ArrowOutwardIcon width={20} class="size-5 rotate-45 transition-[rotate] group-hover:rotate-0" />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
       </div>
     </footer>
   </div>
