@@ -43,7 +43,7 @@ const dialogId = `img-dialog-${crypto.randomUUID()}`;
 <dialog
   id={dialogId}
   closedby="any"
-  class="animate-dialog size-full bg-transparent"
+  class="size-full bg-transparent transition-[opacity,translate,scale,overlay,display] will-change-[opacity,translate,scale]"
   aria-label={`Imagen ampliada: ${alt}`}
 >
   <figure class="flex size-full flex-col items-center overflow-y-auto rounded-sm">

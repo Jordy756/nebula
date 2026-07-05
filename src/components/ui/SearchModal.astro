@@ -10,7 +10,7 @@ const t = useTranslations(currentLocale);
   id="search-modal"
   closedby="any"
   data-pagefind-ignore
-  class="animate-dialog max-h-[80vh] w-[min(700px,100%)] border border-line bg-surface"
+  class="top-1/2 left-1/2 max-h-[80vh] w-[min(700px,100%)] -translate-1/2 rounded-sm border border-line bg-surface transition-[opacity,translate,scale,overlay,display] will-change-[opacity,translate,scale]"
   aria-label={t('search.modalLabel')}
 >
   <header class="flex items-center gap-2 p-4">

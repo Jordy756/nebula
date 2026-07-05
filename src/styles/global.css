@@ -89,9 +89,30 @@
     @apply cursor-pointer;
   }
 
-  dialog,
+  dialog {
+    @apply opacity-0 transition-discrete duration-350 ease-out;
+  }
+
+  dialog[open] {
+    @apply scale-100 opacity-100;
+  }
+
   dialog::backdrop {
-    @apply transition-discrete;
+    @apply bg-black/10 opacity-0 backdrop-blur-xs transition-[opacity,overlay,display] transition-discrete duration-350 ease-out;
+  }
+
+  dialog[open]::backdrop {
+    @apply opacity-100;
+  }
+
+  @starting-style {
+    dialog[open] {
+      @apply scale-100 opacity-0;
+    }
+
+    dialog[open]::backdrop {
+      @apply opacity-0;
+    }
   }
 }
 
@@ -118,35 +139,5 @@
   .dark .astro-code span {
     color: var(--shiki-dark) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
-  }
-}
-
-@layer utilities {
-  .animate-dialog {
-    @apply top-1/2 left-1/2 -translate-1/2 rounded-sm opacity-0 transition-[opacity,translate,scale,overlay,display] duration-350 ease-out will-change-[opacity,translate,scale];
-  }
-
-  .animate-dialog[open] {
-    @apply scale-100 opacity-100;
-  }
-
-  @starting-style {
-    .animate-dialog[open] {
-      @apply scale-100 opacity-0;
-    }
-  }
-
-  .animate-dialog::backdrop {
-    @apply bg-black/10 opacity-0 backdrop-blur-sm transition-[opacity,overlay,display] duration-350 ease-out;
-  }
-
-  .animate-dialog[open]::backdrop {
-    @apply opacity-100;
-  }
-
-  @starting-style {
-    .animate-dialog[open]::backdrop {
-      @apply opacity-0;
-    }
   }
 }
