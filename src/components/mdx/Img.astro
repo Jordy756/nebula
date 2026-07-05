@@ -43,10 +43,10 @@ const dialogId = `img-dialog-${crypto.randomUUID()}`;
 <dialog
   id={dialogId}
   closedby="any"
-  class="top-1/2 left-1/2 -translate-1/2 bg-transparent p-0 opacity-0 transition-[display,overlay,scale,opacity] backdrop:bg-black/70 open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
+  class="animate-dialog size-full bg-transparent"
   aria-label={`Imagen ampliada: ${alt}`}
 >
-  <figure class="flex max-h-[96vh] w-screen flex-col items-center overflow-y-auto rounded-sm">
+  <figure class="flex size-full flex-col items-center overflow-y-auto rounded-sm">
     <Image
       src={src}
       alt={alt}
@@ -61,7 +61,7 @@ const dialogId = `img-dialog-${crypto.randomUUID()}`;
     commandfor={dialogId}
     aria-label={t('image.close')}
     title={t('image.close')}
-    class="absolute right-4 bottom-2 z-10 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
+    class="absolute right-2 bottom-2 z-10 rounded-full bg-neutral-800/50 p-2 transition-opacity hover:opacity-75"
   >
     <MinimiseIcon width={24} height={24} class="size-6 text-neutral-50" />
   </button>

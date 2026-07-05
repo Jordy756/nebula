@@ -1,7 +1,6 @@
 # Tareas Nebula
 
 - Mejorar nav.
-- Mejorar mejorar el componente de Youtube para que deje poner shorts
 - Ver el porque la clase en el theme picker no agarra el valor por defecto.
 - Mejorar colores y valores de las transiciones.
 - Ver por que en PRD no se puede buscar (pagefind).
