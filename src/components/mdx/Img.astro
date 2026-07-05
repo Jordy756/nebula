@@ -13,19 +13,19 @@ interface Props extends HTMLAttributes<'img'> {
 }
 
 const { src, alt, class: className, width = 644, height = 362, ...rest } = Astro.props;
-const dialogId = crypto.randomUUID();
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
+const dialogId = `img-dialog-${crypto.randomUUID()}`;
 ---
 
-<figure class="relative">
+<figure class="relative aspect-video overflow-hidden rounded-sm">
   <Image
     src={src}
     alt={alt}
     layout="constrained"
     width={width}
     height={height}
-    class:list={['h-auto w-full rounded-sm', className]}
+    class:list={['h-full w-full rounded-sm object-contain', className]}
     {...rest}
   />
   <button
@@ -33,7 +33,7 @@ const t = useTranslations(currentLocale);
     commandfor={dialogId}
     aria-label={t('image.expand')}
     title={t('image.expand')}
-    class="absolute right-2 bottom-2 rounded-full p-2 transition-[background-color] hover:bg-neutral-800/50"
+    class="absolute right-2 bottom-2 z-20 rounded-full bg-neutral-800/50 p-2 transition-opacity hover:opacity-75"
   >
     <ExpandIcon width={16} height={16} class="size-4 text-neutral-50" />
   </button>
@@ -45,11 +45,10 @@ const t = useTranslations(currentLocale);
   class="top-1/2 left-1/2 -translate-1/2 bg-transparent p-0 opacity-0 transition-[display,overlay,scale,opacity] backdrop:bg-black/70 open:flex open:scale-100 open:opacity-100 starting:open:scale-150 starting:open:opacity-0"
   aria-label={`Imagen ampliada: ${alt}`}
 >
-  <figure class="flex h-[96vh] w-screen flex-col items-center overflow-y-auto rounded-sm">
+  <figure class="flex max-h-[96vh] w-screen flex-col items-center overflow-y-auto rounded-sm">
     <Image
       src={src}
       alt={alt}
-      layout="constrained"
       width={width * 2}
       height={height * 2}
       class:list={['aspect-auto h-full w-auto rounded-sm object-contain', className]}

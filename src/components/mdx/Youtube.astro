@@ -11,7 +11,8 @@ const { src, title, class: className, ...rest } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 
-const match = src.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
+const isShorts = /youtube\.com\/shorts\//.test(src);
+const match = src.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/);
 const videoId = match && match[2].length === 11 ? match[2] : null;
 const youtubeSrc = videoId ? `https://www.youtube-nocookie.com/embed/${videoId}` : src;
 ---
@@ -20,7 +21,7 @@ const youtubeSrc = videoId ? `https://www.youtube-nocookie.com/embed/${videoId}`
   <iframe
     src={youtubeSrc}
     title={title ?? t('video.defaultTitle')}
-    class="h-full w-full"
+    class="size-full"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
     loading="lazy"

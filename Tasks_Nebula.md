@@ -8,3 +8,4 @@
 - Limpiar todo y revisar todo muy bien (Accesibilidad, Lighthouse, SEO,...)
 - Mejorar animacion de modales, ver como las hizo midudev en su libreria de animaciones.
 - Hacer el responsive.
+- Logo para modo oscuro y claro.

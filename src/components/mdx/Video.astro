@@ -15,7 +15,7 @@ const t = useTranslations(currentLocale);
   controls={controls}
   playsinline={playsinline}
   preload={preload}
-  class:list={['h-auto w-full rounded-sm', className]}
+  class:list={['aspect-video w-full rounded-sm', className]}
   {...rest}
 >
   <source src={src} type={`video/${src.split('.').pop()}`} />

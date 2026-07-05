@@ -39,6 +39,10 @@
   position-area: --value(--tw-position-area-*, [*]);
 }
 
+@utility bg-border-fill {
+  border-image: fill 0 linear-gradient(transparent, #000);
+}
+
 @layer base {
   :root {
     interpolate-size: allow-keywords;
@@ -51,12 +55,6 @@
 
   :is(*, *::before, *::after) {
     @apply scrollbar-thin;
-  }
-
-  *::-webkit-scrollbar-button {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
   }
 
   html {
