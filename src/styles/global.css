@@ -39,10 +39,6 @@
   position-area: --value(--tw-position-area-*, [*]);
 }
 
-@utility bg-border-fill {
-  border-image: fill 0 linear-gradient(transparent, #000);
-}
-
 @layer base {
   :root {
     interpolate-size: allow-keywords;

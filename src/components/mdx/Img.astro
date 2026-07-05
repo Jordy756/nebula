@@ -13,19 +13,20 @@ interface Props extends HTMLAttributes<'img'> {
 }
 
 const { src, alt, class: className, width = 644, height = 362, ...rest } = Astro.props;
+
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 const dialogId = `img-dialog-${crypto.randomUUID()}`;
 ---
 
-<figure class="relative aspect-video overflow-hidden rounded-sm">
+<figure class="relative">
   <Image
     src={src}
     alt={alt}
     layout="constrained"
     width={width}
     height={height}
-    class:list={['h-full w-full rounded-sm object-contain', className]}
+    class:list={['aspect-video h-auto w-full rounded-sm object-cover', className]}
     {...rest}
   />
   <button
