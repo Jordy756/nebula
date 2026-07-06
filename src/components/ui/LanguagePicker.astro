@@ -2,14 +2,21 @@
 import { getCurrentLocale, locales, useTranslations } from '@i18n/utils.ts';
 
 interface Props {
-  className?: string;
+  placement?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-const { className = 'position-area-top' } = Astro.props;
+const { placement = 'top' } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 const popoverId = `language-picker-${crypto.randomUUID()}`;
+
+const POSITION_AREA = {
+  top: 'position-area-top',
+  bottom: 'position-area-bottom',
+  left: 'position-area-left',
+  right: 'position-area-right',
+};
 ---
 
 <button
@@ -24,7 +31,10 @@ const popoverId = `language-picker-${crypto.randomUUID()}`;
 <ul
   id={popoverId}
   popover
-  class:list={['inset-auto mb-1 flex-col gap-1 rounded-sm border border-line bg-surface p-1 open:flex', className]}
+  class:list={[
+    'inset-auto mb-1 flex-col gap-1 rounded-sm border border-line bg-surface p-1 open:flex',
+    POSITION_AREA[placement],
+  ]}
 >
   {
     locales.map((locale) => {
