@@ -38,11 +38,13 @@ export type Pagefind = {
 
 let pagefind: Pagefind | null = null;
 
+const dynamicImport = new Function('p', 'return import(p)') as <T = unknown>(p: string) => Promise<T>;
+
 export const getPagefind = async (): Promise<Pagefind | null> => {
   if (pagefind) return pagefind;
 
   try {
-    pagefind = (await import(/* @vite-ignore */ PAGEFIND_URL)) as unknown as Pagefind;
+    pagefind = (await dynamicImport(PAGEFIND_URL)) as unknown as Pagefind;
     return pagefind;
   } catch (error) {
     console.error('Failed to load Pagefind', error);
