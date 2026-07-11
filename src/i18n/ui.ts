@@ -9,6 +9,11 @@ export const ui = {
     'search.placeholder': 'Buscar en la documentación...',
     'search.modalLabel': 'Buscar en la documentación',
     'search.results': 'resultados',
+    'search.resultsCount': {
+      one: '{count} resultado',
+      other: '{count} resultados',
+    },
+    'search.unavailable': 'La búsqueda no está disponible.',
     'search.shortcut': 'Ctrl + K',
     'toc.title': 'En esta página',
     'article.prev': 'Ir a la página anterior:',
@@ -31,6 +36,11 @@ export const ui = {
     'search.placeholder': 'Search documentation...',
     'search.modalLabel': 'Search documentation',
     'search.results': 'results',
+    'search.resultsCount': {
+      one: '{count} result',
+      other: '{count} results',
+    },
+    'search.unavailable': 'Search is not available.',
     'search.shortcut': 'Ctrl + K',
     'toc.title': 'On this page',
     'article.prev': 'Go to previous page:',

@@ -1,69 +1,42 @@
-export const PAGEFIND_URL = '/pagefind/pagefind.js';
-
-export type PagefindSubResult = {
-  title: string;
+export interface PagefindResultData {
   url: string;
   excerpt: string;
-};
-
-export type PagefindResultData = {
-  url: string;
-  excerpt: string;
-  meta: {
-    title?: string;
-    image?: string;
-    [key: string]: string | undefined;
-  };
+  meta: { title?: string; [key: string]: string | undefined };
   sub_results: PagefindSubResult[];
-};
+}
 
-export type PagefindResult = {
-  id: string;
-  data: () => Promise<PagefindResultData>;
-};
+export interface PagefindSubResult {
+  url: string;
+  excerpt: string;
+}
 
-export type PagefindSearchResponse = {
-  results: PagefindResult[];
-};
-
-export type Pagefind = {
+export interface PagefindClient {
+  search: (term: string) => Promise<{ results: Array<{ data: () => Promise<PagefindResultData> }> }>;
   init: () => Promise<void>;
-  search: (term: string) => Promise<PagefindSearchResponse>;
-  debouncedSearch: (term: string) => Promise<PagefindSearchResponse | null>;
-  preload: (term: string) => Promise<void>;
-  filters: () => Promise<Record<string, Record<string, number>>>;
   destroy: () => Promise<void>;
   options: (options: Record<string, unknown>) => Promise<void>;
-};
+  preload?: (term: string) => Promise<void>;
+}
 
-let pagefind: Pagefind | null = null;
+const url = `${(import.meta.env.BASE_URL ?? '/').replace(/\/$/, '')}/pagefind/pagefind.js`;
 
-const dynamicImport = new Function('p', 'return import(p)') as <T = unknown>(p: string) => Promise<T>;
+let instance: PagefindClient | null = null;
 
-export const getPagefind = async (): Promise<Pagefind | null> => {
-  if (pagefind) return pagefind;
-
+export const getPagefind = async (): Promise<PagefindClient | null> => {
+  if (instance) return instance;
   try {
-    pagefind = (await dynamicImport(PAGEFIND_URL)) as unknown as Pagefind;
-    return pagefind;
+    instance = (await import(/* @vite-ignore */ url)) as PagefindClient;
+    return instance;
   } catch (error) {
     console.error('Failed to load Pagefind', error);
-    pagefind = null;
     return null;
   }
 };
 
-export const reinitializePagefind = async (): Promise<Pagefind | null> => {
-  try {
-    const pagefind = await getPagefind();
-    if (!pagefind) throw new Error('Pagefind is not available');
-
-    await pagefind.destroy();
-    await pagefind.init();
-
-    return pagefind;
-  } catch (error) {
-    console.error('Failed to reinitialize Pagefind', error);
-    return null;
-  }
+export const setPagefindLanguage = async (language: string): Promise<void> => {
+  const pf = await getPagefind();
+  if (!pf) return;
+  await pf.destroy();
+  await pf.options({ language });
+  await pf.init();
 };

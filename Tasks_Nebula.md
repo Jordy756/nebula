@@ -1,6 +1,7 @@
 # Tareas Nebula
 
 - Mejorar nav.
+- Revisar i18n
 - Mejorar colores y valores de las transiciones.
 - Ver por que en PRD no se puede buscar (pagefind).
 - Limpiar todo y revisar todo muy bien (Accesibilidad, Lighthouse, SEO,...)
