@@ -13,11 +13,11 @@ const { title, description } = Astro.props;
 
 <BaseLayout title={title} description={description}>
   <div class="relative mx-auto flex min-h-screen max-w-(--max-width)">
-    <Sidebar class="hidden flex-1" />
+    <!-- <Sidebar class="flex-1" /> -->
     <main class="flex flex-2 flex-col items-center">
       <slot />
     </main>
-    <slot name="toc" />
+    <!-- <slot name="toc" /> -->
     <SearchModal />
   </div>
 </BaseLayout>

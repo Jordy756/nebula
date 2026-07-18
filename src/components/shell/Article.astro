@@ -20,7 +20,7 @@ const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 ---
 
-<article data-pagefind-body class="flex max-w-[65ch] flex-col gap-4 px-4 py-12">
+<article data-pagefind-body class="flex w-[min(65ch,100%)] flex-col gap-4 bg-red-300 px-4 py-12">
   <header class="flex flex-col gap-4 border-b border-line">
     <h1 data-pagefind-meta="title">{title}</h1>
     <p data-pagefind-meta="description" class="mb-12">{description}</p>
@@ -28,12 +28,12 @@ const t = useTranslations(currentLocale);
   <div class="markdown-body flex flex-1 flex-col gap-4">
     <slot />
   </div>
-  <footer class="mt-12 flex items-center gap-4">
+  <footer class="mt-12 flex flex-col items-center gap-4 sm:flex-row">
     {
       prev && (
         <a
           href={prev.href}
-          class="flex flex-1 flex-col gap-2 rounded-sm border border-line p-4 transition-[border-color] hover:border-neutral-300 dark:hover:border-neutral-700"
+          class="flex flex-1 flex-col gap-2 overflow-hidden rounded-sm border border-line p-4 transition-[border-color] hover:border-neutral-300 dark:hover:border-neutral-700"
           rel="prev"
         >
           <span class="sr-only">{t('article.prev')}</span>
@@ -49,7 +49,7 @@ const t = useTranslations(currentLocale);
       next && (
         <a
           href={next.href}
-          class="flex flex-1 flex-col justify-end gap-2 rounded-sm border border-line p-4 transition-[border-color] hover:border-neutral-300 dark:hover:border-neutral-700"
+          class="flex flex-1 flex-col justify-end gap-2 overflow-hidden rounded-sm border border-line p-4 transition-[border-color] hover:border-neutral-300 dark:hover:border-neutral-700"
           rel="next"
         >
           <span class="sr-only">{t('article.next')}</span>
