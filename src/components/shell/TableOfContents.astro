@@ -1,4 +1,5 @@
 ---
+import ChevronIcon from '@components/icons/ChevronIcon.astro';
 import TocIcon from '@components/icons/TocIcon.astro';
 import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
 import type { MarkdownHeading } from 'astro';
@@ -11,7 +12,6 @@ const { headings = [] } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
-
 const getLineX = (depth: number) => (depth >= 3 ? 16.5 : 8.5);
 
 const links = filteredHeadings.map(({ slug, text, depth }, index) => {
@@ -26,14 +26,19 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
 
 <aside
   data-pagefind-ignore
-  class="sticky top-0 left-0 flex max-h-screen flex-1 scrollbar-none flex-col overflow-y-auto py-12 pr-4"
+  class="sticky top-0 left-0 flex max-h-screen scrollbar-none flex-col overflow-y-auto border-b border-line p-4 area-toc xl:py-12"
 >
-  <nav class="flex flex-col gap-2">
-    <div class="flex items-center gap-2">
+  <nav class="flex flex-col gap-2 max-xl:w-full max-xl:items-center">
+    <div class="flex items-center gap-2 max-xl:hidden">
       <TocIcon width={24} height={24} class="size-6" />
       <h3 class="text-base font-semibold">{t('toc.title')}</h3>
     </div>
-    <ul class="relative flex flex-col">
+    <button class="flex w-[min(65ch,100%)] items-center gap-2 xl:hidden" popovertarget="toc-popover">
+      <TocIcon width={24} height={24} class="size-6" />
+      <h3 class="text-base font-semibold">{t('toc.title')}</h3>
+      <ChevronIcon width={24} class="ml-auto size-6 xl:hidden" />
+    </button>
+    <ul class="relative hidden flex-col xl:flex">
       {
         links.map(({ slug, text, depth, index, x, prevX, hasTransition }) => (
           <li class="relative flex py-1.5 text-sm first:pt-0">
@@ -100,6 +105,78 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
       }
     </ul>
   </nav>
+  <div
+    id="toc-popover"
+    popover
+    class="inset-auto mt-4 max-h-[250px] w-full bg-red-200 border border-line p-4 position-area-bottom"
+  >
+    <ul class="relative flex flex-col">
+      {
+        links.map(({ slug, text, depth, index, x, prevX, hasTransition }) => (
+          <li class="relative flex py-1.5 text-sm first:pt-0">
+            <a
+              href={`#${slug}`}
+              class:list={[
+                'group text-neutral-600 transition-[color,opacity] duration-300 ease-in-out hover:opacity-75 data-[active=true]:text-primary dark:text-neutral-400',
+                depth === 2 ? 'ms-5' : 'ms-8',
+              ]}
+              data-toc-link
+              data-heading-slug={slug}
+              data-toc-index={index}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="absolute inset-s-0 -top-1.5 -z-1 h-full overflow-visible rtl:-scale-x-100"
+              >
+                {hasTransition ? (
+                  <>
+                    <path
+                      d={`M ${prevX} 0 C ${prevX} 8 ${x} 4 ${x} 12`}
+                      stroke-width="1"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
+                    />
+                    <line
+                      x1={x}
+                      y1="12"
+                      x2={x}
+                      y2="100%"
+                      stroke-width="1"
+                      class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
+                    />
+                  </>
+                ) : (
+                  <line
+                    x1={x}
+                    y1="0"
+                    x2={x}
+                    y2="100%"
+                    stroke-width="1"
+                    class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
+                  />
+                )}
+                <circle
+                  cx={prevX}
+                  cy="0"
+                  r="2"
+                  class="fill-primary opacity-0 transition-opacity duration-300 group-data-[active-edge=top]:opacity-100"
+                />
+                <circle
+                  cx={x}
+                  cy="100%"
+                  r="2"
+                  class="fill-primary opacity-0 transition-opacity duration-300 group-data-[active-edge=bottom]:opacity-100"
+                />
+              </svg>
+              {text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </aside>
 
 <script src="../../scripts/lib/toc.ts"></script>

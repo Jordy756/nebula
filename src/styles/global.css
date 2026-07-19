@@ -35,6 +35,43 @@
   --font-mono: var(--font-inter), Montserrat, sans-serif;
 }
 
+@utility layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, auto) 1fr;
+  grid-template-areas:
+    "sidebar"
+    "toc"
+    "main";
+  gap: 16px;
+
+  @variant md {
+    grid-template-columns: 275px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "sidebar toc"
+      "sidebar main";
+  }
+
+  @variant xl {
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "sidebar main toc";
+  }
+}
+
+@utility area-sidebar {
+  grid-area: sidebar;
+}
+
+@utility area-main {
+  grid-area: main;
+}
+
+@utility area-toc {
+  grid-area: toc;
+}
+
 @utility position-area-* {
   position-area: --value(--tw-position-area-*, [*]);
 }

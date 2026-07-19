@@ -1,4 +1,5 @@
 ---
+import ChevronIcon from '@components/icons/ChevronIcon.astro';
 import Sidebar from '@components/shell/Sidebar.astro';
 import SearchModal from '@components/ui/SearchModal.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
@@ -12,12 +13,18 @@ const { title, description } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="relative mx-auto flex min-h-screen max-w-(--max-width)">
-    <!-- <Sidebar class="flex-1" /> -->
-    <main class="flex flex-2 flex-col items-center">
+  <div class="relative mx-auto layout-grid min-h-screen w-[min(100%,var(--max-width))]">
+    <aside class="sticky top-0 z-50 bg-red-950 p-4 area-sidebar">Sidebar</aside>
+    <main class="flex min-w-0 flex-col items-center bg-blue-950 area-main">
       <slot />
     </main>
-    <!-- <slot name="toc" /> -->
+    <aside class="sticky top-[56px] z-50 bg-green-950 p-4 area-toc">Toc</aside>
+    <!-- <Sidebar class="area-sidebar" />
+    <main class="flex w-full flex-col items-center area-main">
+      <slot />
+    </main>
+    <slot name="toc" />
+    -->
     <SearchModal />
   </div>
 </BaseLayout>
