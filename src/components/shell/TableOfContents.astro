@@ -26,7 +26,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
 
 <aside
   data-pagefind-ignore
-  class="sticky top-0 left-0 flex max-h-screen scrollbar-none flex-col overflow-y-auto border-b border-line p-4 area-toc xl:py-12"
+  class="sticky top-14.25 left-0 z-50 flex max-h-screen scrollbar-none flex-col overflow-y-auto border-b border-line bg-background p-4 area-toc xl:py-12"
 >
   <nav class="flex flex-col gap-2 max-xl:w-full max-xl:items-center">
     <div class="flex items-center gap-2 max-xl:hidden">
@@ -108,7 +108,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
   <div
     id="toc-popover"
     popover
-    class="inset-auto mt-4 max-h-[250px] w-full bg-red-200 border border-line p-4 position-area-bottom"
+    class="inset-auto mt-4 max-h-[60vh] w-full border border-line bg-background p-4 position-area-bottom"
   >
     <ul class="relative flex flex-col">
       {

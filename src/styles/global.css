@@ -43,7 +43,7 @@
     "sidebar"
     "toc"
     "main";
-  gap: 16px;
+  gap-row: 16px;
 
   @variant md {
     grid-template-columns: 275px 1fr;

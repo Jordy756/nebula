@@ -23,4 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# VS Code setting folder
+.vscode/
+
+# Skill registry files
 .atl
