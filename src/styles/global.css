@@ -76,6 +76,22 @@
   position-area: --value(--tw-position-area-*, [*]);
 }
 
+@utility overlay-backdrop {
+  &::backdrop {
+    @apply bg-black/10 opacity-0 backdrop-blur-xs transition-[opacity,overlay,display] transition-discrete duration-350 ease-out;
+  }
+
+  &:where([open], :popover-open, :open)::backdrop {
+    @apply opacity-100;
+  }
+
+  @starting-style {
+    &:where([open], :popover-open, :open)::backdrop {
+      @apply opacity-0;
+    }
+  }
+}
+
 @layer base {
   :root {
     interpolate-size: allow-keywords;
@@ -127,28 +143,16 @@
   }
 
   dialog {
-    @apply opacity-0 transition-discrete duration-350 ease-out;
+    @apply opacity-0 transition-discrete duration-350 ease-out overlay-backdrop;
   }
 
   dialog[open] {
     @apply scale-100 opacity-100;
   }
 
-  dialog::backdrop {
-    @apply bg-black/10 opacity-0 backdrop-blur-xs transition-[opacity,overlay,display] transition-discrete duration-350 ease-out;
-  }
-
-  dialog[open]::backdrop {
-    @apply opacity-100;
-  }
-
   @starting-style {
     dialog[open] {
       @apply scale-100 opacity-0;
-    }
-
-    dialog[open]::backdrop {
-      @apply opacity-0;
     }
   }
 }
