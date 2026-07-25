@@ -1,6 +1,5 @@
 // @ts-check
 import { satteri } from '@astrojs/markdown-satteri';
-import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
@@ -37,13 +36,7 @@ export default defineConfig({
       },
     }),
   },
-  integrations: [
-    mdx({
-      processor: unified(),
-    }),
-    sitemap(),
-    pagefind(),
-  ],
+  integrations: [mdx(), sitemap(), pagefind()],
   fonts: [
     {
       name: 'Host Grotesk',
