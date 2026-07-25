@@ -40,23 +40,23 @@
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2, auto) 1fr;
   grid-template-areas:
-    "sidebar"
-    "toc"
-    "main";
+    'sidebar'
+    'toc'
+    'main';
   gap-row: 16px;
 
   @variant lg {
     grid-template-columns: 300px 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
-      "sidebar toc"
-      "sidebar main";
+      'sidebar toc'
+      'sidebar main';
   }
 
   @variant xl {
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr;
-    grid-template-areas: "sidebar main toc";
+    grid-template-areas: 'sidebar main toc';
   }
 }
 
@@ -143,7 +143,7 @@
   }
 
   dialog {
-    @apply opacity-0 transition-discrete duration-350 ease-out overlay-backdrop;
+    @apply overlay-backdrop opacity-0 transition-discrete duration-350 ease-out;
   }
 
   dialog[open] {

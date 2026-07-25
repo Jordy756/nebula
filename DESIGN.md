@@ -1,5 +1,5 @@
 # Scale — Style Reference
->
+
 > Midnight Command Center: An expanse of polished dark surfaces, illuminated by precise neutral-50 text and the occasional shimmer of an iridescent, almost holographic, light.
 
 **Theme:** dark
@@ -8,20 +8,20 @@ This design system evokes a sense of deep, sophisticated technology within a sec
 
 ## Tokens — Colors
 
-| Name | Value | Token | Role |
-|------|-------|-------|------|
-| Deep Space | `bg-neutral-950` | `bg-neutral-950` | Primary page background, card backgrounds, creating a high-contrast canvas. |
-| Ghost White | `text-neutral-50` | `text-neutral-50` | Primary text color for headlines and body text, accentuating information against the dark background. Also used for borders on interactive elements. |
-| Iron Slate | `#a1a1a1` | `--color-iron-slate` | Secondary text for less prominent information, active navigation links, and subtle borders. |
-| Halo Pale | `#f4f0ff` | `--color-halo-pale` | Subtle, near-neutral-50 text for secondary links and body text in less prominent sections. This provides a very soft contrast against neutral-950. |
-| Shadow Tint | `#020202` | `--color-shadow-tint` | Subtle shadows and background for elements that need a touch more depth than pure neutral-950. |
-| Subtle Gray | `#e5e5e5` | `--color-subtle-gray` | Text and icon color, for details that require slightly less prominence than Ghost White. |
-| Iridescent Glow | `#bbdef2` | `--color-iridescent-glow` | Backgrounds of geometric abstract shapes, providing a luminous, futuristic visual accent. |
-| Spectrum Flare | `#d1aad7` | `--color-spectrum-flare` | Used for the lighter parts of the iridescent gradient, giving it a soft, ethereal quality. |
-| Vivid Crimson | `#ff6467` | `--color-vivid-crimson` | Indicator or accent background, used sparingly to draw attention. |
-| Goldenrod | `#ffd600` | `--color-goldenrod` | Indicator or accent background, used sparingly for specific highlight. |
-| Emerald Green | `#72ce7b` | `--color-emerald-green` | Indicator or accent background, used sparingly for specific highlight. |
-| Dark Rainbow Gradient | `linear-gradient(to right bottom in oklab, rgb(154, 154, 154) 0%, rgb(26, 26, 26) 50%, rgb(106, 106, 106) 100%)` | `--color-dark-rainbow-gradient` | Used for highly stylized, abstract background elements, providing a subtle shimmer that hints at dimension and data flow. |
+| Name                  | Value                                                                                                            | Token                           | Role                                                                                                                                                 |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Deep Space            | `bg-neutral-950`                                                                                                 | `bg-neutral-950`                | Primary page background, card backgrounds, creating a high-contrast canvas.                                                                          |
+| Ghost White           | `text-neutral-50`                                                                                                | `text-neutral-50`               | Primary text color for headlines and body text, accentuating information against the dark background. Also used for borders on interactive elements. |
+| Iron Slate            | `#a1a1a1`                                                                                                        | `--color-iron-slate`            | Secondary text for less prominent information, active navigation links, and subtle borders.                                                          |
+| Halo Pale             | `#f4f0ff`                                                                                                        | `--color-halo-pale`             | Subtle, near-neutral-50 text for secondary links and body text in less prominent sections. This provides a very soft contrast against neutral-950.   |
+| Shadow Tint           | `#020202`                                                                                                        | `--color-shadow-tint`           | Subtle shadows and background for elements that need a touch more depth than pure neutral-950.                                                       |
+| Subtle Gray           | `#e5e5e5`                                                                                                        | `--color-subtle-gray`           | Text and icon color, for details that require slightly less prominence than Ghost White.                                                             |
+| Iridescent Glow       | `#bbdef2`                                                                                                        | `--color-iridescent-glow`       | Backgrounds of geometric abstract shapes, providing a luminous, futuristic visual accent.                                                            |
+| Spectrum Flare        | `#d1aad7`                                                                                                        | `--color-spectrum-flare`        | Used for the lighter parts of the iridescent gradient, giving it a soft, ethereal quality.                                                           |
+| Vivid Crimson         | `#ff6467`                                                                                                        | `--color-vivid-crimson`         | Indicator or accent background, used sparingly to draw attention.                                                                                    |
+| Goldenrod             | `#ffd600`                                                                                                        | `--color-goldenrod`             | Indicator or accent background, used sparingly for specific highlight.                                                                               |
+| Emerald Green         | `#72ce7b`                                                                                                        | `--color-emerald-green`         | Indicator or accent background, used sparingly for specific highlight.                                                                               |
+| Dark Rainbow Gradient | `linear-gradient(to right bottom in oklab, rgb(154, 154, 154) 0%, rgb(26, 26, 26) 50%, rgb(106, 106, 106) 100%)` | `--color-dark-rainbow-gradient` | Used for highly stylized, abstract background elements, providing a subtle shimmer that hints at dimension and data flow.                            |
 
 ## Tokens — Typography
 
@@ -48,27 +48,27 @@ This design system evokes a sense of deep, sophisticated technology within a sec
 
 ### Spacing Scale
 
-| Name | Value | Token |
-|------|-------|-------|
-| 8 | 8px | `p-2` / `m-2` / `gap-2` |
-| 16 | 16px | `p-4` / `m-4` / `gap-4` |
-| 24 | 24px | `p-6` / `m-6` / `gap-6` |
-| 32 | 32px | `p-8` / `m-8` / `gap-8` |
-| 40 | 40px | `p-10` / `m-10` / `gap-10` |
-| 48 | 48px | `p-12` / `m-12` / `gap-12` |
-| 64 | 64px | `p-16` / `m-16` / `gap-16` |
-| 72 | 72px | `p-18` / `m-18` / `gap-18` |
-| 80 | 80px | `p-20` / `m-20` / `gap-20` |
-| 192 | 192px | `p-48` / `m-48` / `gap-48` |
-| 224 | 224px | `p-56` / `m-56` / `gap-56` |
+| Name | Value | Token                      |
+| ---- | ----- | -------------------------- |
+| 8    | 8px   | `p-2` / `m-2` / `gap-2`    |
+| 16   | 16px  | `p-4` / `m-4` / `gap-4`    |
+| 24   | 24px  | `p-6` / `m-6` / `gap-6`    |
+| 32   | 32px  | `p-8` / `m-8` / `gap-8`    |
+| 40   | 40px  | `p-10` / `m-10` / `gap-10` |
+| 48   | 48px  | `p-12` / `m-12` / `gap-12` |
+| 64   | 64px  | `p-16` / `m-16` / `gap-16` |
+| 72   | 72px  | `p-18` / `m-18` / `gap-18` |
+| 80   | 80px  | `p-20` / `m-20` / `gap-20` |
+| 192  | 192px | `p-48` / `m-48` / `gap-48` |
+| 224  | 224px | `p-56` / `m-56` / `gap-56` |
 
 ### Border Radius
 
 | Element | Value | Native Tailwind Class |
-|---------|-------|-----------------------|
-| lists | 4px | `rounded-sm` |
-| default | 8px | `rounded-md` |
-| links | 16px | `rounded-2xl` |
+| ------- | ----- | --------------------- |
+| lists   | 4px   | `rounded-sm`          |
+| default | 8px   | `rounded-md`          |
+| links   | 16px  | `rounded-2xl`         |
 
 ### Layout
 
@@ -78,8 +78,8 @@ This design system evokes a sense of deep, sophisticated technology within a sec
 
 ### Shadows
 
-| Name | Value | Token |
-|------|-------|-------|
+| Name   | Value                                            | Token             |
+| ------ | ------------------------------------------------ | ----------------- |
 | subtle | `rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset` | `--shadow-subtle` |
 
 ## Components

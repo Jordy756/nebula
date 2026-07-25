@@ -4,11 +4,11 @@ Astro 6 static documentation site with MDX content collections, Tailwind CSS v4,
 
 ## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm dev` | Start dev server (`astro dev --open`) |
-| `pnpm build` | Build static site to `dist/` |
-| `pnpm preview` | Preview the built site |
+| Command                   | Purpose                                                  |
+| ------------------------- | -------------------------------------------------------- |
+| `pnpm dev`                | Start dev server (`astro dev --open`)                    |
+| `pnpm build`              | Build static site to `dist/`                             |
+| `pnpm preview`            | Preview the built site                                   |
 | `pnpm prettier --write .` | Format with Prettier (no script alias in `package.json`) |
 
 Use **pnpm**; `pnpm-lock.yaml` is the lockfile. Node `>=22.12.0`.

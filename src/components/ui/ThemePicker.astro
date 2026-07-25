@@ -4,7 +4,8 @@ import LightIcon from '@components/icons/LightIcon.astro';
 ---
 
 <button
-  id="toggle-theme-btn"
+  type="button"
+  data-theme-toggle
   aria-label="Toggle theme"
   class="rounded-sm border border-line bg-line/50 px-1.5 py-1 transition-opacity hover:opacity-75"
 >
@@ -13,26 +14,11 @@ import LightIcon from '@components/icons/LightIcon.astro';
 </button>
 
 <script>
-  let toggleAbortController: AbortController | null = null;
+  document.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest('[data-theme-toggle]');
+    if (!button) return;
 
-  const setupThemeToggle = () => {
-    const html = document.documentElement;
-    const toggleThemeButton = document.getElementById('toggle-theme-btn');
-
-    if (!toggleThemeButton) return;
-
-    toggleAbortController?.abort();
-    toggleAbortController = new AbortController();
-
-    const handleThemeChange = () => {
-      html.classList.toggle('dark');
-      const isDark = html.classList.contains('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    };
-
-    toggleThemeButton.addEventListener('click', handleThemeChange);
-    toggleThemeButton.addEventListener('click', handleThemeChange, { signal: toggleAbortController.signal });
-  };
-
-  document.addEventListener('astro:page-load', setupThemeToggle);
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
 </script>

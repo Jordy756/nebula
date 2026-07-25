@@ -21,10 +21,9 @@ const t = useTranslations(currentLocale);
     className,
   ]}
 >
-  <SearchIcon width={24} height={24} class="lg:size-5 size-6" />
+  <SearchIcon width={24} height={24} class="size-6 lg:size-5" />
   <span class="flex-1 truncate text-left max-lg:hidden">{t('search.open')}</span>
-  <kbd
-    class="hidden items-center rounded-sm bg-neutral-200 px-1.5 py-0.5 text-xs lg:inline-flex dark:bg-neutral-800"
+  <kbd class="hidden items-center rounded-sm bg-neutral-200 px-1.5 py-0.5 text-xs lg:inline-flex dark:bg-neutral-800"
     >{t('search.shortcut')}</kbd
   >
 </button>

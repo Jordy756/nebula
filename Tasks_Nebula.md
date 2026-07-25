@@ -12,8 +12,10 @@
   - [ ] Ajustar el toc.
   - [ ] Ajustar el home.
   - [ ] Ajustar el Footer.
+  - [ ] Boton de copiar responsive.
 - [ ] Logo para modo oscuro y claro.
 - [x] Microinteracciones.
   - [x] Popover pre.
   - [x] Popover language picker.
 - [ ] Sidebar.
+- [ ] Theme picker en sidebar abierto.
