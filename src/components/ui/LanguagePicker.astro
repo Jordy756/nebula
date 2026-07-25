@@ -32,7 +32,7 @@ const POSITION_AREA = {
   id={popoverId}
   popover
   class:list={[
-    'inset-auto mb-1 flex-col gap-1 rounded-sm border border-line bg-surface p-1 open:flex',
+    'inset-auto mb-1 flex-col gap-1 rounded-sm border border-line bg-surface p-1 opacity-0 transition-[opacity,overlay,display] transition-discrete duration-350 ease-out open:flex open:opacity-100 starting:open:opacity-0',
     POSITION_AREA[placement],
   ]}
 >

@@ -45,8 +45,8 @@
     "main";
   gap-row: 16px;
 
-  @variant md {
-    grid-template-columns: 275px 1fr;
+  @variant lg {
+    grid-template-columns: 300px 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
       "sidebar toc"

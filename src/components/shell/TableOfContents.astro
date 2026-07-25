@@ -26,17 +26,17 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
 
 <aside
   data-pagefind-ignore
-  class="sticky top-14.25 left-0 z-50 flex max-h-screen scrollbar-none flex-col overflow-y-auto border-b border-line bg-background p-4 area-toc xl:py-12"
+  class="sticky top-14.25 left-0 z-50 flex max-h-screen scrollbar-none flex-col overflow-y-auto border-b border-line bg-background area-toc lg:top-0 xl:py-12"
 >
-  <nav class="flex flex-col gap-2 max-xl:w-full max-xl:items-center">
+  <nav class="mx-auto flex w-[min(65ch,100%)] flex-col gap-2 p-4 max-xl:items-center xl:py-0">
     <div class="flex items-center gap-2 max-xl:hidden">
       <TocIcon width={24} height={24} class="size-6" />
       <h3 class="text-base font-semibold">{t('toc.title')}</h3>
     </div>
-    <button class="flex w-[min(65ch,100%)] items-center gap-2 xl:hidden" popovertarget="toc-popover">
+    <button class="flex w-full items-center gap-2 xl:hidden" popovertarget="toc-popover">
       <TocIcon width={24} height={24} class="size-6" />
       <h3 class="text-base font-semibold">{t('toc.title')}</h3>
-      <ChevronIcon width={24} class="ml-auto size-6 xl:hidden" />
+      <ChevronIcon width={20} class="ml-auto size-5 -rotate-90 xl:hidden" />
     </button>
     <ul class="relative hidden flex-col xl:flex">
       {
@@ -107,8 +107,8 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
   </nav>
   <div
     id="toc-popover"
+    class="inset-auto m-4 max-h-[60vh] rounded-2xl border border-line bg-surface p-4 position-area-[bottom_left]"
     popover
-    class="inset-auto mt-4 max-h-[60vh] w-full border border-line bg-background p-4 position-area-bottom"
   >
     <ul class="relative flex flex-col">
       {

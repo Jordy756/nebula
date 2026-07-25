@@ -60,30 +60,30 @@ const socialLinks = [{ href: 'https://nebula-drab-five.vercel.app/', title: t('n
 <aside
   data-pagefind-ignore
   class:list={[
-    'sticky top-0 left-0 z-50 max-h-screen border-r border-line bg-background before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-surface max-md:border-b md:bg-surface',
+    'sticky top-0 left-0 z-50 max-h-screen border-r border-line bg-surface before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-surface max-lg:border-b',
     className,
   ]}
 >
-  <div class="ml-auto flex h-full flex-col md:w-[min(100%,300px)]">
+  <div class="flex h-full w-[min(65ch,100%)] flex-col max-lg:mx-auto lg:w-[min(100%,300px)] xl:ml-auto">
     <header
-      class="relative flex gap-4 p-4 max-md:items-center md:flex-col md:after:absolute md:after:top-full md:after:left-0 md:after:h-4 md:after:w-full md:after:bg-linear-to-b md:after:from-surface md:after:to-transparent"
+      class="relative flex gap-4 p-4 max-lg:items-center lg:flex-col lg:after:absolute lg:after:top-full lg:after:left-0 lg:after:h-4 lg:after:w-full lg:after:bg-linear-to-b lg:after:from-surface lg:after:to-transparent"
     >
       <h2 class="sr-only">{t('nav.sidebar')}</h2>
       <a href={`/${currentLocale}/`} aria-label={t('nav.home')} class="mr-auto">
         <Logo width={100} height={24} />
       </a>
       <SearchTrigger />
-      <button popovertarget="sidebar-open" class="md:hidden">
+      <button popovertarget="sidebar-open" class="lg:hidden">
         <PanelIcon width={24} class="size-6" />
       </button>
     </header>
-    <nav class="w-full flex-1 scrollbar-none overflow-y-auto p-4 max-md:hidden" aria-label={t('nav.main')}>
+    <nav class="w-full flex-1 scrollbar-none overflow-y-auto p-4 max-lg:hidden" aria-label={t('nav.main')}>
       <ul class="flex flex-col gap-2">
         {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
       </ul>
     </nav>
     <footer
-      class="relative p-4 after:absolute after:bottom-full after:left-0 after:h-4 after:w-full after:bg-linear-to-t after:from-surface after:to-transparent max-md:hidden"
+      class="relative p-4 after:absolute after:bottom-full after:left-0 after:h-4 after:w-full after:bg-linear-to-t after:from-surface after:to-transparent max-lg:hidden"
     >
       <div class="flex flex-col gap-2 rounded-sm border border-line p-2">
         <div class="flex items-center justify-between gap-4">
@@ -125,10 +125,9 @@ const socialLinks = [{ href: 'https://nebula-drab-five.vercel.app/', title: t('n
       </div>
     </footer>
   </div>
-
   <div
     id="sidebar-open"
-    class="inset-auto right-0 h-screen w-10/12 translate-x-full flex-col overlay-backdrop transition-[translate,overlay,display] transition-discrete duration-350 ease-out will-change-[translate] open:flex open:translate-x-0 starting:open:translate-x-full"
+    class="inset-auto right-0 h-screen w-[min(350px,80%)] translate-x-full flex-col overlay-backdrop transition-[translate,overlay,display] transition-discrete duration-350 ease-out will-change-[translate] open:flex open:translate-x-0 starting:open:translate-x-full"
     popover
   >
     <header
