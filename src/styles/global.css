@@ -2,6 +2,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@custom-variant toc-open (aside:has(#toc-popover:popover-open) &);
+
 @theme {
   --color-primary-50: var(--color-rose-50);
   --color-primary-100: var(--color-rose-100);
