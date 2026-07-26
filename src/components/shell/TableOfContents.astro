@@ -28,12 +28,12 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
   data-pagefind-ignore
   class="sticky top-14.25 left-0 z-50 flex max-h-screen scrollbar-none flex-col overflow-y-auto border-b border-line bg-background area-toc lg:top-0 xl:py-12"
 >
-  <nav class="mx-auto flex w-[min(65ch,100%)] flex-col gap-2 p-4 max-xl:items-center xl:py-0">
+  <nav class="mx-auto flex w-[min(65ch,100%)] flex-col gap-2 p-4 max-xl:items-start xl:py-0">
     <div class="flex items-center gap-2 max-xl:hidden">
       <TocIcon width={24} height={24} class="size-6" />
       <h3 class="text-base font-semibold">{t('toc.title')}</h3>
     </div>
-    <button class="flex w-full items-center gap-2 xl:hidden" popovertarget="toc-popover">
+    <button class="flex items-center w-full gap-2 xl:hidden" popovertarget="toc-popover">
       <TocIcon width={24} height={24} class="size-6" />
       <h3 class="text-base font-semibold">{t('toc.title')}</h3>
       <ChevronIcon width={20} class="ml-auto size-5 -rotate-90 xl:hidden" />
@@ -107,7 +107,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
   </nav>
   <div
     id="toc-popover"
-    class="inset-auto m-4 max-h-[60vh] rounded-2xl border border-line bg-surface p-4 position-area-[bottom_left]"
+    class="inset-auto top-[anchor(bottom)] left-[anchor(left)] mt-2 mr-4 max-h-[60vh] w-[calc(min(65ch,100%)-32px)] overflow-x-hidden rounded-sm border border-line bg-surface p-4"
     popover
   >
     <ul class="relative flex flex-col">

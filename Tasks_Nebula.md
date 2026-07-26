@@ -1,6 +1,5 @@
 # Tareas Nebula
 
-- [ ] Mejorar nav.
 - [ ] Revisar i18n
 - [ ] Mejorar colores y valores de las transiciones.
 - [ ] Ver por que en PRD no se puede buscar (pagefind).
@@ -18,4 +17,5 @@
   - [x] Popover pre.
   - [x] Popover language picker.
 - [ ] Sidebar.
-- [ ] Theme picker en sidebar abierto.
+- [x] Theme picker en sidebar abierto.
+- [ ] Mejorar UI Pre
