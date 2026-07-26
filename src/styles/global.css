@@ -2,8 +2,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@custom-variant toc-open (aside:has(#toc-popover:popover-open) &);
-
 @theme {
   --color-primary-50: var(--color-rose-50);
   --color-primary-100: var(--color-rose-100);
@@ -109,7 +107,7 @@
   }
 
   html {
-    @apply scroll-pt-12 scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth;
+    @apply scroll-pt-38.5 scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth lg:scroll-pt-22.25 xl:scroll-pt-12;
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
