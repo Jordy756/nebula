@@ -29,6 +29,7 @@ export const getStaticPaths = async () => {
     return {
       params: { locale, slug: slugParts.join('/') },
       props: { entry },
+      cacheKey: entry.id,
     };
   });
 };

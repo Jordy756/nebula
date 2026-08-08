@@ -63,6 +63,9 @@ export default defineConfig({
       fallbacks: ['monospace'],
     },
   ],
+  experimental: {
+    incrementalBuild: true,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
