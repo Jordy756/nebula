@@ -78,16 +78,19 @@
 
 @utility overlay-backdrop {
   &::backdrop {
-    @apply bg-black/10 opacity-0 backdrop-blur-xs transition-[opacity,overlay,display] transition-discrete duration-350 ease-out;
+    @apply backdrop-blur-xs transition-[opacity,overlay,display] duration-350 ease-out;
+    background-color: color-mix(in oklab, var(--color-black) 10%, transparent);
+    opacity: 0;
+    transition-behavior: allow-discrete;
   }
 
   &:where([open], :popover-open, :open)::backdrop {
-    @apply opacity-100;
+    opacity: 1;
   }
 
   @starting-style {
     &:where([open], :popover-open, :open)::backdrop {
-      @apply opacity-0;
+      opacity: 0;
     }
   }
 }
@@ -95,52 +98,48 @@
 @layer base {
   :root {
     interpolate-size: allow-keywords;
-    color-scheme: light;
-  }
-
-  :root.dark {
-    color-scheme: dark;
-  }
-
-  :is(*, *::before, *::after) {
-    @apply scrollbar-thin;
-  }
-
-  html {
-    @apply scroll-pt-38.5 scrollbar-thumb-neutral-500 scrollbar-track-transparent scroll-smooth lg:scroll-pt-22.25 xl:scroll-pt-12;
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
-    @apply font-sans font-semibold text-balance;
+    font-family: var(--font-host-grotesk), system-ui, sans-serif;
+    font-weight: 600;
+    text-wrap: balance;
   }
 
   h1 {
-    @apply text-5xl;
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
 
   h2 {
-    @apply text-4xl;
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
   }
 
   h3 {
-    @apply text-3xl;
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
 
   h4 {
-    @apply text-2xl;
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
 
   h5 {
-    @apply text-xl;
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
   }
 
   h6 {
-    @apply text-lg;
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
   }
 
   :is(button, a) {
-    @apply cursor-pointer;
+    cursor: pointer;
   }
+
 
   dialog {
     @apply overlay-backdrop opacity-0 transition-discrete duration-350 ease-out;

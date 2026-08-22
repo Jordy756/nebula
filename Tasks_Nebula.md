@@ -1,7 +1,7 @@
 # Tareas Nebula
 
 - [ ] Revisar i18n
-- [ ] Mejorar colores y valores de las transiciones.
+- [ ] Mejorar colores y valores de las transiciones de oscuro y claro.
 - [ ] Ver por que en PRD no se puede buscar (pagefind).
 - [ ] Limpiar todo y revisar todo muy bien (Accesibilidad, Lighthouse, SEO,...)
 - [ ] Hacer el responsive.
@@ -18,4 +18,8 @@
   - [x] Popover language picker.
 - [ ] Sidebar.
 - [x] Theme picker en sidebar abierto.
-- [ ] Mejorar UI Pre
+- [ ] Mejorar UI Pre.
+- [ ] Hacer componente para files.
+- [ ] Hacer componentes para tabs.
+- [ ] Hacer loading mientras busca en la página.
+- [ ] Pagina 404 general.
