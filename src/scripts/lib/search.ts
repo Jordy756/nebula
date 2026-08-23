@@ -70,10 +70,8 @@ export const setupSearch = async (): Promise<void> => {
 
   const debouncedRender = debounce(render, 300);
   const handleInput = (e: Event) => debouncedRender((e.currentTarget as HTMLInputElement).value.trim());
-  const handleClick = (e: MouseEvent) => (e.target as HTMLElement).closest('a') && dialog.close();
 
   input.addEventListener('input', handleInput, { signal: controller.signal });
-  list.addEventListener('click', handleClick, { signal: controller.signal });
 };
 
 document.addEventListener('astro:page-load', setupSearch);

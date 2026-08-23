@@ -2,7 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
+@theme inline {
   --color-primary-50: var(--color-rose-50);
   --color-primary-100: var(--color-rose-100);
   --color-primary-200: var(--color-rose-200);
@@ -22,17 +22,15 @@
   --color-foreground: light-dark(var(--color-neutral-950), var(--color-neutral-50));
   --color-line: light-dark(var(--color-neutral-200), var(--color-neutral-800));
 
-  --max-width: 1856px;
-
-  --tw-position-area-top: top;
-  --tw-position-area-bottom: bottom;
-  --tw-position-area-left: left;
-  --tw-position-area-right: right;
-}
-
-@theme inline {
   --font-sans: var(--font-host-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-inter), Montserrat, sans-serif;
+
+  --position-area-top: top;
+  --position-area-bottom: bottom;
+  --position-area-left: left;
+  --position-area-right: right;
+
+  --max-width: 1856px;
 }
 
 @utility layout-grid {
@@ -73,12 +71,15 @@
 }
 
 @utility position-area-* {
-  position-area: --value(--tw-position-area-*, [*]);
+  position-area: --value(--position-area-*, [*]);
 }
 
 @utility overlay-backdrop {
   &::backdrop {
-    @apply backdrop-blur-xs transition-[opacity,overlay,display] duration-350 ease-out;
+    backdrop-filter: blur(var(--blur-xs));
+    transition-property: opacity, overlay, display;
+    transition-duration: 350ms;
+    transition-timing-function: var(--ease-out);
     background-color: color-mix(in oklab, var(--color-black) 10%, transparent);
     opacity: 0;
     transition-behavior: allow-discrete;
@@ -101,57 +102,64 @@
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
-    font-family: var(--font-host-grotesk), system-ui, sans-serif;
-    font-weight: 600;
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-semibold);
     text-wrap: balance;
   }
 
   h1 {
     font-size: var(--text-5xl);
-    line-height: var(--tw-leading, var(--text-5xl--line-height));
+    line-height: var(--text-5xl--line-height);
   }
 
   h2 {
     font-size: var(--text-4xl);
-    line-height: var(--tw-leading, var(--text-4xl--line-height));
+    line-height: var(--text-4xl--line-height);
   }
 
   h3 {
     font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
+    line-height: var(--text-3xl--line-height);
   }
 
   h4 {
     font-size: var(--text-2xl);
-    line-height: var(--tw-leading, var(--text-2xl--line-height));
+    line-height: var(--text-2xl--line-height);
   }
 
   h5 {
     font-size: var(--text-xl);
-    line-height: var(--tw-leading, var(--text-xl--line-height));
+    line-height: var(--text-xl--line-height);
   }
 
   h6 {
     font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
+    line-height: var(--text-lg--line-height);
   }
 
   :is(button, a) {
     cursor: pointer;
   }
 
-
   dialog {
-    @apply overlay-backdrop opacity-0 transition-discrete duration-350 ease-out;
+    @apply overlay-backdrop;
+    opacity: 0;
+    transition-property:
+      opacity 350ms var(--ease-in-out),
+      overlay 350ms var(--ease-in-out),
+      display 350ms var(--ease-in-out);
+    transition-behavior: allow-discrete;
   }
 
   dialog[open] {
-    @apply scale-100 opacity-100;
+    opacity: 1;
+    transform: scale(1);
   }
 
   @starting-style {
     dialog[open] {
-      @apply scale-100 opacity-0;
+      opacity: 0;
+      transform: scale(1);
     }
   }
 }
@@ -159,20 +167,31 @@
 @layer components {
   .markdown-body {
     & > :is(h1, h2, h3, h4, h5, h6) {
-      @apply mt-8;
+      margin-top: --spacing(8);
     }
 
     & :not(pre) > code {
-      @apply rounded-sm bg-neutral-950 px-1 py-0.5 font-mono text-sm font-medium text-neutral-50 dark:bg-neutral-50 dark:text-neutral-950;
+      border-radius: var(--radius-sm);
+      background-color: light-dark(var(--color-neutral-950), var(--color-neutral-50));
+      padding-inline: --spacing(1);
+      padding-block: --spacing(0.5);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-medium);
+      color: light-dark(var(--color-neutral-50), var(--color-neutral-950));
     }
 
     & pre > code {
-      @apply font-sans font-normal;
+      font-family: var(--font-sans);
+      font-weight: var(--font-weight-normal);
     }
   }
 
   #search-results mark {
-    @apply bg-transparent font-normal text-primary underline;
+    background-color: transparent;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-primary);
+    text-decoration-line: underline;
   }
 
   .dark .astro-code,
