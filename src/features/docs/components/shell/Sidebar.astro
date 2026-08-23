@@ -1,13 +1,13 @@
 ---
-import ArrowOutwardIcon from '@components/icons/ArrowOutwardIcon.astro';
-import GithubIcon from '@components/icons/GithubIcon.astro';
-import PanelIcon from '@components/icons/PanelIcon.astro';
-import LanguagePicker from '@components/ui/LanguagePicker.astro';
-import Logo from '@components/ui/Logo.astro';
-import SearchTrigger from '@components/ui/SearchTrigger.astro';
-import SidebarItem from '@components/ui/SidebarItem.astro';
-import ThemePicker from '@components/ui/ThemePicker.astro';
-import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
+import ArrowOutwardIcon from '@shared/components/icons/ArrowOutwardIcon.astro';
+import GithubIcon from '@shared/components/icons/GithubIcon.astro';
+import PanelIcon from '@shared/components/icons/PanelIcon.astro';
+import LanguagePicker from '@shared/components/ui/LanguagePicker.astro';
+import Logo from '@shared/components/ui/Logo.astro';
+import SearchTrigger from '../ui/SearchTrigger.astro';
+import SidebarItem from './SidebarItem.astro';
+import ThemePicker from '@shared/components/ui/ThemePicker.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 import { getCollection, type CollectionEntry } from 'astro:content';
 type Doc = CollectionEntry<'docs'>;
 

@@ -3,11 +3,32 @@ import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const docs = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/docs', retainBody: false, deferRender: true }),
+  loader: glob({
+    pattern: '**/*.{md,mdx}',
+    base: 'src/features/docs/content/docs',
+    retainBody: false,
+    deferRender: true,
+  }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
   }),
 });
 
-export const collections = { docs };
+const posts = defineCollection({
+  loader: glob({
+    pattern: '**/*.{md,mdx}',
+    base: 'src/features/blog/content/posts',
+    retainBody: false,
+    deferRender: true,
+  }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    author: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+  }),
+});
+
+export const collections = { docs, posts };

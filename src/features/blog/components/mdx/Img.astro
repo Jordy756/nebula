@@ -1,0 +1,23 @@
+---
+import ExpandIcon from '@shared/components/icons/ExpandIcon.astro';
+import MinimiseIcon from '@shared/components/icons/MinimiseIcon.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+import type { HTMLAttributes } from 'astro/types';
+import { Image } from 'astro:assets';
+
+interface Props extends HTMLAttributes<'img'> {
+  src: string;
+  alt: string;
+}
+
+const { src, alt, class: className, ...rest } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+---
+
+<figure class="my-6 flex flex-col gap-2">
+  <div class="group relative overflow-hidden rounded-sm border border-line">
+    <Image src={src} alt={alt} class="w-full" loading="lazy" decoding="async" />
+  </div>
+  {alt && <figcaption class="text-center text-sm text-neutral-600 dark:text-neutral-400">{alt}</figcaption>}
+</figure>

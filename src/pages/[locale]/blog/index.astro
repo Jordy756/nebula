@@ -1,0 +1,29 @@
+---
+import BlogLayout from '@features/blog/layouts/BlogLayout.astro';
+import PostList from '@features/blog/components/shell/PostList.astro';
+import { getCollection } from 'astro:content';
+import { getCurrentLocale, locales, useTranslations } from '@shared/i18n/utils.ts';
+
+export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
+
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+
+const allPosts = await getCollection('posts');
+const posts = allPosts
+  .filter((post) => post.id.startsWith(`${currentLocale}/`))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const title = 'Blog';
+const description = 'Latest news, tutorials, and updates from the Nebula team.';
+---
+
+<BlogLayout title={title} description={description}>
+  <div class="flex w-full max-w-[65ch] flex-col gap-6 px-4 py-12">
+    <header class="flex flex-col gap-2 border-b border-line pb-6">
+      <h1>{title}</h1>
+      <p class="text-neutral-600 dark:text-neutral-400">{description}</p>
+    </header>
+    <PostList posts={posts} />
+  </div>
+</BlogLayout>

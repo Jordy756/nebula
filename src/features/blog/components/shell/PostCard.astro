@@ -1,0 +1,52 @@
+---
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+
+const formatDate = (date: Date, locale: string): string => {
+  return new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+};
+
+const href = `/${currentLocale}/blog/${post.id.split('/').slice(1).join('/')}`;
+---
+
+<article
+  class="group flex flex-col gap-3 rounded-sm border border-line bg-surface p-6 transition-[border-color] hover:border-neutral-300 dark:hover:border-neutral-700"
+>
+  <a href={href} class="flex flex-col gap-3">
+    <header class="flex flex-col gap-2">
+      <h2 class="text-2xl font-semibold transition-opacity group-hover:opacity-75">
+        {post.data.title}
+      </h2>
+      <time
+        datetime={post.data.pubDate.toISOString()}
+        class="text-sm text-neutral-600 dark:text-neutral-400"
+      >
+        {formatDate(post.data.pubDate, currentLocale)}
+      </time>
+    </header>
+    <p class="text-neutral-700 dark:text-neutral-300">{post.data.description}</p>
+    {
+      post.data.tags && (
+        <ul class="flex flex-wrap gap-2">
+          {post.data.tags.map((tag: string) => (
+            <li class="rounded-sm border border-line bg-line/50 px-2 py-0.5 text-xs">
+              #{tag}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </a>
+</article>

@@ -1,8 +1,8 @@
 ---
-import Footer from '@components/shell/Footer.astro';
-import Header from '@components/shell/Header.astro';
-import { getCurrentLocale, locales, useTranslations } from '@i18n/utils.ts';
-import PageLayout from '@layouts/PageLayout.astro';
+import Footer from '@shared/components/shell/Footer.astro';
+import Header from '@shared/components/shell/Header.astro';
+import { getCurrentLocale, locales, useTranslations } from '@shared/i18n/utils.ts';
+import HomeLayout from '@features/home/layouts/HomeLayout.astro';
 
 export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
 
@@ -13,7 +13,7 @@ const title = 'Nebula';
 const description = 'Nebula is a open-source, self-hosted platform for managing your knowledge base.';
 ---
 
-<PageLayout title={title} description={description}>
+<HomeLayout title={title} description={description}>
   <Header />
   <main class="flex flex-1 flex-col gap-4 p-4">
     <section class="flex max-w-[65ch] flex-1 flex-col items-center justify-center gap-4 self-center text-center">
@@ -24,9 +24,9 @@ const description = 'Nebula is a open-source, self-hosted platform for managing 
       </p>
       <div class="flex gap-4">
         <a href={`/${currentLocale}/docs/01-getting-started/01-getting-started`}>Get Started</a>
-        <a href="#">Github</a>
+        <a href={`/${currentLocale}/blog`}>Blog</a>
       </div>
     </section>
   </main>
   <Footer />
-</PageLayout>
+</HomeLayout>

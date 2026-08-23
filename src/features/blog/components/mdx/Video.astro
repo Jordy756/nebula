@@ -1,0 +1,16 @@
+---
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'video'> {
+  src: string;
+}
+
+const { src, ...rest } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+---
+
+<video controls class="my-6 w-full rounded-sm" src={src} {...rest}>
+  <slot />
+</video>

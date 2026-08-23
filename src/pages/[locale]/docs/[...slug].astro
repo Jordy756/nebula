@@ -1,25 +1,25 @@
 ---
-import Article from '@components/shell/Article.astro';
-import TableOfContents from '@components/shell/TableOfContents.astro';
-import Blockquote from '@components/mdx/Blockquote.astro';
-import Deleted from '@components/mdx/Deleted.astro';
-import Emphasis from '@components/mdx/Emphasis.astro';
-import HorizontalRule from '@components/mdx/HorizontalRule.astro';
-import Img from '@components/mdx/Img.astro';
-import Link from '@components/mdx/Link.astro';
-import ListItem from '@components/mdx/ListItem.astro';
-import OrderedList from '@components/mdx/OrderedList.astro';
-import Pre from '@components/mdx/Pre.astro';
-import Strong from '@components/mdx/Strong.astro';
-import Table from '@components/mdx/Table.astro';
-import TableBody from '@components/mdx/TableBody.astro';
-import TableData from '@components/mdx/TableData.astro';
-import TableHead from '@components/mdx/TableHead.astro';
-import TableHeader from '@components/mdx/TableHeader.astro';
-import TableRow from '@components/mdx/TableRow.astro';
-import UnorderedList from '@components/mdx/UnorderedList.astro';
-import { getCurrentLocale } from '@i18n/utils.ts';
-import DocsLayout from '@layouts/DocsLayout.astro';
+import Article from '@features/docs/components/shell/Article.astro';
+import TableOfContents from '@features/docs/components/shell/TableOfContents.astro';
+import Blockquote from '@features/docs/components/mdx/Blockquote.astro';
+import Deleted from '@features/docs/components/mdx/Deleted.astro';
+import Emphasis from '@features/docs/components/mdx/Emphasis.astro';
+import HorizontalRule from '@features/docs/components/mdx/HorizontalRule.astro';
+import Img from '@features/docs/components/mdx/Img.astro';
+import Link from '@features/docs/components/mdx/Link.astro';
+import ListItem from '@features/docs/components/mdx/ListItem.astro';
+import OrderedList from '@features/docs/components/mdx/OrderedList.astro';
+import Pre from '@features/docs/components/mdx/Pre.astro';
+import Strong from '@features/docs/components/mdx/Strong.astro';
+import Table from '@features/docs/components/mdx/Table.astro';
+import TableBody from '@features/docs/components/mdx/TableBody.astro';
+import TableData from '@features/docs/components/mdx/TableData.astro';
+import TableHead from '@features/docs/components/mdx/TableHead.astro';
+import TableHeader from '@features/docs/components/mdx/TableHeader.astro';
+import TableRow from '@features/docs/components/mdx/TableRow.astro';
+import UnorderedList from '@features/docs/components/mdx/UnorderedList.astro';
+import { getCurrentLocale } from '@shared/i18n/utils.ts';
+import DocsLayout from '@features/docs/layouts/DocsLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export const getStaticPaths = async () => {

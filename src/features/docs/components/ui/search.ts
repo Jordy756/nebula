@@ -1,6 +1,6 @@
-import { getPagefind, setPagefindLanguage, type PagefindResultData } from '@scripts/config/pagefind.ts';
-import { debounce } from '@scripts/utils/debounce.ts';
-import { useTranslations } from '@i18n/utils.ts';
+import { getPagefind, setPagefindLanguage, type PagefindResultData } from '@shared/scripts/pagefind.ts';
+import { debounce } from '@shared/scripts/debounce.ts';
+import { useTranslations } from '@shared/i18n/utils.ts';
 
 const escape = (s: string | null | undefined): string =>
   (s ?? '').replace(

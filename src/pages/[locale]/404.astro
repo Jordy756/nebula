@@ -1,8 +1,8 @@
 ---
-import Footer from '@components/shell/Footer.astro';
-import Header from '@components/shell/Header.astro';
-import PageLayout from '@layouts/PageLayout.astro';
-import { locales } from '@i18n/utils.ts';
+import Footer from '@shared/components/shell/Footer.astro';
+import Header from '@shared/components/shell/Header.astro';
+import HomeLayout from '@features/home/layouts/HomeLayout.astro';
+import { locales } from '@shared/i18n/utils.ts';
 
 export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
 
@@ -10,11 +10,11 @@ const title = '404 - Página no encontrada';
 const description = 'La página que estás buscando no existe.';
 ---
 
-<PageLayout title={title} description={description}>
+<HomeLayout title={title} description={description}>
   <Header />
   <main class="flex flex-1 flex-col gap-4 p-4">
     <h1>404 - Página no encontrada</h1>
     <p>La página que estás buscando no existe.</p>
   </main>
   <Footer />
-</PageLayout>
+</HomeLayout>

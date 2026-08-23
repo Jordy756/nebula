@@ -1,9 +1,9 @@
 ---
-import GithubIcon from '@components/icons/GithubIcon.astro';
-import LanguagePicker from '@components/ui/LanguagePicker.astro';
-import Logo from '@components/ui/Logo.astro';
-import SearchTrigger from '@components/ui/SearchTrigger.astro';
-import { getCurrentLocale } from '@i18n/utils.ts';
+import GithubIcon from '@shared/components/icons/GithubIcon.astro';
+import LanguagePicker from '@shared/components/ui/LanguagePicker.astro';
+import Logo from '@shared/components/ui/Logo.astro';
+import SearchTrigger from '@features/docs/components/ui/SearchTrigger.astro';
+import { getCurrentLocale } from '@shared/i18n/utils.ts';
 
 interface Props {
   class?: string;

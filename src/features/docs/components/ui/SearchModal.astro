@@ -1,7 +1,7 @@
 ---
-import SearchIcon from '@components/icons/SearchIcon.astro';
-import SpinnerIcon from '@components/icons/SpinnerIcon.astro';
-import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
+import SearchIcon from '@shared/components/icons/SearchIcon.astro';
+import SpinnerIcon from '@shared/components/icons/SpinnerIcon.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
@@ -37,4 +37,4 @@ const t = useTranslations(currentLocale);
   </footer>
 </dialog>
 
-<script src="../../scripts/lib/search.ts"></script>
+<script src="./search.ts"></script>

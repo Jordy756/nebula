@@ -1,7 +1,7 @@
 ---
-import ChevronIcon from '@components/icons/ChevronIcon.astro';
-import TocIcon from '@components/icons/TocIcon.astro';
-import { getCurrentLocale, useTranslations } from '@i18n/utils.ts';
+import ChevronIcon from '@shared/components/icons/ChevronIcon.astro';
+import TocIcon from '@shared/components/icons/TocIcon.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 import type { MarkdownHeading } from 'astro';
 
 interface Props {
@@ -182,4 +182,4 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
   </div>
 </aside>
 
-<script src="../../scripts/lib/toc.ts"></script>
+<script src="./toc.ts"></script>

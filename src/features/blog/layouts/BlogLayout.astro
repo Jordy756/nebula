@@ -1,0 +1,20 @@
+---
+import Header from '@shared/components/shell/Header.astro';
+import BaseLayout from '@shared/layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="relative flex min-h-screen flex-col" data-pagefind-ignore>
+    <Header />
+    <main class="flex flex-1 flex-col items-center">
+      <slot />
+    </main>
+  </div>
+</BaseLayout>

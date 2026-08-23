@@ -1,0 +1,83 @@
+---
+import BlogLayout from '@features/blog/layouts/BlogLayout.astro';
+import PostContent from '@features/blog/components/shell/PostContent.astro';
+import Blockquote from '@features/blog/components/mdx/Blockquote.astro';
+import Deleted from '@features/blog/components/mdx/Deleted.astro';
+import Emphasis from '@features/blog/components/mdx/Emphasis.astro';
+import HorizontalRule from '@features/blog/components/mdx/HorizontalRule.astro';
+import Img from '@features/blog/components/mdx/Img.astro';
+import Link from '@features/blog/components/mdx/Link.astro';
+import ListItem from '@features/blog/components/mdx/ListItem.astro';
+import OrderedList from '@features/blog/components/mdx/OrderedList.astro';
+import Pre from '@features/blog/components/mdx/Pre.astro';
+import Strong from '@features/blog/components/mdx/Strong.astro';
+import Table from '@features/blog/components/mdx/Table.astro';
+import TableBody from '@features/blog/components/mdx/TableBody.astro';
+import TableData from '@features/blog/components/mdx/TableData.astro';
+import TableHead from '@features/blog/components/mdx/TableHead.astro';
+import TableHeader from '@features/blog/components/mdx/TableHeader.astro';
+import TableRow from '@features/blog/components/mdx/TableRow.astro';
+import UnorderedList from '@features/blog/components/mdx/UnorderedList.astro';
+import { getCurrentLocale } from '@shared/i18n/utils.ts';
+import { getCollection, render } from 'astro:content';
+
+export const getStaticPaths = async () => {
+  const postsEntries = await getCollection('posts');
+  return postsEntries.map((entry) => {
+    const [locale, ...slugParts] = entry.id.split('/');
+    return {
+      params: { locale, slug: slugParts.join('/') },
+      props: { entry },
+      cacheKey: entry.id,
+    };
+  });
+};
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const allPosts = await getCollection('posts', ({ id }) => id.startsWith(`${currentLocale}/`));
+const sortedPosts = allPosts.sort((a, b) => a.data.pubDate.getTime() - b.data.pubDate.getTime());
+const currentIndex = sortedPosts.findIndex((e) => e.id === entry.id);
+const prevPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : undefined;
+const nextPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : undefined;
+const prev = prevPost
+  ? {
+      href: `/${currentLocale}/blog/${prevPost.id.split('/').slice(1).join('/')}`,
+      title: prevPost.data.title,
+    }
+  : undefined;
+const next = nextPost
+  ? {
+      href: `/${currentLocale}/blog/${nextPost.id.split('/').slice(1).join('/')}`,
+      title: nextPost.data.title,
+    }
+  : undefined;
+---
+
+<BlogLayout title={data.title} description={data.description}>
+  <PostContent post={entry} prev={prev} next={next}>
+    <Content
+      components={{
+        a: Link,
+        ul: UnorderedList,
+        ol: OrderedList,
+        li: ListItem,
+        blockquote: Blockquote,
+        strong: Strong,
+        em: Emphasis,
+        del: Deleted,
+        hr: HorizontalRule,
+        img: Img,
+        table: Table,
+        thead: TableHead,
+        tbody: TableBody,
+        tr: TableRow,
+        th: TableHeader,
+        td: TableData,
+        pre: Pre,
+      }}
+    />
+  </PostContent>
+</BlogLayout>

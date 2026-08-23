@@ -1,0 +1,25 @@
+---
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'iframe'> {
+  src: string;
+  title: string;
+}
+
+const { src, title, ...rest } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+---
+
+<div class="my-6 aspect-video w-full overflow-hidden rounded-sm">
+  <iframe
+    src={src}
+    title={title}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    class="h-full w-full"
+    {...rest}
+  >
+  </iframe>
+</div>
