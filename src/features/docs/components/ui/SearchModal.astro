@@ -12,14 +12,14 @@ const t = useTranslations(currentLocale);
   closedby="any"
   data-pagefind-ignore
   class="top-1/2 left-1/2 max-h-[80vh] w-[min(700px,100%)] -translate-1/2 flex-col rounded-sm border border-line bg-surface transition-[opacity,translate,scale,overlay,display] will-change-[opacity,translate,scale] open:flex"
-  aria-label={t('search.modalLabel')}
+  aria-label={t('docs.search.modalLabel')}
 >
   <header class="flex items-center gap-2 p-4">
     <SearchIcon width={20} height={20} class="size-5" />
     <input
       id="search-input"
       type="search"
-      placeholder={t('search.placeholder')}
+      placeholder={t('docs.search.placeholder')}
       autofocus
       autocomplete="off"
       class="w-full outline-none"
@@ -32,7 +32,7 @@ const t = useTranslations(currentLocale);
     </button>
     <div class="flex gap-2">
       <SpinnerIcon width={24} height={24} class="size-6 animate-spin" />
-      <span id="search-status">0 {t('search.results')}</span>
+      <span id="search-status">0 {t('docs.search.results')}</span>
     </div>
   </footer>
 </dialog>

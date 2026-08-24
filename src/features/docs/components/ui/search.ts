@@ -22,7 +22,7 @@ const renderResult = (r: PagefindResultData): string => {
 };
 
 const formatCount = (count: number, locale: string, t: ReturnType<typeof useTranslations>): string => {
-  const templates = t('search.resultsCount') as Record<Intl.LDMLPluralRule, string>;
+  const templates = t('docs.search.resultsCount') as Record<Intl.LDMLPluralRule, string>;
   const rule = new Intl.PluralRules(locale).select(count) as Intl.LDMLPluralRule;
 
   return (templates[rule] ?? templates.other).replace('{count}', String(count));
@@ -45,7 +45,7 @@ export const setupSearch = async (): Promise<void> => {
   const pagefind = await getPagefind();
 
   if (!pagefind) {
-    status.textContent = t('search.unavailable') + '';
+    status.textContent = t('docs.search.unavailable') + '';
     return;
   }
 

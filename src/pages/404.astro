@@ -1,0 +1,24 @@
+---
+import Footer from '@shared/components/shell/Footer.astro';
+import Header from '@shared/components/shell/Header.astro';
+import HomeLayout from '@features/home/layouts/HomeLayout.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+---
+  
+<HomeLayout title={t('notFound.title')} description={t('notFound.description')}>
+  <Header />
+  <main class="flex flex-1 flex-col items-center justify-center gap-4 p-4">
+    <h1 class="text-4xl font-semibold">{t('notFound.heading')}</h1>
+    <p class="text-foreground/70">{t('notFound.message')}</p>
+    <a
+      href={`/${currentLocale}/`}
+      class="rounded-sm border border-line bg-line/50 px-3 py-1.5 text-sm transition-opacity hover:opacity-75"
+    >
+      {t('notFound.homeLink')}
+    </a>
+  </main>
+  <Footer />
+</HomeLayout>

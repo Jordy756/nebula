@@ -2,7 +2,6 @@
 import GithubIcon from '@shared/components/icons/GithubIcon.astro';
 import LanguagePicker from '@shared/components/ui/LanguagePicker.astro';
 import Logo from '@shared/components/ui/Logo.astro';
-import SearchTrigger from '@features/docs/components/ui/SearchTrigger.astro';
 import { getCurrentLocale } from '@shared/i18n/utils.ts';
 
 interface Props {
@@ -23,7 +22,6 @@ const currentLocale = getCurrentLocale(Astro.currentLocale);
   <a href={`/${currentLocale}/`}>
     <Logo width={131.25} height={32} />
   </a>
-  <SearchTrigger />
   <LanguagePicker placement="bottom" />
   <div class="flex items-center gap-2">
     <a href="https://github.com/withastro/astro" target="_blank">
