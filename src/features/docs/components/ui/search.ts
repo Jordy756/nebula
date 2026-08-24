@@ -28,7 +28,13 @@ const formatCount = (count: number, locale: string, t: ReturnType<typeof useTran
   return (templates[rule] ?? templates.other).replace('{count}', String(count));
 };
 
+let activeController: AbortController | null = null;
+
 export const setupSearch = async (): Promise<void> => {
+  activeController?.abort();
+  activeController = new AbortController();
+  const signal = activeController.signal;
+
   const dialog = document.getElementById('search-modal') as HTMLDialogElement | null;
 
   if (!dialog) return;
@@ -36,8 +42,9 @@ export const setupSearch = async (): Promise<void> => {
   const input = dialog.querySelector<HTMLInputElement>('input');
   const status = dialog.querySelector<HTMLElement>('#search-status');
   const list = dialog.querySelector<HTMLElement>('#search-results');
+  const spinner = dialog.querySelector<HTMLElement>('#search-spinner');
 
-  if (!input || !status || !list) return;
+  if (!input || !status || !list || !spinner) return;
 
   const locale = (document.documentElement.lang || 'en') as Parameters<typeof useTranslations>[0];
   const t = useTranslations(locale);
@@ -51,27 +58,46 @@ export const setupSearch = async (): Promise<void> => {
 
   await setPagefindLanguage(locale);
 
-  const controller = new AbortController();
+  const render = async (term: string): Promise<void> => {
+    if (signal.aborted) return;
 
-  const render = async (term: string) => {
     if (term === '') {
       list.innerHTML = '';
       status.textContent = formatCount(0, locale, t);
       return;
     }
 
-    const search = await pagefind.search(term);
-    const data = await Promise.all(search.results.map((r) => r.data()));
-    const totalResults = data.reduce((s, r) => s + r.sub_results.length, 0);
+    status.classList.add('hidden');
+    spinner.classList.remove('hidden');
 
-    status.textContent = formatCount(totalResults, locale, t);
-    list.innerHTML = data.map(renderResult).join('');
+    try {
+      const search = await pagefind.search(term);
+
+      if (signal.aborted) return;
+
+      const data = await Promise.all(search.results.map((r) => r.data()));
+      const totalResults = data.reduce((s, r) => s + r.sub_results.length, 0);
+
+      if (signal.aborted) return;
+
+      status.textContent = formatCount(totalResults, locale, t);
+      list.innerHTML = data.map(renderResult).join('');
+    } catch (error) {
+      if (signal.aborted) return;
+      status.textContent = t('docs.search.unavailable') + '';
+      list.innerHTML = '';
+    } finally {
+      if (signal.aborted) return;
+
+      status.classList.remove('hidden');
+      spinner.classList.add('hidden');
+    }
   };
 
   const debouncedRender = debounce(render, 300);
   const handleInput = (e: Event) => debouncedRender((e.currentTarget as HTMLInputElement).value.trim());
 
-  input.addEventListener('input', handleInput, { signal: controller.signal });
+  input.addEventListener('input', handleInput, { signal });
 };
 
 document.addEventListener('astro:page-load', setupSearch);

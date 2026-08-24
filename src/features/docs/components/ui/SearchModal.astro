@@ -31,7 +31,7 @@ const t = useTranslations(currentLocale);
       <kbd>ESC</kbd>
     </button>
     <div class="flex gap-2">
-      <SpinnerIcon width={24} height={24} class="size-6 animate-spin" />
+      <SpinnerIcon id="search-spinner" width={24} height={24} class="size-6 animate-spin hidden" />
       <span id="search-status">0 {t('docs.search.results')}</span>
     </div>
   </footer>

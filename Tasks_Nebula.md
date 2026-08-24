@@ -1,6 +1,8 @@
 # Tareas Nebula
 
-- [ ] Revisar i18n
+- [ ] Revisar i18n.
+  - [ ] Revisar que todo tenga i18n.
+  - [x] Revisar el error de tipado.
 - [ ] Mejorar colores y valores de las transiciones de oscuro y claro.
 - [ ] Ver por que en PRD no se puede buscar (pagefind).
 - [ ] Limpiar todo y revisar todo muy bien (Accesibilidad, Lighthouse, SEO,...)
@@ -11,7 +13,7 @@
   - [ ] Ajustar el toc.
   - [ ] Ajustar el home.
   - [ ] Ajustar el Footer.
-  - [ ] Boton de copiar responsive.
+  - [x] Boton de copiar responsive.
 - [ ] Logo para modo oscuro y claro.
 - [x] Microinteracciones.
   - [x] Popover pre.
@@ -21,5 +23,5 @@
 - [ ] Mejorar UI Pre.
 - [ ] Hacer componente para files.
 - [ ] Hacer componentes para tabs.
-- [ ] Hacer loading mientras busca en la página.
-- [ ] Pagina 404 general.
+- [x] Hacer loading mientras busca en la página.
+- [x] Pagina 404 general.
