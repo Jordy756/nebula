@@ -4,11 +4,11 @@ import GithubIcon from '@shared/components/icons/GithubIcon.astro';
 import PanelIcon from '@shared/components/icons/PanelIcon.astro';
 import LanguagePicker from '@shared/components/ui/LanguagePicker.astro';
 import Logo from '@shared/components/ui/Logo.astro';
-import SearchTrigger from '../ui/SearchTrigger.astro';
-import SidebarItem from './SidebarItem.astro';
 import ThemePicker from '@shared/components/ui/ThemePicker.astro';
 import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import SearchTrigger from '../ui/SearchTrigger.astro';
+import SidebarItem from './SidebarItem.astro';
 type Doc = CollectionEntry<'docs'>;
 
 interface Props {
@@ -127,7 +127,7 @@ const socialLinks = [{ href: 'https://nebula-drab-five.vercel.app/', title: t('n
   </div>
   <div
     id="sidebar-open"
-    class="inset-auto right-0 h-dvh w-[min(350px,80%)] translate-x-full flex-col overlay-backdrop bg-surface transition-[translate,overlay,display] transition-discrete duration-350 ease-out will-change-[translate] open:flex open:translate-x-0 starting:open:translate-x-full"
+    class="inset-[unset] right-0 top-0 h-dvh w-[min(350px,80%)] translate-x-full flex-col overlay-backdrop bg-surface transition-[translate,overlay,display] transition-discrete duration-350 ease-out will-change-[translate] open:flex open:translate-x-0 starting:open:translate-x-full"
     popover
   >
     <header
