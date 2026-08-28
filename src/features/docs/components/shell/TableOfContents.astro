@@ -110,7 +110,7 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
   </nav>
   <div
     id="toc-popover"
-    class="inset-auto position-area-bottom mt-2 max-h-[60vh] w-[calc(min(65ch,100%)-32px)] overflow-x-hidden rounded-sm border border-line bg-surface p-4 transition-[clip-path,overlay,display] transition-discrete duration-350 ease-out [clip-path:inset(0_0_100%_0)] open:[clip-path:inset(0_0_0_0)] starting:open:[clip-path:inset(0_0_100%_0)]"
+    class="inset-auto mt-2 max-h-[60vh] w-[calc(min(65ch,100%)-32px)] overflow-x-hidden rounded-sm border border-line bg-surface p-4 transition-[clip-path,overlay,display] transition-discrete duration-350 ease-out [clip-path:inset(0_0_100%_0)] position-area-bottom open:[clip-path:inset(0_0_0_0)] starting:open:[clip-path:inset(0_0_100%_0)]"
     popover
   >
     <ul class="relative flex flex-col">

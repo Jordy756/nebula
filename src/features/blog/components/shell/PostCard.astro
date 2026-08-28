@@ -29,10 +29,7 @@ const href = `/${currentLocale}/blog/${post.id.split('/').slice(1).join('/')}`;
       <h2 class="text-2xl font-semibold transition-opacity group-hover:opacity-75">
         {post.data.title}
       </h2>
-      <time
-        datetime={post.data.pubDate.toISOString()}
-        class="text-sm text-neutral-600 dark:text-neutral-400"
-      >
+      <time datetime={post.data.pubDate.toISOString()} class="text-sm text-neutral-600 dark:text-neutral-400">
         {formatDate(post.data.pubDate, currentLocale)}
       </time>
     </header>
@@ -41,9 +38,7 @@ const href = `/${currentLocale}/blog/${post.id.split('/').slice(1).join('/')}`;
       post.data.tags && (
         <ul class="flex flex-wrap gap-2">
           {post.data.tags.map((tag: string) => (
-            <li class="rounded-sm border border-line bg-line/50 px-2 py-0.5 text-xs">
-              #{tag}
-            </li>
+            <li class="rounded-sm border border-line bg-line/50 px-2 py-0.5 text-xs">#{tag}</li>
           ))}
         </ul>
       )

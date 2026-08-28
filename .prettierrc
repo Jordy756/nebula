@@ -8,7 +8,7 @@
       }
     }
   ],
-  "tailwindStylesheet": "./src/styles/global.css",
+  "tailwindStylesheet": "./src/shared/styles/global.css",
   "printWidth": 120,
   "tabWidth": 2,
   "useTabs": false,
