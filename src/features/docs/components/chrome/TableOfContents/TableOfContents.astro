@@ -1,0 +1,60 @@
+---
+import TocIcon from '@features/docs/components/icons/TocIcon.astro';
+import ChevronIcon from '@shared/components/icons/ChevronIcon.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+import type { MarkdownHeading } from 'astro';
+import TocLink from './TocLink.astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings = [] } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+const filteredHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const getLineX = (depth: number) => (depth >= 3 ? 16.5 : 8.5);
+
+const links = filteredHeadings.map(({ slug, text, depth }, index) => {
+  const prevDepth = index > 0 ? filteredHeadings[index - 1].depth : depth;
+  const hasTransition = depth !== prevDepth;
+  const x = getLineX(depth);
+  const prevX = getLineX(prevDepth);
+
+  return { slug, text, depth, index, x, prevX, hasTransition };
+});
+---
+
+<aside
+  data-pagefind-ignore
+  class="sticky top-14.25 left-0 z-50 flex max-h-screen scrollbar-none flex-col overflow-y-auto border-b border-line area-toc max-xl:bg-background lg:top-0 xl:py-12"
+>
+  <nav class="mx-auto flex w-[min(65ch,100%)] flex-col gap-2 p-4 max-xl:items-start lg:p-4 lg:pl-0 xl:py-0">
+    <div class="flex items-center gap-2 max-xl:hidden">
+      <TocIcon width={24} height={24} class="size-6" />
+      <h3 class="text-base font-semibold">{t('docs.toc.title')}</h3>
+    </div>
+    <button class="flex w-full items-center gap-2 xl:hidden" popovertarget="toc-popover">
+      <TocIcon width={24} height={24} class="size-6" />
+      <h3 class="text-base font-semibold">{t('docs.toc.title')}</h3>
+      <ChevronIcon
+        width={20}
+        class="ml-auto size-5 -rotate-90 transition-[rotate] xl:hidden [aside:has(#toc-popover:popover-open)_&]:rotate-0"
+      />
+    </button>
+    <ul class="relative hidden flex-col xl:flex">
+      {links.map((link) => <TocLink link={link} />)}
+    </ul>
+  </nav>
+  <div
+    id="toc-popover"
+    class="inset-auto mt-2 max-h-[60vh] w-[calc(min(65ch,100%)-32px)] overflow-x-hidden rounded-sm border border-line bg-surface p-4 transition-[clip-path,overlay,display] transition-discrete duration-350 ease-out [clip-path:inset(0_0_100%_0)] position-area-bottom open:[clip-path:inset(0_0_0_0)] starting:open:[clip-path:inset(0_0_100%_0)]"
+    popover
+  >
+    <ul class="relative flex flex-col">
+      {links.map((link) => <TocLink link={link} />)}
+    </ul>
+  </div>
+</aside>
+
+<script src="../../../scripts/toc.ts"></script>
