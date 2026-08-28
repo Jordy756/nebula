@@ -77,9 +77,10 @@
 @utility overlay-backdrop {
   &::backdrop {
     backdrop-filter: blur(var(--blur-xs));
-    transition-property: opacity, overlay, display;
-    transition-duration: 350ms;
-    transition-timing-function: var(--ease-out);
+    transition:
+      opacity 350ms var(--ease-in-out),
+      overlay 350ms var(--ease-in-out),
+      display 350ms var(--ease-in-out);
     background-color: color-mix(in oklab, var(--color-black) 10%, transparent);
     opacity: 0;
     transition-behavior: allow-discrete;
@@ -144,7 +145,7 @@
   dialog {
     @apply overlay-backdrop;
     opacity: 0;
-    transition-property:
+    transition:
       opacity 350ms var(--ease-in-out),
       overlay 350ms var(--ease-in-out),
       display 350ms var(--ease-in-out);
