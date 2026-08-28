@@ -13,7 +13,7 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "astro": "^7.2.7",
+    "astro": "^7.2.8",
     "astro-pagefind": "^2.0.1",
     "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
