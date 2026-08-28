@@ -7,7 +7,7 @@ const docs = defineCollection({
     pattern: '**/*.{md,mdx}',
     base: 'src/features/docs/content/docs',
     retainBody: false,
-    // deferRender: true,
+    deferRender: true,
   }),
   schema: z.object({
     title: z.string(),
@@ -20,7 +20,7 @@ const posts = defineCollection({
     pattern: '**/*.{md,mdx}',
     base: 'src/features/blog/content/posts',
     retainBody: false,
-    // deferRender: true,
+    deferRender: true,
   }),
   schema: z.object({
     title: z.string(),
