@@ -17,8 +17,7 @@ const t = useTranslations(currentLocale);
 const currentPath = Astro.url.pathname;
 
 const docs = await getCollection('docs');
-const localeDocs = docs.filter((entry) => entry.id.startsWith(`${currentLocale}/`));
-const navigation = buildNavTree(localeDocs, currentLocale);
+const navigation = buildNavTree(docs, currentLocale);
 ---
 
 <aside

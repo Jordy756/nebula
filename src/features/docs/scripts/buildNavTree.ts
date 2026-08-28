@@ -1,4 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
+import { defaultLocale, type Locale } from '@shared/i18n/utils.ts';
+import { navConfig } from '@features/docs/nav.config.ts';
 
 export type Doc = CollectionEntry<'docs'>;
 
@@ -8,31 +10,23 @@ export type NavNode = {
   items?: NavNode[];
 };
 
-export function buildNavTree(entries: Doc[], locale: string): NavNode[] {
-  const levels = new Map<string, NavNode[]>([['', []]]);
+export const buildNavTree = (entries: Doc[], locale: Locale): NavNode[] => {
+  const sections = navConfig[locale] ?? navConfig[defaultLocale];
 
-  for (const {
-    id,
-    data: { title },
-  } of entries) {
-    const slugParts = id.split('/').slice(1);
-    const segments = slugParts.slice();
-    segments.pop();
-    let parentPath = '';
+  return sections.map(({ slug: sectionSlug, title: sectionTitle }) => {
+    const filesInSection = entries
+      .filter((entry) => {
+        const [entryLocale, folderSlug] = entry.id.split('/');
+        return entryLocale === locale && folderSlug === sectionSlug;
+      })
+      .sort((a, b) => a.id.localeCompare(b.id));
 
-    for (const segment of segments) {
-      const path = `${parentPath}/${segment}`;
-      if (!levels.has(path)) {
-        const items: NavNode[] = [];
-        levels.set(path, items);
-        levels.get(parentPath)!.push({ title, items });
-      }
-      parentPath = path;
-    }
-
-    const slug = slugParts.join('/');
-    levels.get(parentPath)!.push({ title, href: `/${locale}/docs/${slug}` });
-  }
-
-  return levels.get('')!;
-}
+    return {
+      title: sectionTitle,
+      items: filesInSection.map((entry) => ({
+        title: entry.data.title,
+        href: `/${locale}/docs/${entry.id.split('/').slice(1).join('/')}`,
+      })),
+    };
+  });
+};
