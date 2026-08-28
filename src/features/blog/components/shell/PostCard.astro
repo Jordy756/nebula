@@ -1,6 +1,6 @@
 ---
-import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 import type { CollectionEntry } from 'astro:content';
+import { getCurrentLocale } from '@shared/i18n/utils.ts';
 
 interface Props {
   post: CollectionEntry<'posts'>;
@@ -8,7 +8,6 @@ interface Props {
 
 const { post } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
-const t = useTranslations(currentLocale);
 
 const formatDate = (date: Date, locale: string): string => {
   return new Intl.DateTimeFormat(locale, {

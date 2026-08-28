@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'iframe'> {
   src: string;
-  title: string;
+  title?: string;
 }
 
 const { src, title, ...rest } = Astro.props;
@@ -15,7 +15,7 @@ const t = useTranslations(currentLocale);
 <div class="my-6 aspect-video w-full overflow-hidden rounded-sm">
   <iframe
     src={src}
-    title={title}
+    title={title ?? t('video.defaultTitle')}
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
     class="h-full w-full"

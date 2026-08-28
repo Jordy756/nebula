@@ -1,30 +1,24 @@
 ---
 import Footer from '@shared/components/shell/Footer.astro';
 import Header from '@shared/components/shell/Header.astro';
-import { getCurrentLocale, locales, useTranslations } from '@shared/i18n/utils.ts';
 import HomeLayout from '@features/home/layouts/HomeLayout.astro';
+import { getCurrentLocale, locales, useTranslations } from '@shared/i18n/utils.ts';
 
 export const getStaticPaths = () => locales.map((locale) => ({ params: { locale } }));
 
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
-
-const title = 'Nebula';
-const description = 'Nebula is a open-source, self-hosted platform for managing your knowledge base.';
 ---
 
-<HomeLayout title={title} description={description}>
+<HomeLayout title={t('home.title')} description={t('home.description')}>
   <Header />
   <main class="flex flex-1 flex-col gap-4 p-4">
     <section class="flex max-w-[65ch] flex-1 flex-col items-center justify-center gap-4 self-center text-center">
-      <h1>Nebula</h1>
-      <p class="text-center">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus excepturi, possimus maxime sunt dolore dicta,
-        tempore deleniti quae, vero voluptatum et. Porro quo magni iure ipsum facere harum recusandae reiciendis?
-      </p>
+      <h1>{t('home.title')}</h1>
+      <p class="text-center">{t('home.tagline')}</p>
       <div class="flex gap-4">
-        <a href={`/${currentLocale}/docs/01-getting-started/01-getting-started`}>Get Started</a>
-        <a href={`/${currentLocale}/blog`}>Blog</a>
+        <a href={`/${currentLocale}/docs/01-getting-started/01-getting-started`}>{t('home.cta.getStarted')}</a>
+        <a href={`/${currentLocale}/blog`}>{t('home.cta.blog')}</a>
       </div>
     </section>
   </main>

@@ -14,8 +14,8 @@ const posts = allPosts
   .filter((post) => post.id.startsWith(`${currentLocale}/`))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-const title = 'Blog';
-const description = 'Latest news, tutorials, and updates from the Nebula team.';
+const title = t('blog.index.title');
+const description = t('blog.index.description');
 ---
 
 <BlogLayout title={title} description={description}>

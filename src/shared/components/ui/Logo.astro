@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 
 interface Props {
   class?: string;
@@ -8,11 +9,13 @@ interface Props {
 }
 
 const { class: className, width, height } = Astro.props;
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 ---
 
 <Image
   src="/logo.webp"
-  alt="Logo de Nebula"
+  alt={t('logo.alt')}
   width={width}
   height={height}
   class:list={['h-6 w-auto object-contain', className]}

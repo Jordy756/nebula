@@ -1,4 +1,4 @@
-import { ui } from '@shared/i18n/ui.ts';
+import { ui } from '@shared/i18n/ui';
 
 export const defaultLocale = 'en';
 export const locales = ['en', 'es'] as const;

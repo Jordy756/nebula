@@ -2,7 +2,8 @@
 import GithubIcon from '@shared/components/icons/GithubIcon.astro';
 import LanguagePicker from '@shared/components/ui/LanguagePicker.astro';
 import Logo from '@shared/components/ui/Logo.astro';
-import { getCurrentLocale } from '@shared/i18n/utils.ts';
+import TwitterIcon from '@shared/components/icons/TwitterIcon.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 
 interface Props {
   class?: string;
@@ -10,6 +11,7 @@ interface Props {
 
 const { class: className } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 ---
 
 <header
@@ -24,11 +26,11 @@ const currentLocale = getCurrentLocale(Astro.currentLocale);
   </a>
   <LanguagePicker placement="bottom" />
   <div class="flex items-center gap-2">
-    <a href="https://github.com/withastro/astro" target="_blank">
+    <a href="https://github.com/withastro/astro" target="_blank" aria-label={t('nav.github.ariaLabel')}>
       <GithubIcon width={24} height={24} class="size-6 text-neutral-50" />
     </a>
-    <a href="https://twitter.com/withastro" target="_blank">
-      <GithubIcon width={24} height={24} class="size-6 text-neutral-50" />
+    <a href="https://twitter.com/withastro" target="_blank" aria-label={t('nav.twitter.ariaLabel')}>
+      <TwitterIcon width={24} height={24} class="size-6 text-neutral-50" />
     </a>
   </div>
 </header>

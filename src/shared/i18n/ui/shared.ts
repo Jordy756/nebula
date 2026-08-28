@@ -1,0 +1,28 @@
+export const shared = {
+  en: {
+    'languagePicker.label': 'Select language',
+    'themePicker.toggle': 'Toggle theme',
+    'image.expand': 'Expand image',
+    'image.close': 'Close expanded image',
+    'image.expandedAriaLabel': 'Expanded image: {alt}',
+    'code.copy': 'Copy code',
+    'code.copied': 'Copied',
+    'video.fallback': 'Your browser does not support HTML5 video.',
+    'video.defaultTitle': 'Embedded video from external platform',
+    'footer.label': 'Footer',
+    'logo.alt': 'Nebula logo',
+  },
+  es: {
+    'languagePicker.label': 'Seleccionar idioma',
+    'themePicker.toggle': 'Cambiar tema',
+    'image.expand': 'Expandir imagen',
+    'image.close': 'Cerrar imagen ampliada',
+    'image.expandedAriaLabel': 'Imagen ampliada: {alt}',
+    'code.copy': 'Copiar código',
+    'code.copied': 'Copiado',
+    'video.fallback': 'Tu navegador no soporta video HTML5.',
+    'video.defaultTitle': 'Video incrustado de plataforma externa',
+    'footer.label': 'Pie de página',
+    'logo.alt': 'Logo de Nebula',
+  },
+} as const;

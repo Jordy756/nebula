@@ -1,7 +1,4 @@
 ---
-import ExpandIcon from '@shared/components/icons/ExpandIcon.astro';
-import MinimiseIcon from '@shared/components/icons/MinimiseIcon.astro';
-import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
 import type { HTMLAttributes } from 'astro/types';
 import { Image } from 'astro:assets';
 
@@ -11,8 +8,6 @@ interface Props extends HTMLAttributes<'img'> {
 }
 
 const { src, alt, class: className, ...rest } = Astro.props;
-const currentLocale = getCurrentLocale(Astro.currentLocale);
-const t = useTranslations(currentLocale);
 ---
 
 <figure class="my-6 flex flex-col gap-2">

@@ -1,12 +1,17 @@
 ---
 import DarkIcon from '@shared/components/icons/DarkIcon.astro';
 import LightIcon from '@shared/components/icons/LightIcon.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
 ---
 
 <button
   type="button"
   data-theme-toggle
-  aria-label="Toggle theme"
+  aria-label={t('themePicker.toggle')}
+  title={t('themePicker.toggle')}
   class="rounded-sm border border-line bg-line/50 px-1.5 py-1 transition-opacity hover:opacity-75"
 >
   <LightIcon width={20} class="block size-5 dark:hidden" />

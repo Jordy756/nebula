@@ -13,4 +13,5 @@ const t = useTranslations(currentLocale);
 
 <video controls class="my-6 w-full rounded-sm" src={src} {...rest}>
   <slot />
+  {t('video.fallback')}
 </video>
