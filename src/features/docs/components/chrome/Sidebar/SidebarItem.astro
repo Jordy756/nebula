@@ -1,18 +1,6 @@
 ---
 import ChevronIcon from '@shared/components/icons/ChevronIcon.astro';
-
-export interface NavItem {
-  title: string;
-  href: string;
-  ariaLabel?: string;
-}
-
-export interface NavGroup {
-  title: string;
-  items: NavNode[];
-}
-
-export type NavNode = NavItem | NavGroup;
+import type { NavNode } from '@features/docs/scripts/lib/sidebar.ts';
 
 interface Props {
   node: NavNode;
@@ -22,23 +10,17 @@ interface Props {
 const { node, currentPath } = Astro.props;
 const isGroup = 'items' in node;
 
-function isCurrent(path: string, href: string): boolean {
-  return path === href || path === `${href}/`;
-}
+const isCurrent = (href: string): boolean => currentPath === href || currentPath === `${href}/`;
 
-function hasActive(node: NavNode, path: string): boolean {
-  return 'href' in node ? isCurrent(path, node.href) : node.items.some((child) => hasActive(child, path));
-}
-
-const isCurrentItem = !isGroup && hasActive(node, currentPath);
-const isOpen = isGroup && hasActive(node, currentPath);
+const isCurrentItem = !isGroup && isCurrent(node.href);
+const isOpen = isGroup && node.items.some((item) => isCurrent(item.href));
 ---
 
 {
   isGroup ? (
     <li>
       <details
-        open
+        open={isOpen}
         class="group details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto"
       >
         <summary class="group flex cursor-pointer items-center justify-between gap-2 text-sm">
@@ -48,8 +30,19 @@ const isOpen = isGroup && hasActive(node, currentPath);
         <div class="flex gap-3 transition-[margin] duration-500 group-open:mt-2">
           <div class="ml-2 w-px bg-line" />
           <ul class="flex flex-1 flex-col gap-2">
-            {node.items.map((child) => (
-              <Astro.self node={child} currentPath={currentPath} />
+            {node.items.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  class:list={[
+                    'block rounded-xs text-sm transition-colors',
+                    isCurrent(item.href) ? 'font-medium text-primary' : '',
+                  ]}
+                >
+                  {item.title}
+                </a>
+              </li>
             ))}
           </ul>
         </div>
@@ -59,7 +52,6 @@ const isOpen = isGroup && hasActive(node, currentPath);
     <li>
       <a
         href={node.href}
-        aria-label={node.ariaLabel}
         aria-current={isCurrentItem ? 'page' : undefined}
         class:list={['block rounded-xs text-sm transition-colors', isCurrentItem ? 'font-medium text-primary' : '']}
       >

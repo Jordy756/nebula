@@ -3,11 +3,17 @@ import { defaultLocale, type Locale } from '@shared/i18n/utils.ts';
 
 export type Doc = CollectionEntry<'docs'>;
 
-export type NavNode = {
+export interface NavItem {
   title: string;
-  href?: string;
-  items?: NavNode[];
-};
+  href: string;
+}
+
+export interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
+
+export type NavNode = NavItem | NavGroup;
 
 export const sidebar = {
   en: [
@@ -33,7 +39,7 @@ export function buildSidebar(entries: Doc[], locale: Locale): NavNode[] {
 
     return {
       title: sectionTitle,
-      items: filesInSection.map((entry) => ({
+      items: filesInSection.map<NavItem>((entry) => ({
         title: entry.data.title,
         href: `/${locale}/docs/${entry.id.split('/').slice(1).join('/')}`,
       })),
