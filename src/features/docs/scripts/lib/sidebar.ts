@@ -1,6 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
 import { defaultLocale, type Locale } from '@shared/i18n/utils.ts';
-import { navConfig } from '@features/docs/nav.config.ts';
 
 export type Doc = CollectionEntry<'docs'>;
 
@@ -10,8 +9,19 @@ export type NavNode = {
   items?: NavNode[];
 };
 
-export const buildNavTree = (entries: Doc[], locale: Locale): NavNode[] => {
-  const sections = navConfig[locale] ?? navConfig[defaultLocale];
+export const sidebar = {
+  en: [
+    { slug: '01-getting-started', title: 'Getting Started' },
+    { slug: '02-components', title: 'Components' },
+  ],
+  es: [
+    { slug: '01-getting-started', title: 'Primeros pasos' },
+    { slug: '02-components', title: 'Componentes' },
+  ],
+} as const;
+
+export function buildSidebar(entries: Doc[], locale: Locale): NavNode[] {
+  const sections = sidebar[locale] ?? sidebar[defaultLocale];
 
   return sections.map(({ slug: sectionSlug, title: sectionTitle }) => {
     const filesInSection = entries
@@ -29,4 +39,4 @@ export const buildNavTree = (entries: Doc[], locale: Locale): NavNode[] => {
       })),
     };
   });
-};
+}

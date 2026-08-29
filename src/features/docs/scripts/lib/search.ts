@@ -1,5 +1,5 @@
-import { getPagefind, setPagefindLanguage, type PagefindResultData } from '@shared/scripts/pagefind.ts';
-import { debounce } from '@shared/scripts/debounce.ts';
+import { getPagefind, setPagefindLanguage, type PagefindResultData } from '@shared/scripts/lib/pagefind.ts';
+import { debounce } from '@shared/scripts/utils/debounce.ts';
 import { useTranslations } from '@shared/i18n/utils.ts';
 
 const escape = (s: string | null | undefined): string =>
