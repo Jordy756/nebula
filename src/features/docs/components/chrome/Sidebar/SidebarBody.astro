@@ -11,9 +11,10 @@ interface Props {
   navigation: NavNode[];
   currentPath: string;
   currentLocale: Locale;
+  isMenu?: boolean;
 }
 
-const { navigation, currentPath, currentLocale } = Astro.props;
+const { navigation, currentPath, currentLocale, isMenu = false } = Astro.props;
 const t = useTranslations(currentLocale);
 
 const socialLinks = [{ href: 'https://nebula-drab-five.vercel.app/', title: t('nav.nebula') }];
