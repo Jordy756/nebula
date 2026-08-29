@@ -1,5 +1,5 @@
 ---
-import Article from '@features/docs/components/chrome/Article.astro';
+import Article from '@features/docs/components/chrome/Article/Article.astro';
 import TableOfContents from '@features/docs/components/chrome/TableOfContents/TableOfContents.astro';
 import Blockquote from '@features/docs/components/mdx/Blockquote.astro';
 import Deleted from '@features/docs/components/mdx/Deleted.astro';
@@ -18,8 +18,8 @@ import TableHead from '@features/docs/components/mdx/TableHead.astro';
 import TableHeader from '@features/docs/components/mdx/TableHeader.astro';
 import TableRow from '@features/docs/components/mdx/TableRow.astro';
 import UnorderedList from '@features/docs/components/mdx/UnorderedList.astro';
-import { getCurrentLocale } from '@shared/i18n/utils.ts';
 import DocsLayout from '@features/docs/layouts/DocsLayout.astro';
+import { getCurrentLocale } from '@shared/i18n/utils.ts';
 import { getCollection, render } from 'astro:content';
 
 export const getStaticPaths = async () => {

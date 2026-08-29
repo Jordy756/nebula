@@ -1,0 +1,29 @@
+---
+import ChevronIcon from '@shared/components/icons/ChevronIcon.astro';
+import { getCurrentLocale, useTranslations } from '@shared/i18n/utils.ts';
+
+interface Props {
+  href: string;
+  title: string;
+  description?: string;
+  dir: 'prev' | 'next';
+}
+
+const { href, title, description, dir } = Astro.props;
+const isNext = dir === 'next';
+const currentLocale = getCurrentLocale(Astro.currentLocale);
+const t = useTranslations(currentLocale);
+---
+
+<a
+  href={href}
+  class="flex flex-1 flex-col gap-2 overflow-hidden rounded-sm border border-line p-4 transition-[border-color] hover:border-neutral-300 dark:hover:border-neutral-700"
+  rel={dir}
+>
+  <span class="sr-only">{t(`docs.article.${dir}`)}</span>
+  <div class:list={['flex items-center justify-end gap-2 font-semibold', !isNext && 'flex-row-reverse']}>
+    <span>{title}</span>
+    <ChevronIcon class:list={['size-5', isNext ? '-rotate-90' : 'rotate-90']} aria-hidden="true" />
+  </div>
+  <p class:list={['truncate', isNext && 'text-right']}>{description}</p>
+</a>
