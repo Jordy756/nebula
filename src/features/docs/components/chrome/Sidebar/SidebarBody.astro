@@ -21,7 +21,7 @@ const socialLinks = [{ href: 'https://nebula-drab-five.vercel.app/', title: t('n
 ---
 
 <nav class="w-full flex-1 scrollbar-none overflow-y-auto p-4 max-lg:hidden" aria-label={t('nav.main')}>
-  <ul class="flex flex-col gap-2">
+  <ul>
     {navigation.map((node) => <SidebarItem node={node} currentPath={currentPath} />)}
   </ul>
 </nav>

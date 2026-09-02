@@ -13,6 +13,7 @@ interface Props {
 const { title, description } = Astro.props;
 const currentLocale = getCurrentLocale(Astro.currentLocale);
 const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
+const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <!doctype html>
@@ -45,6 +46,10 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
 
     <ClientRouter />
 
+    <style
+      set:html={`[data-current-path="${normalizedPath}"] a[data-sidebar-link][href="${normalizedPath}"] { font-weight: 500; color: var(--color-primary); }`}
+    ></style>
+
     <script is:inline>
       const applyTheme = () => {
         const theme = (() => {
@@ -62,6 +67,7 @@ const currentPath = Astro.url.pathname.replace(`/${currentLocale}`, '') || '/';
     </script>
   </head>
   <body
+    data-current-path={normalizedPath}
     class="overflow-x-clip bg-background text-base font-light text-pretty text-foreground transition-[color,background-color] duration-1000"
   >
     <slot />

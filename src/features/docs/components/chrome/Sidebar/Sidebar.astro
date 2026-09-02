@@ -26,6 +26,7 @@ const sidebar = buildSidebar(docs, currentLocale);
     'sticky top-0 left-0 z-50 max-h-screen border-line bg-surface max-lg:border-b lg:border-r xl:before:absolute xl:before:top-0 xl:before:right-full xl:before:h-full xl:before:w-screen xl:before:bg-surface',
     className,
   ]}
+  transition:persist={`sidebar-${currentLocale}`}
 >
   <div class="flex h-full w-[min(65ch,100%)] flex-col max-lg:mx-auto lg:w-[min(100%,300px)] xl:ml-auto">
     <header

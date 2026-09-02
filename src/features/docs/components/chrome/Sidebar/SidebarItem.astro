@@ -12,7 +12,6 @@ const isGroup = 'items' in node;
 
 const isCurrent = (href: string): boolean => currentPath === href || currentPath === `${href}/`;
 
-const isCurrentItem = !isGroup && isCurrent(node.href);
 const isOpen = isGroup && node.items.some((item) => isCurrent(item.href));
 ---
 
@@ -20,41 +19,31 @@ const isOpen = isGroup && node.items.some((item) => isCurrent(item.href));
   isGroup ? (
     <li>
       <details
-        open={isOpen}
+        open={node.isOpen ?? isOpen}
         class="group details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto"
       >
-        <summary class="group flex cursor-pointer items-center justify-between gap-2 text-sm">
+        <summary class="group flex cursor-pointer items-center justify-between gap-2 py-2 text-sm">
           <span class="font-medium">{node.title}</span>
           <ChevronIcon width={16} height={16} class="size-4 transition-transform duration-300 group-open:rotate-180" />
         </summary>
-        <div class="flex gap-3 transition-[margin] duration-500 group-open:mt-2">
-          <div class="ml-2 w-px bg-line" />
-          <ul class="flex flex-1 flex-col gap-2">
-            {node.items.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  aria-current={isCurrent(item.href) ? 'page' : undefined}
-                  class:list={[
-                    'block rounded-xs text-sm transition-colors',
-                    isCurrent(item.href) ? 'font-medium text-primary' : '',
-                  ]}
-                >
-                  {item.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul class="flex-1">
+          {node.items.map((item) => (
+            <li class="py-2 pl-5 transition-[background-color] duration-300 hover:bg-primary/10 relative before:absolute before:top-0 before:left-2 before:h-full before:w-px before:bg-line rounded-sm">
+              <a
+                href={item.href}
+                data-sidebar-link
+                class="relative block rounded-xs text-sm before:absolute before:top-0 before:-left-3 before:h-full before:w-px before:bg-line hover:before:bg-primary"
+              >
+                {item.title}
+              </a>
+            </li>
+          ))}
+        </ul>
       </details>
     </li>
   ) : (
     <li>
-      <a
-        href={node.href}
-        aria-current={isCurrentItem ? 'page' : undefined}
-        class:list={['block rounded-xs text-sm transition-colors', isCurrentItem ? 'font-medium text-primary' : '']}
-      >
+      <a href={node.href} data-sidebar-link class="block rounded-xs text-sm">
         {node.title}
       </a>
     </li>
