@@ -6,62 +6,14 @@ interface Props extends HTMLAttributes<'svg'> {}
 const { ...props } = Astro.props;
 ---
 
-<!-- <svg {...props} viewBox="0 0 24 24"
-  ><path
-    fill="currentColor"
-    d="M6.804 15a1 1 0 0 0-1.366-.366l-1.732 1a1 1 0 0 0 1 1.732l1.732-1A1 1 0 0 0 6.804 15M3.706 8.366l1.732 1a1 1 0 1 0 1-1.732l-1.732-1a1 1 0 0 0-1 1.732M6 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1m11.196-3a1 1 0 0 0 1.366.366l1.732-1a1 1 0 1 0-1-1.732l-1.732 1A1 1 0 0 0 17.196 9M15 6.804a1 1 0 0 0 1.366-.366l1-1.732a1 1 0 1 0-1.732-1l-1 1.732A1 1 0 0 0 15 6.804m5.294 8.83l-1.732-1a1 1 0 1 0-1 1.732l1.732 1a1 1 0 0 0 1-1.732m-3.928 1.928a1 1 0 1 0-1.732 1l1 1.732a1 1 0 1 0 1.732-1ZM21 11h-2a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2m-9 7a1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-1-1m-3-.804a1 1 0 0 0-1.366.366l-1 1.732a1 1 0 0 0 1.732 1l1-1.732A1 1 0 0 0 9 17.196M12 2a1 1 0 0 0-1 1v2a1 1 0 0 0 2 0V3a1 1 0 0 0-1-1"
-  ></path></svg
-> -->
-<svg {...props} viewBox="0 0 24 24"
-  ><g
-    ><rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".14"></rect><rect
-      width="2"
-      height="5"
-      x="11"
-      y="1"
-      fill="currentColor"
-      opacity=".29"
-      transform="rotate(30 12 12)"></rect><rect
-      width="2"
-      height="5"
-      x="11"
-      y="1"
-      fill="currentColor"
-      opacity=".43"
-      transform="rotate(60 12 12)"></rect><rect
-      width="2"
-      height="5"
-      x="11"
-      y="1"
-      fill="currentColor"
-      opacity=".57"
-      transform="rotate(90 12 12)"></rect><rect
-      width="2"
-      height="5"
-      x="11"
-      y="1"
-      fill="currentColor"
-      opacity=".71"
-      transform="rotate(120 12 12)"></rect><rect
-      width="2"
-      height="5"
-      x="11"
-      y="1"
-      fill="currentColor"
-      opacity=".86"
-      transform="rotate(150 12 12)"></rect><rect
-      width="2"
-      height="5"
-      x="11"
-      y="1"
-      fill="currentColor"
-      transform="rotate(180 12 12)"></rect></g
-  ></svg
->
-
-<!-- <svg {...props} viewBox="0 0 16 16"
-  ><path
-    fill="currentColor"
-    d="M6 2a2 2 0 1 1 3.999-.001A2 2 0 0 1 6 2m6.359 6a1.641 1.641 0 0 1 3.282 0a1.641 1.641 0 0 1-3.282 0m-1.602 4.243a1.486 1.486 0 1 1 2.971 0a1.486 1.486 0 0 1-2.971 0M6.654 14a1.346 1.346 0 1 1 2.693.001A1.346 1.346 0 0 1 6.654 14m-4.116-1.757a1.22 1.22 0 1 1 2.439 0a1.22 1.22 0 0 1-2.439 0M.896 8a1.104 1.104 0 1 1 2.207 0A1.104 1.104 0 0 1 .896 8m1.861-4.243a1 1 0 0 1 2 0a1 1 0 0 1-2 0m11.297 0a1.811 1.811 0 1 1-3.623 0a1.811 1.811 0 0 1 3.623 0"
-  ></path></svg
-> -->
+<svg viewBox="0 0 24 24" {...props}>
+  <g>
+    <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".14"></rect>
+    <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".29" transform="rotate(30 12 12)"></rect>
+    <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".43" transform="rotate(60 12 12)"></rect>
+    <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".57" transform="rotate(90 12 12)"></rect>
+    <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".71" transform="rotate(120 12 12)"></rect>
+    <rect width="2" height="5" x="11" y="1" fill="currentColor" opacity=".86" transform="rotate(150 12 12)"></rect>
+    <rect width="2" height="5" x="11" y="1" fill="currentColor" transform="rotate(180 12 12)"></rect>
+  </g>
+</svg>

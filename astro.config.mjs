@@ -9,6 +9,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],
@@ -16,6 +17,7 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+
   markdown: {
     syntaxHighlight: 'shiki',
     shikiConfig: {
@@ -36,7 +38,9 @@ export default defineConfig({
       },
     }),
   },
+
   integrations: [mdx(), sitemap(), pagefind()],
+
   fonts: [
     {
       name: 'Host Grotesk',
@@ -63,9 +67,11 @@ export default defineConfig({
       fallbacks: ['monospace'],
     },
   ],
+
   experimental: {
     incrementalBuild: true,
   },
+
   vite: {
     plugins: [tailwindcss()],
   },

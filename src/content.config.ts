@@ -5,7 +5,7 @@ import { glob } from 'astro/loaders';
 const docs = defineCollection({
   loader: glob({
     pattern: '**/*.{md,mdx}',
-    base: 'src/features/docs/content/docs',
+    base: 'src/features/docs/content',
     retainBody: false,
     deferRender: true,
   }),
@@ -18,7 +18,7 @@ const docs = defineCollection({
 const posts = defineCollection({
   loader: glob({
     pattern: '**/*.{md,mdx}',
-    base: 'src/features/blog/content/posts',
+    base: 'src/features/blog/content',
     retainBody: false,
     deferRender: true,
   }),
