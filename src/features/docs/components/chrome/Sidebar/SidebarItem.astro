@@ -28,7 +28,7 @@ const isOpen = isGroup && node.items.some((item) => isCurrent(item.href));
         </summary>
         <ul class="flex-1">
           {node.items.map((item) => (
-            <li class="py-2 pl-5 transition-[background-color] duration-300 hover:bg-primary/10 relative before:absolute before:top-0 before:left-2 before:h-full before:w-px before:bg-line rounded-sm">
+            <li class="relative rounded-sm py-2 pl-5 transition-[background-color] duration-300 before:absolute before:top-0 before:left-2 before:h-full before:w-px before:bg-line hover:bg-primary/10">
               <a
                 href={item.href}
                 data-sidebar-link
