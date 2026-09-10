@@ -37,28 +37,26 @@ const POSITION_AREA = {
     POSITION_AREA[placement],
   ]}
 >
-  {
-    locales.map((locale) => {
-      const isCurrent = locale === currentLocale;
-      const baseClasses = 'block rounded-xs px-2 py-1 text-sm text-foreground cursor-pointer';
+  {locales.map((locale) => {
+    const isCurrent = locale === currentLocale;
+    const baseClasses = 'block rounded-xs px-2 py-1 text-sm text-foreground cursor-pointer';
 
-      return (
-        <li>
-          {isCurrent ? (
-            <span class:list={[baseClasses, 'bg-line/50 font-semibold select-none']} aria-current="page">
-              {locale.toUpperCase()}
-            </span>
-          ) : (
-            <a
-              href={`/${locale}${currentPath}`}
-              hreflang={locale}
-              class:list={[baseClasses, 'transition-[background-color] hover:bg-line']}
-            >
-              {locale.toUpperCase()}
-            </a>
-          )}
-        </li>
-      );
-    })
-  }
+    return (
+      <li>
+        {isCurrent ? (
+          <span class:list={[baseClasses, 'bg-line/50 font-semibold select-none']} aria-current="page">
+            {locale.toUpperCase()}
+          </span>
+        ) : (
+          <a
+            href={`/${locale}${currentPath}`}
+            hreflang={locale}
+            class:list={[baseClasses, 'transition-[background-color] hover:bg-line']}
+          >
+            {locale.toUpperCase()}
+          </a>
+        )}
+      </li>
+    );
+  })}
 </ul>

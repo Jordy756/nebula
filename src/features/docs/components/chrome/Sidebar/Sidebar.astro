@@ -29,9 +29,7 @@ const sidebar = buildSidebar(docs, currentLocale);
   transition:persist={`sidebar-${currentLocale}`}
 >
   <div class="flex h-full w-[min(65ch,100%)] flex-col max-lg:mx-auto lg:w-[min(100%,300px)] xl:ml-auto">
-    <header
-      class="relative flex gap-4 p-4 max-lg:items-center lg:flex-col lg:after:absolute lg:after:top-full lg:after:left-0 lg:after:h-4 lg:after:w-full lg:after:bg-linear-to-b lg:after:from-surface lg:after:to-transparent"
-    >
+    <header class="relative flex gap-4 p-4 max-lg:items-center lg:flex-col lg:after:absolute lg:after:top-full lg:after:left-0 lg:after:h-4 lg:after:w-full lg:after:bg-linear-to-b lg:after:from-surface lg:after:to-transparent">
       <h2 class="sr-only">{t('nav.sidebar')}</h2>
       <a href={`/${currentLocale}/`} aria-label={t('nav.home')} class="mr-auto">
         <Logo width={100} height={24} />
@@ -48,9 +46,7 @@ const sidebar = buildSidebar(docs, currentLocale);
     class="inset-[unset] top-0 right-0 h-dvh w-[min(350px,80%)] translate-x-full flex-col overlay-backdrop bg-surface transition-[translate,overlay,display] transition-discrete duration-350 ease-out will-change-[translate] open:flex open:translate-x-0 starting:open:translate-x-full"
     popover
   >
-    <header
-      class="relative flex p-4 after:absolute after:top-full after:left-0 after:h-4 after:w-full after:bg-linear-to-b after:from-surface after:to-transparent"
-    >
+    <header class="relative flex p-4 after:absolute after:top-full after:left-0 after:h-4 after:w-full after:bg-linear-to-b after:from-surface after:to-transparent">
       <h2 class="sr-only">{t('nav.sidebar')}</h2>
       <a href={`/${currentLocale}/`} aria-label={t('nav.home')}>
         <Logo width={100} height={24} />

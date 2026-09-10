@@ -12,16 +12,14 @@ const currentLocale = getCurrentLocale(Astro.currentLocale);
 const t = useTranslations(currentLocale);
 ---
 
-{
-  posts.length === 0 ? (
-    <p class="text-center text-neutral-600 dark:text-neutral-400">{t('blog.list.empty')}</p>
-  ) : (
-    <ul class="flex flex-col gap-4">
-      {posts.map((post) => (
-        <li>
-          <PostCard post={post} />
-        </li>
-      ))}
-    </ul>
-  )
-}
+{posts.length === 0 ? (
+  <p class="text-center text-neutral-600 dark:text-neutral-400">{t('blog.list.empty')}</p>
+) : (
+  <ul class="flex flex-col gap-4">
+    {posts.map((post) => (
+      <li>
+        <PostCard post={post} />
+      </li>
+    ))}
+  </ul>
+)}

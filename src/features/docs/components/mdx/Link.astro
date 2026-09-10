@@ -11,5 +11,7 @@ const { href, target = '_blank', rel = 'noopener noreferrer', ...props } = Astro
   target={target}
   rel={rel}
   class="font-medium text-primary underline decoration-primary underline-offset-4 transition-opacity hover:opacity-75"
-  {...props}><slot /></a
+  {...props}
 >
+  <slot />
+</a>

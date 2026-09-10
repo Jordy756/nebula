@@ -1,3 +1,5 @@
 ---
-return Astro.redirect(`/en/`);
+import { defaultLocale } from '@shared/i18n/utils';
 ---
+
+<meta http-equiv="refresh" content={`0;url=/${defaultLocale}/`} />

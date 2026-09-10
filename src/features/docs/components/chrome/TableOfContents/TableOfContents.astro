@@ -43,7 +43,9 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
       />
     </button>
     <ul class="relative hidden flex-col xl:flex">
-      {links.map((link) => <TocLink link={link} />)}
+      {links.map((link) => (
+        <TocLink link={link} />
+      ))}
     </ul>
   </nav>
   <div
@@ -52,7 +54,9 @@ const links = filteredHeadings.map(({ slug, text, depth }, index) => {
     popover
   >
     <ul class="relative flex flex-col">
-      {links.map((link) => <TocLink link={link} />)}
+      {links.map((link) => (
+        <TocLink link={link} />
+      ))}
     </ul>
   </div>
 </aside>

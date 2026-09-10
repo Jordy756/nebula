@@ -30,37 +30,35 @@ const { slug, text, depth, index, x, prevX, hasTransition } = link;
       xmlns="http://www.w3.org/2000/svg"
       class="absolute inset-s-0 -top-1.5 -z-1 h-full overflow-visible rtl:-scale-x-100"
     >
-      {
-        hasTransition ? (
-          <>
-            <path
-              d={`M ${prevX} 0 C ${prevX} 8 ${x} 4 ${x} 12`}
-              stroke-width="1"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
-            />
-            <line
-              x1={x}
-              y1="12"
-              x2={x}
-              y2="100%"
-              stroke-width="1"
-              class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
-            />
-          </>
-        ) : (
+      {hasTransition ? (
+        <>
+          <path
+            d={`M ${prevX} 0 C ${prevX} 8 ${x} 4 ${x} 12`}
+            stroke-width="1"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
+          />
           <line
             x1={x}
-            y1="0"
+            y1="12"
             x2={x}
             y2="100%"
             stroke-width="1"
             class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
           />
-        )
-      }
+        </>
+      ) : (
+        <line
+          x1={x}
+          y1="0"
+          x2={x}
+          y2="100%"
+          stroke-width="1"
+          class="stroke-line transition-colors duration-300 group-data-[active=true]:stroke-primary"
+        />
+      )}
       <circle
         cx={prevX}
         cy="0"

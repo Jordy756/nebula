@@ -15,37 +15,35 @@ const isCurrent = (href: string): boolean => currentPath === href || currentPath
 const isOpen = isGroup && node.items.some((item) => isCurrent(item.href));
 ---
 
-{
-  isGroup ? (
-    <li>
-      <details
-        open={node.isOpen ?? isOpen}
-        class="group details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto"
-      >
-        <summary class="group flex cursor-pointer items-center justify-between gap-2 py-2 text-sm">
-          <span class="font-medium">{node.title}</span>
-          <ChevronIcon width={16} height={16} class="size-4 transition-transform duration-300 group-open:rotate-180" />
-        </summary>
-        <ul class="flex-1">
-          {node.items.map((item) => (
-            <li class="relative rounded-sm py-2 pl-5 transition-[background-color] duration-300 before:absolute before:top-0 before:left-2 before:h-full before:w-px before:bg-line hover:bg-primary/10">
-              <a
-                href={item.href}
-                data-sidebar-link
-                class="relative block rounded-xs text-sm before:absolute before:top-0 before:-left-3 before:h-full before:w-px before:bg-line hover:before:bg-primary"
-              >
-                {item.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </details>
-    </li>
-  ) : (
-    <li>
-      <a href={node.href} data-sidebar-link class="block rounded-xs text-sm">
-        {node.title}
-      </a>
-    </li>
-  )
-}
+{isGroup ? (
+  <li>
+    <details
+      open={node.isOpen ?? isOpen}
+      class="group details-content:h-0 details-content:overflow-y-clip details-content:[transition:content-visibility_500ms_allow-discrete,height_500ms] open:details-content:h-auto"
+    >
+      <summary class="group flex cursor-pointer items-center justify-between gap-2 p-2 text-sm">
+        <span>{node.title}</span>
+        <ChevronIcon width={16} height={16} class="size-4 transition-transform duration-300 group-open:rotate-180" />
+      </summary>
+      <ul class="flex-1">
+        {node.items.map((item) => (
+          <li class="relative rounded-sm p-2 pl-6 transition-[background-color] duration-300 before:absolute before:top-0 before:left-3 before:h-full before:w-px before:bg-line hover:bg-line/50">
+            <a
+              href={item.href}
+              data-sidebar-link
+              class="relative block rounded-xs text-sm before:absolute before:top-0 before:-left-3 before:h-full before:w-px before:bg-line"
+            >
+              {item.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  </li>
+) : (
+  <li class="rounded-sm p-2 transition-[background-color] duration-300 hover:bg-line/50">
+    <a href={node.href} data-sidebar-link class="block rounded-xs text-sm">
+      {node.title}
+    </a>
+  </li>
+)}

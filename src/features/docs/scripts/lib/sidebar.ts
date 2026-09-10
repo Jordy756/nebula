@@ -36,7 +36,7 @@ export const sidebar: Record<Locale, SidebarItem[]> = {
 export function buildSidebar(entries: Doc[], locale: Locale): NavNode[] {
   const sections = sidebar[locale] ?? sidebar[defaultLocale];
 
-  return sections.map(({ slug, title, isOpen }) => {
+  const groups: NavGroup[] = sections.map(({ slug, title, isOpen }) => {
     const filesInSection = entries
       .filter((entry) => {
         const [entryLocale, folderSlug] = entry.id.split('/');
@@ -53,4 +53,17 @@ export function buildSidebar(entries: Doc[], locale: Locale): NavNode[] {
       isOpen,
     };
   });
+
+  const looseItems: NavItem[] = entries
+    .filter((entry) => {
+      const [entryLocale, ...rest] = entry.id.split('/');
+      return entryLocale === locale && rest.length === 1;
+    })
+    .sort((a, b) => a.id.localeCompare(b.id))
+    .map((entry) => ({
+      title: entry.data.title,
+      href: `/${locale}/docs/${entry.id.split('/').slice(1).join('/')}`,
+    }));
+
+  return [...groups, ...looseItems];
 }
