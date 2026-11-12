@@ -63,6 +63,7 @@ const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       applyTheme();
       document.addEventListener('astro:after-swap', applyTheme);
     </script>
+    <script src="../scripts/config/lenis.ts"></script>
   </head>
   <body
     data-current-path={normalizedPath}
